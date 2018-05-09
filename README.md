@@ -12,8 +12,9 @@ Simple illustrate demo app https://www.youtube.com/watch?v=mIP0qA8URfE
 3. The CinemaDetail's screen gives a possibility to set schedule time.
 4. Add PopularActors screen.
 5. Add Advanced Search screen.
-6. Simple info screen , that contains app info.
-7. And more , more some beatiful features...
+6. Support landscape orientation and tablets.
+7. Simple info screen , that contains app info.
+8. And more , more some beatiful features...
 
 ## Technology
 1. [Retrofit 2](https://github.com/square/retrofit) is the #1 library for network calls at the moment.
