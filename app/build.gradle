@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.ru.devit.mediateka"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary= true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'THE_MOVIE_DB_API_KEY', THE_MOVIE_DB_API_KEY
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.design
+    implementation supportDependencies.supportAnnotation
+    implementation supportDependencies.constraintLayout
+
+    implementation             daggerDependencies.dagger
+    annotationProcessor daggerDependencies.daggerCompiler
+
+    implementation rxDependencies.rxJava
+    implementation rxDependencies.rxAndroid
+
+    implementation cardView
+    implementation picasso
+    implementation retrofit
+
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation gsonConverter
+
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0'
+
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.android.support:palette-v7:26.1.0'
+
+    testImplementation testingDependencies.junit
+    testImplementation testingDependencies.mockito
+}

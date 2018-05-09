@@ -1,0 +1,64 @@
+ext {
+
+  //Version
+  supportVersion = '27.0.1'
+
+  rxJavaVersion = '2.1.5'
+  rxAndroidVersion = '2.0.1'
+
+  picassoVersion = '2.5.2'
+  daggerVersion = '2.13'
+
+  javaxVersion = '1.0'
+
+  junitVersion = '4.12'
+  mockitoVersion = '1.10.19'
+  gsonVersion = '2.8.0'
+
+  //Packages
+  supportPackage = 'com.android.support'
+
+  reactivePackage = 'io.reactivex.rxjava2'
+  picassoPackage = 'com.squareup.picasso'
+  daggerPackage = 'com.google.dagger'
+  javaxPackage = 'javax.annotation'
+  gsonPackage = 'com.google.code.gson'
+
+  junitPackage = 'junit'
+  mockitoPackage = 'org.mockito'
+
+  //Support Libraries dependencies
+  supportDependencies = [
+      design           : buildDependency(supportPackage, 'design', supportVersion),
+      appCompat        : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
+      supportAnnotation: buildDependency(supportPackage, 'support-annotations', supportVersion),
+      constraintLayout : 'com.android.support.constraint:constraint-layout:1.0.2']
+
+  //RX Libraries dependencies
+  rxDependencies = [
+      rxJava   : buildDependency(reactivePackage, 'rxjava', rxJavaVersion),
+      rxAndroid: buildDependency(reactivePackage, 'rxandroid', rxAndroidVersion)]
+
+  //Dagger Libraries dependencies
+  daggerDependencies = [
+      dagger           : buildDependency(daggerPackage, 'dagger', daggerVersion),
+      daggerCompiler   : buildDependency(daggerPackage, 'dagger-compiler', daggerVersion)]
+
+
+
+  //Elemental Libraries dependencies
+  picasso = buildDependency(picassoPackage, 'picasso', picassoVersion)
+  gson = buildDependency(gsonPackage, 'gson', gsonVersion)
+  gsonConverter = 'com.squareup.retrofit2:converter-gson:2.1.0'
+  retrofit = 'com.squareup.retrofit2:retrofit:2.3.0'
+  cardView = 'com.android.support:cardview-v7:27.0.1'
+
+  //Testing
+  testingDependencies = [
+      junit      : buildDependency(junitPackage, 'junit', junitVersion),
+      mockito    : buildDependency(mockitoPackage, 'mockito-core', mockitoVersion)]
+}
+
+static String buildDependency(String pack, String dependency, String version) {
+  return "${pack}:${dependency}:${version}"
+}

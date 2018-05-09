@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ru.devit.mediateka">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".MediatekaApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar.MainActivityTheme"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".presentation.cinemadetail.CinemaDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar.CinemaDetailTheme">
+
+        </activity>
+
+        <activity
+            android:name=".presentation.actordetail.ActorDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar.ActorDetailTheme">
+
+        </activity>
+
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".presentation.popularactors.PopularActors"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+    </application>
+
+</manifest>

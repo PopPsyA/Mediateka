@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    tools:context=".presentation.cinemadetail.CinemaDetailsActivity">
+
+    <TextView
+        android:id="@+id/tv_cinema_detail_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_release_date"
+            style="@style/Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/release_date"
+            app:layout_constraintStart_toStartOf="@+id/tv_cinema_detail_desc"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cinema_detail_desc" />
+
+        <TextView
+            android:id="@+id/tv_cinema_detail_release_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_release_date"
+            app:layout_constraintStart_toEndOf="@+id/text_release_date" />
+
+        <TextView
+            android:id="@+id/text_directed_by"
+            style="@style/Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/directed_by"
+            app:layout_constraintStart_toStartOf="@+id/tv_cinema_detail_desc"
+            app:layout_constraintTop_toBottomOf="@+id/text_release_date" />
+
+        <TextView
+            android:id="@+id/tv_cinema_detail_directed_by"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_directed_by"
+            app:layout_constraintStart_toEndOf="@+id/text_directed_by" />
+
+        <TextView
+            android:id="@+id/text_budget"
+            style="@style/Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/budget"
+            app:layout_constraintStart_toStartOf="@+id/tv_cinema_detail_desc"
+            app:layout_constraintTop_toBottomOf="@+id/text_directed_by" />
+
+        <TextView
+            android:id="@+id/tv_cinema_detail_budget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_budget"
+            app:layout_constraintStart_toEndOf="@+id/text_budget" />
+
+        <TextView
+            android:id="@+id/text_revenue"
+            style="@style/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/revenue"
+            app:layout_constraintStart_toStartOf="@+id/tv_cinema_detail_desc"
+            app:layout_constraintTop_toBottomOf="@+id/text_budget" />
+
+        <TextView
+            android:id="@+id/tv_cinema_revenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_revenue"
+            app:layout_constraintStart_toEndOf="@+id/text_revenue" />
+
+</android.support.constraint.ConstraintLayout>
