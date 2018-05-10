@@ -78,10 +78,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset <= 100) {
-                    getCollapsingToolbarLayout().setTitle(title);
+                    setCollapsingToolbarTitle(title);
                     isVisible = true;
                 } else if(isVisible) {
-                    getCollapsingToolbarLayout().setTitle("");
+                    setCollapsingToolbarTitle("");
                     isVisible = false;
                 }
             }
