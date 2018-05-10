@@ -1,6 +1,5 @@
 package com.ru.devit.mediateka.models.mapper;
 
-import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
 import com.ru.devit.mediateka.models.db.ActorEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.model.Actor;
@@ -9,8 +8,6 @@ import com.ru.devit.mediateka.models.network.CinemaDetailResponse;
 import com.ru.devit.mediateka.models.network.CinemaResponse;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class CinemaMapper {
 

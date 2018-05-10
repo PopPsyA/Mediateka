@@ -8,8 +8,6 @@ import com.ru.devit.mediateka.presentation.base.BaseView;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class ActorsPresenter extends BasePresenter<ActorsPresenter.View> {
 
     private List<Actor> actors;

@@ -4,8 +4,6 @@ import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
 
-import javax.inject.Inject;
-
 public class CinemaDetailContentPresenter extends BasePresenter<CinemaDetailContentPresenter.View> {
 
     private Cinema cinema;

@@ -10,8 +10,6 @@ import com.ru.devit.mediateka.utils.Constants;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.View> {
 
     private List<Cinema> cinemas;

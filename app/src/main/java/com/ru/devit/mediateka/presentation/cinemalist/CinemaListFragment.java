@@ -158,6 +158,7 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
         mSwipeRefresherLayout.setOnRefreshListener(() -> presenter.loadCinemas());
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void initPresenter(){
         presenter.setView(this);
         presenter.setTabPosition(getArguments().getInt(TAB_POSITION));

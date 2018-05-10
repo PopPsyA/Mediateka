@@ -55,7 +55,6 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
 
     @Override
     public void onCinemaTabSelected() {
-        Log.d("test5" , "cinemaTabSelected");
         mSearchField.setHint(getString(R.string.search_hint , getString(R.string.cinemas)));
     }
 

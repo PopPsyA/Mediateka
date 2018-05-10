@@ -12,8 +12,6 @@ import com.ru.devit.mediateka.utils.FormatterUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class CinemaResponseToCinema{
 
     public List<Cinema> map(CinemaResponse cinemaResponse) {
@@ -53,12 +51,22 @@ public class CinemaResponseToCinema{
         cinema.setPopularity(response.getPopularity());
         cinema.setVoteAverage(response.getVoteAverage());
         cinema.setCinemaRevenue(response.getRevenue());
+        setGenres(response , cinema);
+        setActors(response , cinema);
+        setDirectorName(response , cinema);
+        return cinema;
+    }
+
+    private void setGenres(CinemaDetailResponse response , Cinema cinema){
         int[] ids = new int[response.getGenres().length];
         for (int i = 0; i < response.getGenres().length; i++){
             CinemaDetailResponse.Genres[] genres = response.getGenres();
             ids[i] = genres[i].getId();
         }
         cinema.setGenres(FormatterUtils.formatGenres(ids));
+    }
+
+    private void setActors(CinemaDetailResponse response , Cinema cinema){
         List<Actor> actors = new ArrayList<>();
         for (ActorNetwork cast : response.getCredits().getCast()){
             Actor actor = new Actor();
@@ -71,12 +79,14 @@ public class CinemaResponseToCinema{
             actors.add(actor);
         }
         cinema.setActors(actors);
+    }
+
+    private void setDirectorName(CinemaDetailResponse response , Cinema cinema){
         for (CrewNetwork crew : response.getCredits().getCrews()){
             if (crew.getJob().equals("Director")){
                 cinema.setDirectorName(FormatterUtils.emptyValueIfNull(crew.getName()));
-                return cinema;
+                break;
             }
         }
-        return cinema;
     }
 }

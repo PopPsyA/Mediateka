@@ -20,7 +20,7 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
     private TextView mTextViewCinemaDate , mTextViewTitle , mTextViewGenres , mTextViewCharacter;
     private final SmallCinemasPresenter presenter;
 
-    public SmallCinemaViewHolder(View itemView , SmallCinemasPresenter presenter) {
+    SmallCinemaViewHolder(View itemView , SmallCinemasPresenter presenter) {
         super(itemView);
         this.presenter = presenter;
         mImageViewCinemaPoster = itemView.findViewById(R.id.iv_actor_detail_cinema_poster);
@@ -31,7 +31,7 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void render(Cinema cinema , int viewHolderPosition) {
+    void render(Cinema cinema , int viewHolderPosition) {
         onItemClicked(cinema.getId() , viewHolderPosition);
         renderImage(cinema.getPosterUrl() , mImageViewCinemaPoster);
         mTextViewCinemaDate.setText(FormatterUtils.getYearFromDate(cinema.getReleaseDate()));
@@ -40,7 +40,7 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
         mTextViewCharacter.setText(TextUtils.isEmpty(cinema.getCharacter()) ? "" : getContext().getString(R.string.role , cinema.getCharacter()));
     }
 
-    public void renderImage(String posterUrl , ImageView imageView){
+    void renderImage(String posterUrl , ImageView imageView){
         Picasso.with(getContext())
                 .load(Constants.IMG_PATH_W185 + posterUrl)
                 .placeholder(R.color.colorDarkBackground)

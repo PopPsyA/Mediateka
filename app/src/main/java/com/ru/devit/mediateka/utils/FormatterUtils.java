@@ -1,7 +1,6 @@
 package com.ru.devit.mediateka.utils;
 
 import android.support.v4.util.SparseArrayCompat;
-import android.util.SparseArray;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,6 +74,13 @@ public class FormatterUtils {
         int hour = duration / 60;
         int minutes = duration % 60;
         return String.format(Locale.getDefault() ,"%dч %d мин" , hour , minutes);
+    }
+
+    public static String defaultValueIfNull(String value){
+        if (value == null){
+            return Constants.DEFAULT_VALUE;
+        }
+        return value;
     }
 
     public static String emptyValueIfNull(String value){

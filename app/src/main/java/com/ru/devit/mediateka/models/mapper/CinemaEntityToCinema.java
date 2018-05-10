@@ -2,10 +2,7 @@ package com.ru.devit.mediateka.models.mapper;
 
 import android.util.Log;
 
-import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
-import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
 import com.ru.devit.mediateka.models.db.ActorEntity;
-import com.ru.devit.mediateka.models.db.CinemaActorJoinEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
@@ -13,8 +10,6 @@ import com.ru.devit.mediateka.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.emptyValueIfNull;
 
@@ -40,12 +35,7 @@ public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
         List<Actor> actorList = new ArrayList<>();
         for (ActorEntity actorEntity : actorEntities){
             Actor actor = new Actor();
-            actor.setActorId(actorEntity.getActorId());
-            actor.setName(actorEntity.getActorName());
-            actor.setCharacter(emptyValueIfNull(actorEntity.getCharacter()));
-            actor.setProfilePath(actorEntity.getProfilePath());
-            actor.setBiography(actor.getBiography());
-            actor.setOrder(actorEntity.getOrder());
+            fillActor(actor, actorEntity);
             actorList.add(actor);
         }
         cinema.setActors(actorList);
@@ -57,14 +47,27 @@ public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
         List<ActorEntity> actorEntities = new ArrayList<>();
         for (Actor actor : actors){
             ActorEntity actorEntity = new ActorEntity();
-            actorEntity.setActorId(actor.getActorId());
-            actorEntity.setActorName(actor.getName());
-            actorEntity.setCharacter(actor.getCharacter());
-            actorEntity.setProfilePath(actor.getProfilePath());
-            actorEntity.setOrder(actor.getOrder());
+            fillActorEntity(actorEntity, actor);
             actorEntities.add(actorEntity);
         }
         return actorEntities;
+    }
+
+    private void fillActorEntity(ActorEntity actorEntity, Actor actor) {
+        actorEntity.setActorId(actor.getActorId());
+        actorEntity.setActorName(actor.getName());
+        actorEntity.setCharacter(actor.getCharacter());
+        actorEntity.setProfilePath(actor.getProfilePath());
+        actorEntity.setOrder(actor.getOrder());
+    }
+
+    private void fillActor(Actor actor, ActorEntity actorEntity) {
+        actor.setActorId(actorEntity.getActorId());
+        actor.setName(actorEntity.getActorName());
+        actor.setCharacter(emptyValueIfNull(actorEntity.getCharacter()));
+        actor.setProfilePath(actorEntity.getProfilePath());
+        actor.setBiography(actor.getBiography());
+        actor.setOrder(actorEntity.getOrder());
     }
 
     private void fillCinema(Cinema cinema , CinemaEntity cinemaEntity){

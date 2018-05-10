@@ -21,7 +21,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
 
     private final ActorsPresenter presenter;
 
-    public ActorViewHolder(View itemView , ActorsPresenter presenter) {
+    ActorViewHolder(View itemView , ActorsPresenter presenter) {
         super(itemView);
         this.presenter = presenter;
         rootView = itemView;
@@ -30,7 +30,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
         actorRole = itemView.findViewById(R.id.tv_actor_role);
     }
 
-    public void render(Actor actor , int viewHolderPosition){
+    void render(Actor actor , int viewHolderPosition){
         renderAvatar(actor);
         onActorClicked(actor.getActorId() , viewHolderPosition);
         actorName.setText(actor.getName());
@@ -52,7 +52,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
                 .into(avatar);
     }
 
-    public Context getContext(){
+    private Context getContext(){
         return itemView.getContext();
     }
 }

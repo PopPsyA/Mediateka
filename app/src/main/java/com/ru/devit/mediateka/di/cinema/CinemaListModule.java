@@ -5,6 +5,7 @@ import com.ru.devit.mediateka.di.ActivityScope;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetTopRatedCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetUpComingCinemas;
+import com.ru.devit.mediateka.presentation.cinemalist.CinemaListPresenter;
 
 import javax.inject.Named;
 
@@ -14,6 +15,14 @@ import io.reactivex.Scheduler;
 
 @Module
 public class CinemaListModule {
+
+    @ActivityScope
+    @Provides
+    CinemaListPresenter provideCinemaListPresenter(GetCinemas getCinemas ,
+                                                   GetTopRatedCinemas getTopRatedCinemas ,
+                                                   GetUpComingCinemas getUpComingCinemas){
+        return new CinemaListPresenter(getCinemas , getTopRatedCinemas , getUpComingCinemas);
+    }
 
     @ActivityScope
     @Provides

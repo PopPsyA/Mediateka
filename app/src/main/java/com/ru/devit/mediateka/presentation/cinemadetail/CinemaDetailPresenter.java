@@ -6,8 +6,6 @@ import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
 
-import javax.inject.Inject;
-
 public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.View> {
 
     private final GetCinemaById getCinemaById;

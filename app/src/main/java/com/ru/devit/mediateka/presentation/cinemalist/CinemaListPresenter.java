@@ -1,7 +1,6 @@
 package com.ru.devit.mediateka.presentation.cinemalist;
 
 import android.util.Log;
-import android.view.View;
 
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetTopRatedCinemas;
@@ -12,8 +11,6 @@ import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import static com.ru.devit.mediateka.presentation.main.MainActivity.ACTUAL_CINEMAS_TAB_POSITION;
 import static com.ru.devit.mediateka.presentation.main.MainActivity.TOP_RATED_CINEMAS_TAB_POSITION;
@@ -29,8 +26,7 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     private GetTopRatedCinemas getTopRatedCinemas;
     private GetUpComingCinemas getUpComingCinemas;
 
-
-    @Inject public CinemaListPresenter(GetCinemas getCinemas, GetTopRatedCinemas getTopRatedCinemas, GetUpComingCinemas getUpComingCinemas) {
+    public CinemaListPresenter(GetCinemas getCinemas, GetTopRatedCinemas getTopRatedCinemas, GetUpComingCinemas getUpComingCinemas) {
         this.getCinemas = getCinemas;
         this.getTopRatedCinemas = getTopRatedCinemas;
         this.getUpComingCinemas = getUpComingCinemas;
@@ -80,7 +76,6 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     public void onLoadNextPage(){
         currentPage = currentPage + 1;
         setCurrentPage(currentPage);
-        Log.d("klkl" , "total pages = " + totalPage + " currentPage = " + currentPage);
         loadCinemas();
     }
 

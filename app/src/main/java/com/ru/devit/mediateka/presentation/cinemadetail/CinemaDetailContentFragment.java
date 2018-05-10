@@ -84,7 +84,6 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
     @Override
     public void onDestroy() {
         presenter.onDestroy();
-        Log.d("bdsm" , "onDestroy CinemaDetailContentFragment");
         MediatekaApp.getComponentsManager().clearCinemaComponent();
         super.onDestroy();
     }

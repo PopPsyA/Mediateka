@@ -26,7 +26,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-@SuppressWarnings("ConstantConditions")
 public class SmallCinemasFragment extends Fragment implements SmallCinemasPresenter.View {
 
     private static final String CINEMAS = "actor_cinemas";
@@ -71,10 +70,12 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
-        if (args.getBoolean(IN_SEARCH_MODE)){ // if we in search activity
-            return;
+        if (args != null){
+            if (args.getBoolean(IN_SEARCH_MODE)){ // if we in search activity
+                return;
+            }
+            presenter.setCinemas(getArguments().getParcelableArrayList(CINEMAS));
         }
-        presenter.setCinemas(getArguments().getParcelableArrayList(CINEMAS));
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -137,9 +138,11 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
     }
 
     private void initAdapter(){
-        adapter = new SmallCinemaListAdapter(presenter , getArguments().getBoolean(IN_SEARCH_MODE));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerViewCinemas.setLayoutManager(linearLayoutManager);
-        mRecyclerViewCinemas.setAdapter(adapter);
+        if (getArguments() != null){
+            adapter = new SmallCinemaListAdapter(presenter , getArguments().getBoolean(IN_SEARCH_MODE));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            mRecyclerViewCinemas.setLayoutManager(linearLayoutManager);
+            mRecyclerViewCinemas.setAdapter(adapter);
+        }
     }
 }

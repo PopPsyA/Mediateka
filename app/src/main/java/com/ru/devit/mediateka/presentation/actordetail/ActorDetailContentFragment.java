@@ -48,7 +48,9 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initDagger();
         initPresenter();
-        presenter.setActor(getArguments().getParcelable(ACTOR));
+        if (getArguments() != null){
+            presenter.setActor(getArguments().getParcelable(ACTOR));
+        }
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -75,7 +77,6 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
     public void onDestroy() {
         presenter.onDestroy();
         MediatekaApp.getComponentsManager().clearActorComponent();
-        Log.d("bdsm" , "onDestroy ActorDetailContentFragment");
         super.onDestroy();
     }
 
