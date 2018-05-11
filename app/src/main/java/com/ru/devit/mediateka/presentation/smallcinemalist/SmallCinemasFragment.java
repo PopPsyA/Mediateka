@@ -10,9 +10,11 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ru.devit.mediateka.MediatekaApp;
@@ -33,6 +35,7 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
 
     private RecyclerView mRecyclerViewCinemas;
     private SmallCinemaListAdapter adapter;
+    private ProgressBar mProgressBar;
 
     @Inject SmallCinemasPresenter presenter;
 
@@ -81,12 +84,12 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
 
     @Override
     public void showLoading() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -102,6 +105,11 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
         );
         Intent intent = CinemaDetailsActivity.makeIntent(getContext(), cinemaId);
         ActivityCompat.startActivity(getActivity() , intent , activityOptions.toBundle());
+    }
+
+    @Override
+    public void clearAdapter(){
+        adapter.clear();
     }
 
     @Override
@@ -130,6 +138,7 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
 
     private void initViews(View view) {
         mRecyclerViewCinemas = view.findViewById(R.id.rv_actor_detail_cinemas);
+        mProgressBar = view.findViewById(R.id.pb_small_cinemas);
     }
 
     private void initPresenter(){

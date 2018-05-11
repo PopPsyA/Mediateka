@@ -85,4 +85,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged();
     }
 
+    public void clear(){
+        cinemas.clear();
+    }
 }

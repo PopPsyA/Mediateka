@@ -10,46 +10,46 @@ import com.ru.devit.mediateka.utils.Constants;
 import java.util.Collections;
 import java.util.List;
 
+
 public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.View> {
 
     private List<Cinema> cinemas;
     private GetCinemaByQuery getCinemaByQuery;
+    private final SmallCinemaSubscriber smallCinemaSubscriber;
 
     public SmallCinemasPresenter(GetCinemaByQuery getCinemaByQuery) {
         this.getCinemaByQuery = getCinemaByQuery;
+        smallCinemaSubscriber = new SmallCinemaSubscriber();
     }
 
     @Override
     public void initialize() {
         getView().showLoading();
+        getCinemaByQuery.subscribe(smallCinemaSubscriber);
+        getCinemaByQuery
+                .onNext(() -> getView().showLoading())
+                .onDataLoaded(() -> getView().hideLoading())
+                .onClearAdapter(() -> getView().clearAdapter());
+
+        getView().hideLoading();
     }
 
     @Override
     public void onDestroy() {
+        getCinemaByQuery.removeAction();
         getCinemaByQuery.dispose();
         setView(null);
     }
 
-    public void onGetTextFromSearchField(String query) {
-        getView().showLoading();
-        getCinemaByQuery.setQuery(query);
-        getCinemaByQuery.subscribe(new UseCaseSubscriber<List<Cinema>>() {
-            @Override
-            public void onNext(List<Cinema> cinemas) {
-                getView().showCinemas(cinemas);
-            }
-
-            @Override
-            public void onComplete() {
-                getView().hideLoading();
-            }
-        });
+    void onGetTextFromSearchField(String query) {
+        getCinemaByQuery.onNextQuery(query);
     }
 
     public void setCinemas(List<Cinema> cinemaList){
         cinemas = cinemaList;
         sortByDate(cinemas);
         getView().showCinemas(cinemas);
+        getView().hideLoading();
     }
 
     public void onCinemaClicked(int cinemaId , int viewHolderPosition){
@@ -67,8 +67,27 @@ public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.V
         });
     }
 
+    private class SmallCinemaSubscriber extends UseCaseSubscriber<List<Cinema>>{
+        @Override
+        public void onNext(List<Cinema> cinemas) {
+            getView().showCinemas(cinemas);
+            getView().hideLoading();
+        }
+
+        @Override
+        public void onComplete() {
+            getView().hideLoading();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            getView().hideLoading();
+        }
+    }
+
     public interface View extends BaseView{
         void openCinema(int cinemaId , int viewHolderPosition);
         void showCinemas(List<Cinema> cinemas);
+        void clearAdapter();
     }
 }
