@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import static com.ru.devit.mediateka.utils.FormatterUtils.defaultValueIfNull;
 import static com.ru.devit.mediateka.utils.FormatterUtils.emptyValueIfNull;
 
 public class ActorDetailEntityToActor extends Mapper<Actor , ActorEntity> {
@@ -57,11 +58,11 @@ public class ActorDetailEntityToActor extends Mapper<Actor , ActorEntity> {
     private void fillActor(Actor actor, ActorEntity value) {
         actor.setActorId(value.getActorId());
         actor.setName(emptyValueIfNull(value.getActorName()));
-        actor.setAge(emptyValueIfNull(value.getAge()));
+        actor.setAge(defaultValueIfNull(value.getAge()));
         actor.setBirthDay(emptyValueIfNull(value.getBirthDay()));
-        actor.setBiography(value.getBiography());
-        actor.setBirthDay(emptyValueIfNull(value.getBirthDay()));
-        actor.setPlaceOfBirth(value.getProfilePath());
+        actor.setBiography(emptyValueIfNull(value.getBiography()));
+        actor.setBirthDay(defaultValueIfNull(value.getBirthDay()));
+        actor.setPlaceOfBirth(defaultValueIfNull(value.getPlaceOfBirth()));
         actor.setProfilePath(value.getPlaceOfBirth());
     }
 

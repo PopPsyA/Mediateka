@@ -11,6 +11,7 @@ import com.ru.devit.mediateka.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ru.devit.mediateka.utils.FormatterUtils.defaultValueIfNull;
 import static com.ru.devit.mediateka.utils.FormatterUtils.emptyValueIfNull;
 
 public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
@@ -87,7 +88,7 @@ public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
         cinema.setGenres(cinemaEntity.getGenreIds());
         cinema.setCinemaRevenue(cinemaEntity.getRevenue());
         cinema.setCharacter(cinemaEntity.getActorCharacterName());
-        cinema.setDirectorName(emptyValueIfNull(cinemaEntity.getDirectorName()));
+        cinema.setDirectorName(defaultValueIfNull(cinemaEntity.getDirectorName()));
     }
     private void fillCinemaEntity(CinemaEntity cinemaEntity , Cinema cinema){
         cinemaEntity.setCinemaId(cinema.getId());

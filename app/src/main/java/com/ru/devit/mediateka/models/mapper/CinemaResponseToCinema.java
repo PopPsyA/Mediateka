@@ -84,7 +84,7 @@ public class CinemaResponseToCinema{
     private void setDirectorName(CinemaDetailResponse response , Cinema cinema){
         for (CrewNetwork crew : response.getCredits().getCrews()){
             if (crew.getJob().equals("Director")){
-                cinema.setDirectorName(FormatterUtils.emptyValueIfNull(crew.getName()));
+                cinema.setDirectorName(FormatterUtils.defaultValueIfNull(crew.getName()));
                 break;
             }
         }
