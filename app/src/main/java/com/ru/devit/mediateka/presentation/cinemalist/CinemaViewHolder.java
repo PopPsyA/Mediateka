@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 import com.ru.devit.mediateka.utils.Constants;
-import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.squareup.picasso.Picasso;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.getYearFromDate;
@@ -21,11 +21,11 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
     private ImageView posterImageView;
     private TextView titleTextView , ratingTextView , releaseDateTextView , descriptionTextView , genresTextView;
     private Button moreInfoButton;
-    private final CinemaListPresenter presenter;
+    private final OnCinemaClickListener onCinemaClickListener;
 
-    public CinemaViewHolder(View itemView, CinemaListPresenter presenter) {
+    CinemaViewHolder(View itemView, OnCinemaClickListener onCinemaClickListener) {
         super(itemView);
-        this.presenter = presenter;
+        this.onCinemaClickListener = onCinemaClickListener;
         posterImageView = itemView.findViewById(R.id.iv_poster);
         titleTextView = itemView.findViewById(R.id.tv_cinema_title);
         ratingTextView = itemView.findViewById(R.id.tv_cinema_rating);
@@ -42,8 +42,9 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
                     cinema.getReleaseDate() , cinema.getDescription() ,
                     cinema.getGenres());
     }
+
     private void onItemClicked(int cinemaId , int viewHolderPosition){
-        moreInfoButton.setOnClickListener(v -> presenter.onCinemaClicked(cinemaId , viewHolderPosition));
+        moreInfoButton.setOnClickListener(v -> onCinemaClickListener.onCinemaClicked(cinemaId , viewHolderPosition));
     }
 
     private void renderPoster(String url){

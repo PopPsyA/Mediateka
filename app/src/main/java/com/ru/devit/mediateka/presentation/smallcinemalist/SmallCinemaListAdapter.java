@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,12 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final int HEADER_TYPE = 0;
     private final int CONTENT_TYPE = 1;
 
-    private final SmallCinemasPresenter presenter;
+    private final OnCinemaClickListener onCinemaClickListener;
     private final List<Cinema> cinemas;
     private final boolean inSearchMode;
 
-    public SmallCinemaListAdapter(SmallCinemasPresenter presenter , boolean inSearchMode) {
-        this.presenter = presenter;
+    public SmallCinemaListAdapter(OnCinemaClickListener onCinemaClickListener , boolean inSearchMode) {
+        this.onCinemaClickListener = onCinemaClickListener;
         this.inSearchMode = inSearchMode;
         cinemas = new ArrayList<>();
     }
@@ -32,14 +33,14 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         View view;
         if (inSearchMode){
             view = inflater.inflate(R.layout.item_small_cinema , parent , false);
-            return new SmallCinemaViewHolder(view , presenter);
+            return new SmallCinemaViewHolder(view , onCinemaClickListener);
         }
         if (viewType == HEADER_TYPE){
             view = inflater.inflate(R.layout.item_small_cinema_header, parent , false);
             return new SmallCinemaHeaderViewHolder(view);
         } else {
             view = inflater.inflate(R.layout.item_small_cinema , parent , false);
-            return new SmallCinemaViewHolder(view , presenter);
+            return new SmallCinemaViewHolder(view , onCinemaClickListener);
         }
     }
 

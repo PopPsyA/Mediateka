@@ -22,6 +22,7 @@ import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
+import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +149,7 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
 
     private void initAdapter(){
         if (getArguments() != null){
-            adapter = new SmallCinemaListAdapter(presenter , getArguments().getBoolean(IN_SEARCH_MODE));
+            adapter = new SmallCinemaListAdapter((cinemaId, viewHolderPosition) -> presenter.onCinemaClicked(cinemaId , viewHolderPosition), getArguments().getBoolean(IN_SEARCH_MODE));
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mRecyclerViewCinemas.setLayoutManager(linearLayoutManager);
             mRecyclerViewCinemas.setAdapter(adapter);

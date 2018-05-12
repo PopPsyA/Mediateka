@@ -23,6 +23,7 @@ import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.CinemaListModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
+import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 import com.ru.devit.mediateka.utils.pagination.PaginationScrollListener;
 
 import java.util.List;
@@ -125,7 +126,7 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     }
 
     private void initAdapter() {
-        adapter = new CinemaListAdapter(presenter);
+        adapter = new CinemaListAdapter((cinemaId, viewHolderPosition) -> presenter.onCinemaClicked(cinemaId , viewHolderPosition));
     }
 
     private void initRecyclerView(View rootView){

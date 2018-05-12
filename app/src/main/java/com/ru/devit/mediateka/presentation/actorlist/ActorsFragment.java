@@ -19,6 +19,7 @@ import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.actor.ActorListModule;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.presentation.actordetail.ActorDetailActivity;
+import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +124,7 @@ public class ActorsFragment extends Fragment implements ActorsPresenter.View {
     }
 
     private void initAdapter() {
-        adapter = new ActorListAdapter(presenter);
+        adapter = new ActorListAdapter((actorId, viewHolderPosition) -> presenter.onActorClicked(actorId , viewHolderPosition));
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

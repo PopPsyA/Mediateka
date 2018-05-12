@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Actor;
+import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
 import com.ru.devit.mediateka.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -19,11 +20,11 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     private TextView actorName , actorRole;
     private View rootView;
 
-    private final ActorsPresenter presenter;
+    private final OnActorClickListener onActorClickListener;
 
-    ActorViewHolder(View itemView , ActorsPresenter presenter) {
+    ActorViewHolder(View itemView , OnActorClickListener onActorClickListener) {
         super(itemView);
-        this.presenter = presenter;
+        this.onActorClickListener = onActorClickListener;
         rootView = itemView;
         avatar = itemView.findViewById(R.id.iv_actor_avatar);
         actorName = itemView.findViewById(R.id.tv_actor_name);
@@ -41,7 +42,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     }
 
     private void onActorClicked(int actorId , int viewHolderPosition){
-        rootView.setOnClickListener(view -> presenter.onActorClicked(actorId , viewHolderPosition));
+        rootView.setOnClickListener(view -> onActorClickListener.onActorClicked(actorId , viewHolderPosition));
     }
 
     @SuppressWarnings("ConstantConditions")

@@ -7,24 +7,25 @@ import android.view.ViewGroup;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Actor;
+import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActorListAdapter extends RecyclerView.Adapter<ActorViewHolder> {
 
-    private List<Actor> actors;
-    private ActorsPresenter presenter;
+    private final List<Actor> actors;
+    private final OnActorClickListener onActorClickListener;
 
-    public ActorListAdapter(ActorsPresenter presenter) {
+    public ActorListAdapter(OnActorClickListener onActorClickListener) {
         actors = new ArrayList<>();
-        this.presenter = presenter;
+        this.onActorClickListener = onActorClickListener;
     }
 
     @Override
     public ActorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actor , parent , false);
-        return new ActorViewHolder(view , presenter);
+        return new ActorViewHolder(view , onActorClickListener);
     }
 
     @Override

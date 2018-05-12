@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 import com.ru.devit.mediateka.utils.Constants;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.squareup.picasso.Picasso;
@@ -18,11 +19,11 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView mImageViewCinemaPoster;
     private TextView mTextViewCinemaDate , mTextViewTitle , mTextViewGenres , mTextViewCharacter;
-    private final SmallCinemasPresenter presenter;
+    private final OnCinemaClickListener onCinemaClickListener;
 
-    SmallCinemaViewHolder(View itemView , SmallCinemasPresenter presenter) {
+    SmallCinemaViewHolder(View itemView , OnCinemaClickListener onCinemaClickListener) {
         super(itemView);
-        this.presenter = presenter;
+        this.onCinemaClickListener = onCinemaClickListener;
         mImageViewCinemaPoster = itemView.findViewById(R.id.iv_actor_detail_cinema_poster);
         mTextViewCinemaDate = itemView.findViewById(R.id.tv_actor_detail_cinema_date);
         mTextViewTitle = itemView.findViewById(R.id.tv_actor_detail_cinema_title);
@@ -49,7 +50,7 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void onItemClicked(int cinemaId , int viewHolderPosition){
-        itemView.setOnClickListener(view -> presenter.onCinemaClicked(cinemaId , viewHolderPosition));
+        itemView.setOnClickListener(view -> onCinemaClickListener.onCinemaClicked(cinemaId , viewHolderPosition));
     }
 
     private Context getContext(){
