@@ -36,15 +36,20 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
     }
 
     void render(Cinema cinema , int viewHolderPosition) {
-        onItemClicked(cinema.getId() , viewHolderPosition);
+        onMoreInfoButtonClicked(cinema.getId() , viewHolderPosition);
+        onPosterClicked(cinema.getId() , viewHolderPosition);
         renderPoster(cinema.getPosterUrl());
         render(cinema.getTitle() , cinema.getVoteAverage() ,
                     cinema.getReleaseDate() , cinema.getDescription() ,
                     cinema.getGenres());
     }
 
-    private void onItemClicked(int cinemaId , int viewHolderPosition){
+    private void onMoreInfoButtonClicked(int cinemaId , int viewHolderPosition){
         moreInfoButton.setOnClickListener(v -> onCinemaClickListener.onCinemaClicked(cinemaId , viewHolderPosition));
+    }
+
+    private void onPosterClicked(int cinemaId , int viewHolderPosition){
+        posterImageView.setOnClickListener(v -> onCinemaClickListener.onCinemaClicked(cinemaId , viewHolderPosition));
     }
 
     private void renderPoster(String url){
