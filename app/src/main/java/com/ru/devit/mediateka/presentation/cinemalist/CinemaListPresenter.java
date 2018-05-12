@@ -1,7 +1,5 @@
 package com.ru.devit.mediateka.presentation.cinemalist;
 
-import android.util.Log;
-
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetTopRatedCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetUpComingCinemas;
@@ -94,7 +92,7 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
 
     public interface View extends BaseView{
         void showCinemas(List<Cinema> cinemaEntities);
-        void showError(String message);
+        void showNetworkError();
         void openCinemaDetails(int cinemaId , int viewHolderPosition);
         void onPopularTabSelected();
         void onTopRatedTabSelected();
@@ -119,7 +117,7 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
         public void onError(Throwable e) {
             e.printStackTrace();
             getView().hideLoading();
-            getView().showError("Чтобы синхронизировать данные , подкюлчитесь к интернету");
+            getView().showNetworkError();
         }
 
         @Override

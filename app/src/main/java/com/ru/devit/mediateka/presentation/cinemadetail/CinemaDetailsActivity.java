@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
@@ -91,11 +92,6 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mCinemaHeaderView.render(cinema);
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());
         setUpViewPager(mViewPager , mTabLayout , cinema);
-    }
-
-    @Override
-    public void showNetworkError(String message) {
-        Log.d("bbb" , message);
     }
 
     @Override

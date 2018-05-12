@@ -82,13 +82,12 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
 
     @Override
     public void showCinemas(List<Cinema> cinemaEntities) {
-        Log.d("asd333" , "cinemas " + cinemaEntities.size() + " adapter " + adapter.getItemCount());
         adapter.addAll(cinemaEntities);
     }
 
     @Override
-    public void showError(String message) {
-        mSnackBar = Snackbar.make(mSwipeRefresherLayout , message , BaseTransientBottomBar.LENGTH_LONG)
+    public void showNetworkError() {
+        mSnackBar = Snackbar.make(mSwipeRefresherLayout , getString(R.string.message_network_error) , BaseTransientBottomBar.LENGTH_LONG)
                 .setAction(R.string.message_retry, v -> {
                     presenter.loadCinemas();
                     mSnackBar.dismiss();

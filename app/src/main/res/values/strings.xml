@@ -36,4 +36,5 @@
     <string name="schedules">Напоминания</string>
     <string name="transition_cinema_poster_image">transition_cinema_poster_image</string>
     <string name="transition_actor_avatar">transition_actor_avatar</string>
+    <string name="message_network_error">Чтобы синхронизировать данные , подкюлчитесь к интернету</string>
 </resources>

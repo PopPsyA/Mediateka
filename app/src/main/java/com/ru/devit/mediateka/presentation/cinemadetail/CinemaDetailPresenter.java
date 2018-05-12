@@ -33,7 +33,6 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
 
     public interface View extends BaseView{
         void showCinemaDetail(Cinema cinemaDetail);
-        void showNetworkError(String message);
     }
 
     private final class CinemaDetailSubscriber extends UseCaseSubscriber<Cinema>{
@@ -46,7 +45,6 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         public void onError(Throwable e) {
             e.printStackTrace();
             getView().hideLoading();
-            getView().showNetworkError(e.getMessage());
         }
 
         @Override
