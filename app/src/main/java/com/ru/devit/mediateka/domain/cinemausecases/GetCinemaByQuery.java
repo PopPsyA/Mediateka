@@ -1,8 +1,6 @@
 package com.ru.devit.mediateka.domain.cinemausecases;
 
-import android.util.Log;
-
-import com.ru.devit.mediateka.data.repository.cinema.CinemaRepository;
+import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
 

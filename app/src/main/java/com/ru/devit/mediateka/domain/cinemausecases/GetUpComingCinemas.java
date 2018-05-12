@@ -1,19 +1,11 @@
 package com.ru.devit.mediateka.domain.cinemausecases;
 
-import android.util.Log;
-
-import com.ru.devit.mediateka.data.repository.cinema.CinemaRepository;
+import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.utils.Constants;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;

@@ -1,12 +1,8 @@
 package com.ru.devit.mediateka.domain.actorusecases;
 
-import com.ru.devit.mediateka.data.repository.actor.ActorRemoteRepository;
-import com.ru.devit.mediateka.data.repository.actor.ActorRepository;
+import com.ru.devit.mediateka.domain.ActorRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Actor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;

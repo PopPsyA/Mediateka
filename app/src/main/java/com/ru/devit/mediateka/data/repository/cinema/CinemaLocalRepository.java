@@ -2,6 +2,7 @@ package com.ru.devit.mediateka.data.repository.cinema;
 
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
+import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.models.db.ActorEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.mapper.CinemaMapper;
@@ -9,12 +10,9 @@ import com.ru.devit.mediateka.models.model.Cinema;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.SingleTransformer;
-import io.reactivex.functions.Function;
 
 public class CinemaLocalRepository implements CinemaRepository {
     private final CinemaDao cinemaDao;

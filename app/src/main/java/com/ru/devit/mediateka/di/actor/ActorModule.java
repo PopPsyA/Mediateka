@@ -8,13 +8,9 @@ import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.network.CinemaApiService;
 import com.ru.devit.mediateka.data.repository.actor.ActorLocalRepository;
 import com.ru.devit.mediateka.data.repository.actor.ActorRemoteRepository;
-import com.ru.devit.mediateka.data.repository.actor.ActorRepository;
-import com.ru.devit.mediateka.di.ActivityScope;
-import com.ru.devit.mediateka.di.cinema.CinemaScope;
+import com.ru.devit.mediateka.domain.ActorRepository;
 import com.ru.devit.mediateka.models.mapper.ActorDetailEntityToActor;
 import com.ru.devit.mediateka.models.mapper.ActorDetailResponseToActor;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,4 +1,4 @@
-package com.ru.devit.mediateka.data.repository.cinema;
+package com.ru.devit.mediateka.domain;
 
 import com.ru.devit.mediateka.models.model.Cinema;
 

@@ -1,29 +1,22 @@
 package com.ru.devit.mediateka.data.repository.cinema;
 
-import android.util.Log;
-
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.network.CinemaApiService;
+import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.models.db.CinemaActorJoinEntity;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.models.mapper.CinemaMapper;
 import com.ru.devit.mediateka.models.network.CinemaResponse;
 
-import org.reactivestreams.Publisher;
-
 import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.SingleTransformer;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 
 
-public class CinemaRemoteRepository implements CinemaRepository{
+public class CinemaRemoteRepository implements CinemaRepository {
 
     private final CinemaApiService apiService;
     private final CinemaActorJoinDao cinemaActorJoinDao;

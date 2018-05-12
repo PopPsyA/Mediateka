@@ -1,6 +1,6 @@
 package com.ru.devit.mediateka.di.actor;
 
-import com.ru.devit.mediateka.data.repository.actor.ActorRepository;
+import com.ru.devit.mediateka.domain.ActorRepository;
 import com.ru.devit.mediateka.di.ActivityScope;
 import com.ru.devit.mediateka.domain.actorusecases.GetActorsByQuery;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsPresenter;

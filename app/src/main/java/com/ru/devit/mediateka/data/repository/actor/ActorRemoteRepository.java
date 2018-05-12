@@ -2,6 +2,7 @@ package com.ru.devit.mediateka.data.repository.actor;
 
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.network.CinemaApiService;
+import com.ru.devit.mediateka.domain.ActorRepository;
 import com.ru.devit.mediateka.models.db.CinemaActorJoinEntity;
 import com.ru.devit.mediateka.models.mapper.ActorDetailEntityToActor;
 import com.ru.devit.mediateka.models.mapper.ActorDetailResponseToActor;
@@ -9,8 +10,6 @@ import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;

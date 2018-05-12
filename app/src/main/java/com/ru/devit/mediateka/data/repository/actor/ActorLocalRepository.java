@@ -2,14 +2,13 @@ package com.ru.devit.mediateka.data.repository.actor;
 
 import com.ru.devit.mediateka.data.datasource.db.ActorDao;
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
+import com.ru.devit.mediateka.domain.ActorRepository;
 import com.ru.devit.mediateka.models.db.ActorEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.mapper.ActorDetailEntityToActor;
 import com.ru.devit.mediateka.models.model.Actor;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;

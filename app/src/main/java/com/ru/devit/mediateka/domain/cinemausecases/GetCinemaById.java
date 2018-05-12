@@ -1,11 +1,8 @@
 package com.ru.devit.mediateka.domain.cinemausecases;
 
-import com.ru.devit.mediateka.data.repository.cinema.CinemaRepository;
+import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;

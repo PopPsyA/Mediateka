@@ -1,6 +1,6 @@
 package com.ru.devit.mediateka.di.cinema;
 
-import com.ru.devit.mediateka.data.repository.cinema.CinemaRepository;
+import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.di.ActivityScope;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaById;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaByQuery;
