@@ -39,7 +39,6 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
         super.onStart();
         mTabLayout.addOnTabSelectedListener(this);
         mSearchField.addTextChangedListener(this);
-        mSearchField.setHint(getString(R.string.search_hint , getString(R.string.cinemas)));
     }
 
     @Override
@@ -55,12 +54,12 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
 
     @Override
     public void onCinemaTabSelected() {
-        mSearchField.setHint(getString(R.string.search_hint , getString(R.string.cinemas)));
+        mSearchField.setHint(getString(R.string.search_cinemas));
     }
 
     @Override
     public void onActorTabSelected() {
-        mSearchField.setHint(getString(R.string.search_hint , getString(R.string.actors)));
+        mSearchField.setHint(getString(R.string.search_actors));
     }
 
     @Override

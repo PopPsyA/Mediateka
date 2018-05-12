@@ -31,17 +31,21 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?android:actionBarSize"
+                    android:paddingEnd="16dp"
                     app:layout_scrollFlags="scroll|enterAlways|snap">
 
                     <EditText
                         android:id="@+id/et_search_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
-                        android:drawablePadding="10dp"
                         android:imeOptions="actionDone"
-                        android:inputType="text" />
-                    
+                        android:inputType="text"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="@string/search_cinemas"
+                        android:padding="8dp"
+                        android:background="@drawable/search_background" />
+
                 </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -51,11 +55,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorGray"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 app:layout_anchor="@id/app_bar"
                 app:layout_anchorGravity="bottom"
                 app:tabGravity="fill"
-                app:tabMode="scrollable" />
+                app:tabMode="scrollable"/>
 
         </android.support.design.widget.AppBarLayout>
 

@@ -29,7 +29,6 @@
     <string name="settings">Настройки</string>
     <string name="popular_actors">Популярные люди</string>
     <string name="years">%s лет</string>
-    <string name="search_hint">Поиск %s…</string>
     <string name="search">Поиск</string>
     <string name="role">в роли %s</string>
     <string name="advanced_search">Улучшенный поиск</string>
@@ -37,4 +36,6 @@
     <string name="transition_cinema_poster_image">transition_cinema_poster_image</string>
     <string name="transition_actor_avatar">transition_actor_avatar</string>
     <string name="message_network_error">Чтобы синхронизировать данные , подкюлчитесь к интернету</string>
+    <string name="search_cinemas">Поиск фильмов…</string>
+    <string name="search_actors">Поиск актёров…</string>
 </resources>
