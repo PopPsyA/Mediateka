@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.domain.cinemausecases;
 
+import com.ru.devit.mediateka.domain.Actions;
 import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
@@ -17,9 +18,7 @@ import io.reactivex.processors.PublishProcessor;
 
 public class GetCinemaByQuery extends UseCase<List<Cinema>> {
 
-    private Action actionOnNext;
-    private Action actionOnDataLoaded;
-    private Action actionClearAdapter;
+    private Actions actions;
     private boolean isDataLoaded = false;
     private final CinemaRepository repository;
     private final FlowableProcessor<String> processor = PublishProcessor.create();
@@ -31,27 +30,16 @@ public class GetCinemaByQuery extends UseCase<List<Cinema>> {
         this.repository = repository;
     }
 
-    public GetCinemaByQuery onNext(Action actionOnNext){
-        this.actionOnNext = actionOnNext;
-        return this;
-    }
-
-    public GetCinemaByQuery onDataLoaded(Action actionOnDataLoaded){
-        this.actionOnDataLoaded = actionOnDataLoaded;
-        return this;
-    }
-
-    public GetCinemaByQuery onClearAdapter(Action actionClearAdapter){
-        this.actionClearAdapter = actionClearAdapter;
-        return this;
-    }
-
     public void onNextQuery(String query) {
         processor.onNext(query);
     }
 
-    public void removeAction(){
-        this.actionOnNext = null;
+    public void setActions(Actions actions){
+        this.actions = actions;
+    }
+
+    public void removeActions() {
+        actions.removeActions();
     }
 
     @Override
@@ -61,14 +49,14 @@ public class GetCinemaByQuery extends UseCase<List<Cinema>> {
                     if (!isDataLoaded){
                         return Flowable.just(s)
                                 .doOnNext(s1 -> {
-                                    if (s1.isEmpty()) actionOnDataLoaded.run();
-                                    else actionOnNext.run();
+                                    if (s1.isEmpty()) actions.onDataLoaded();
+                                    else actions.onNext();
                                 });
                     } else {
-                        actionOnDataLoaded.run();
+                        actions.onDataLoaded();
                         return Flowable.just(s)
                                 .doOnComplete(() -> {
-                                    actionClearAdapter.run();
+                                    actions.onClearAdapter();
                                     isDataLoaded = false;
                                 });
                     }

@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.presentation.smallcinemalist;
 
+import com.ru.devit.mediateka.domain.Actions;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaByQuery;
 import com.ru.devit.mediateka.domain.UseCaseSubscriber;
 import com.ru.devit.mediateka.models.model.Cinema;
@@ -26,17 +27,17 @@ public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.V
     public void initialize() {
         getView().showLoading();
         getCinemaByQuery.subscribe(smallCinemaSubscriber);
-        getCinemaByQuery
-                .onNext(() -> getView().showLoading())
-                .onDataLoaded(() -> getView().hideLoading())
-                .onClearAdapter(() -> getView().clearAdapter());
-
+        getCinemaByQuery.setActions(new Actions(
+                () -> getView().showLoading() ,
+                () -> getView().hideLoading() ,
+                () -> getView().clearAdapter()
+        ));
         getView().hideLoading();
     }
 
     @Override
     public void onDestroy() {
-        getCinemaByQuery.removeAction();
+        getCinemaByQuery.removeActions();
         getCinemaByQuery.dispose();
         setView(null);
     }
