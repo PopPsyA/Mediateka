@@ -26,18 +26,6 @@
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true">
 
-                <View
-                    android:id="@+id/stub"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-
                 <ImageView
                     android:id="@+id/actor_detail_background"
                     android:layout_width="match_parent"
@@ -46,6 +34,13 @@
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"/>
 
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="160dp"/>
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/actor_detail_avatar"
                     android:layout_width="140dp"
@@ -53,18 +48,18 @@
                     android:layout_gravity="start|bottom"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:transitionName="@string/transition_actor_avatar"
                     app:layout_collapseMode="none"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/stub"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
                     tools:targetApi="lollipop" />
 
                 <TextView
                     android:id="@+id/actor_detail_name"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
-                    android:layout_gravity="bottom|center"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
@@ -77,7 +72,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/actor_detail_avatar"
                     app:layout_constraintTop_toBottomOf="@+id/actor_detail_background"
-                    tools:text="Margo Robie" />
+                    tools:text="Margot Robbie" />
 
                 <ProgressBar
                     android:id="@+id/pb_background_actor_poster"
