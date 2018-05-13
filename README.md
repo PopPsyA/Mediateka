@@ -4,10 +4,24 @@ The app demonstrates principles of Clean Architecture in Android.
 
 Based on data from https://www.themoviedb.org/
 
-Simple illustrate demo app https://www.youtube.com/watch?v=mIP0qA8URfE
+## Simple illustrate demo app https://www.youtube.com/watch?v=mIP0qA8URfE
 
-## Features
-1. Add the notification , when comes news cinemas.
+## Current functuonality : 
+* First tab (ActualCinemas) : filter cinemas and show actual cinemas 
+* Second tab (TopRatedCinemas) : filter cinemas and show top rated cinemas
+* Third tab (UpComingCinemas) : filter cinemas and show future cinemas
+* Each [CinemaDetail's](https://github.com/Devit951/Mediateka/blob/master/app/src/main/java/com/ru/devit/mediateka/presentation/cinemadetail/CinemaDetailsActivity.java) screen contain cinema info and all cast's to this cinema
+* Each [ActorDetail's](https://github.com/Devit951/Mediateka/blob/master/app/src/main/java/com/ru/devit/mediateka/presentation/actordetail/ActorDetailActivity.java) screen contain actor info and all cinema's to this actor
+* Mediateka perfectly work without internet connection(Need first time to download data)
+* [Realized search functionality (cinemas , actors)](https://github.com/Devit951/Mediateka/blob/master/app/src/main/java/com/ru/devit/mediateka/presentation/search/SearchActivity.java)
+* Realzied database with many-to-many relationship's
+* Realized Transtition animation's between screen's
+* All screen's have progress bar for responsiveness
+* Support android version from 4.4
+* Presintation layer work with [MVP](https://android.jlelse.eu/android-mvp-for-beginners-25889c500443) pattern
+
+## Coming soon 
+1. Add the service which handle new cinams and create notification to show user
 2. Create watch list.
 3. The CinemaDetail's screen gives a possibility to set schedule time.
 4. Add PopularActors screen.
