@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.presentation.actorlist;
 
+import com.ru.devit.mediateka.domain.Actions;
 import com.ru.devit.mediateka.domain.actorusecases.GetActorsByQuery;
 import com.ru.devit.mediateka.domain.UseCaseSubscriber;
 import com.ru.devit.mediateka.models.model.Actor;
@@ -21,6 +22,12 @@ public class ActorsPresenter extends BasePresenter<ActorsPresenter.View> {
     public void initialize() {
         getView().showLoading();
         getActorsByQuery.subscribe(new ActorsSubscriber());
+        getActorsByQuery.setActions(new Actions(
+                () -> getView().showLoading() ,
+                () -> getView().hideLoading() ,
+                () -> getView().clearAdapter()
+        ));
+        getView().hideLoading();
     }
 
     public void setActors(List<Actor> actors){
@@ -32,16 +39,17 @@ public class ActorsPresenter extends BasePresenter<ActorsPresenter.View> {
         getActorsByQuery.setQuery(query);
     }
 
+    public void onActorClicked(int actorId , int viewHolderPosition){
+        getView().openActor(actorId , viewHolderPosition);
+    }
+
     private void showActors(List<Actor> actors){
         getView().showActors(actors);
         getView().hideLoading();
     }
 
-    public void onActorClicked(int actorId , int viewHolderPosition){
-        getView().openActor(actorId , viewHolderPosition);
-    }
-
     public void onDestroy() {
+        getActorsByQuery.removeActions();
         getActorsByQuery.dispose();
         setView(null);
     }
@@ -50,6 +58,7 @@ public class ActorsPresenter extends BasePresenter<ActorsPresenter.View> {
         @Override
         public void onNext(List<Actor> actors) {
             getView().showActors(actors);
+            getView().hideLoading();
         }
 
         @Override
@@ -67,5 +76,6 @@ public class ActorsPresenter extends BasePresenter<ActorsPresenter.View> {
     public interface View extends BaseView{
         void openActor(int actorId , int viewHolderPosition);
         void showActors(List<Actor> actors);
+        void clearAdapter();
     }
 }

@@ -39,13 +39,13 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorViewHolder> {
         return actors.size();
     }
 
-    public void addAll(List<Actor> actors){
-        clear();
-        this.actors.addAll(actors);
+    public void addAll(List<Actor> actorList){
+        actors.clear();
+        actors.addAll(actorList);
         notifyDataSetChanged();
     }
 
-    private void clear(){
+    public void clear(){
         actors.clear();
     }
 }

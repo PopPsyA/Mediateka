@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
@@ -31,6 +32,7 @@ public class ActorsFragment extends Fragment implements ActorsPresenter.View {
     private static final String ACTORS = "cinema_actors";
 
     private RecyclerView mRecyclerView;
+    private ProgressBar mProgressBar;
     private ActorListAdapter adapter;
 
     @Inject ActorsPresenter presenter;
@@ -70,12 +72,17 @@ public class ActorsFragment extends Fragment implements ActorsPresenter.View {
 
     @Override
     public void showLoading() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
+        mProgressBar.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void clearAdapter(){
+        adapter.clear();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -116,6 +123,7 @@ public class ActorsFragment extends Fragment implements ActorsPresenter.View {
 
     private void initViews(View view) {
         mRecyclerView = view.findViewById(R.id.rv_actors);
+        mProgressBar = view.findViewById(R.id.pb_actors_list);
     }
 
     private void initPresenter() {
