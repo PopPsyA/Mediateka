@@ -31,12 +31,12 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="Star Wars:The Last Jedai"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/tv_cinema_rating"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Star Wars:The Last Jedai"/>
 
     <TextView
         android:id="@+id/tv_cinema_rating"
@@ -46,12 +46,12 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rating_background_green"
         android:gravity="center"
-        android:text="7.9"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="7.9"/>
 
     <ImageView
         android:id="@+id/calendar"
@@ -61,7 +61,7 @@
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_cinema_title"
-        app:srcCompat="@drawable/ic_date" />
+        app:srcCompat="@drawable/ic_date"/>
 
     <TextView
         android:id="@+id/tv_release_date"
@@ -69,10 +69,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:text="2017"
         android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@+id/calendar"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cinema_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cinema_title"
+        tools:text="2017"/>
 
     <TextView
         android:id="@+id/tv_genre"
@@ -84,10 +84,10 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:visibility="gone"
-        android:text="fantastic , adventure , thriller , animeee"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_release_date" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
+        tools:text="fantastic , adventure , thriller , animation"/>
 
     <TextView
         android:id="@+id/tv_cinema_small_description"
@@ -100,13 +100,13 @@
         android:ellipsize="end"
         android:maxLines="8"
         android:fontFamily="sans-serif-condensed"
-        android:text="Баланс Силы снова нарушен, и события развиваются с невероятной скоростью! Рей, Финну, вездесущему дроиду BB-8 и другим героям предстоит опасная схватка с могущественным Первым Орденом.Баланс Силы снова нарушен, и события развиваются с невероятной скоростью! Рей, Финну, вездесущему дроиду BB-8 и другим героям предстоит опасная схватка с могущественным Первым Орденом."
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_cinema_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_release_date" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
+        tools:text="Баланс Силы снова нарушен, и события развиваются с невероятной скоростью! Рей, Финну, вездесущему дроиду BB-8 и другим героям предстоит опасная схватка с могущественным Первым Орденом.Баланс Силы снова нарушен, и события развиваются с невероятной скоростью! Рей, Финну, вездесущему дроиду BB-8 и другим героям предстоит опасная схватка с могущественным Первым Орденом."/>
 
     <Button
         android:id="@+id/btn_cinema_details"

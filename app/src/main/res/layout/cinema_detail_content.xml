@@ -20,6 +20,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/colorBlack"
         android:textSize="14sp"
+        tools:text="Приматолог Дэвис Окойни предпочитает держаться подальше от людей и держит контакт с..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            tools:text="2 November , 2017"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_release_date"
             app:layout_constraintStart_toEndOf="@+id/text_release_date" />
 
@@ -59,6 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            tools:text="David Peyton"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_directed_by"
             app:layout_constraintStart_toEndOf="@+id/text_directed_by" />
 
@@ -78,6 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            tools:text="1,000,000$"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_budget"
             app:layout_constraintStart_toEndOf="@+id/text_budget" />
 
@@ -97,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            tools:text="5,000,000$"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_revenue"
             app:layout_constraintStart_toEndOf="@+id/text_revenue" />
 

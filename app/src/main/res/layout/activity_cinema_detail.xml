@@ -74,6 +74,21 @@
                     app:layout_constraintStart_toEndOf="@+id/iv_cinema_small_poster"
                     app:layout_constraintTop_toBottomOf="@+id/iv_cinema_detail_background_poster" />
 
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.396"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.501" />
+
             </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.Toolbar
@@ -94,7 +109,7 @@
             app:layout_anchorGravity="bottom"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
-            app:tabMode="fixed"/>
+            app:tabMode="fixed" />
 
     </android.support.design.widget.AppBarLayout>
 

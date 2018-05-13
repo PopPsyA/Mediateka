@@ -27,7 +27,7 @@
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorBlack"
-            android:typeface="normal" />
+            tools:text="Some looooooooooong actor biography :)"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +45,8 @@
                 android:id="@+id/tv_actor_detail_date_of_born"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                tools:text="24 november , 1992"/>
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +64,8 @@
                 android:id="@+id/tv_actor_detail_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                tools:text="36"/>
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +83,8 @@
                 android:id="@+id/tv_actor_detail_birthplace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                tools:text="Hayward , California , USA"/>
         </LinearLayout>
     </LinearLayout>
 

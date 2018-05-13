@@ -38,6 +38,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cinema_release_date"
+        tools:textColor="@color/colorBlack"
         tools:text="Rampage" />
 
     <TextView
@@ -49,7 +50,9 @@
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cinema_title" />
+        app:layout_constraintTop_toBottomOf="@+id/cinema_title"
+        tools:textColor="@color/colorGray"
+        tools:text="horror , adventure , fantasy"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

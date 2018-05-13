@@ -127,7 +127,7 @@
             app:layout_anchorGravity="bottom"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
-            app:tabMode="fixed"></android.support.design.widget.TabLayout>
+            app:tabMode="fixed"/>
 
     </android.support.design.widget.AppBarLayout>
 
