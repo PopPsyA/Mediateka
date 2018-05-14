@@ -2,10 +2,11 @@ package com.ru.devit.mediateka;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 
+import com.ru.devit.mediateka.data.ConnectionReceiver;
 import com.ru.devit.mediateka.data.datasource.db.AppDatabase;
 import com.ru.devit.mediateka.di.ComponentsManager;
+import com.ru.devit.mediateka.presentation.main.SyncConnectionListener;
 
 
 public class MediatekaApp extends Application {
@@ -23,6 +24,10 @@ public class MediatekaApp extends Application {
 
     public static ComponentsManager getComponentsManager(){
         return componentsManager;
+    }
+
+    public void setConnectionListener(SyncConnectionListener connectionListener){
+        ConnectionReceiver.connectionListener = connectionListener;
     }
 
     public AppDatabase getDatabaseInstance(){

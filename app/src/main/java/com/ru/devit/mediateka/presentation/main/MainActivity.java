@@ -1,22 +1,32 @@
 package com.ru.devit.mediateka.presentation.main;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
+import com.ru.devit.mediateka.data.ConnectionReceiver;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
@@ -24,7 +34,9 @@ import com.ru.devit.mediateka.presentation.cinemalist.CinemaListFragment;
 import com.ru.devit.mediateka.presentation.popularactors.PopularActors;
 import com.ru.devit.mediateka.presentation.search.SearchActivity;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+import javax.inject.Inject;
+
+public class MainActivity extends BaseActivity implements MainPresenter.View, NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
@@ -32,11 +44,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
     private ActionBarDrawerToggle mToggle;
+    private Snackbar mSnackbar;
+    private ConnectionReceiver mConnectionReceiver;
 
     private static final int MAX_TABS = 3;
     public static final int ACTUAL_CINEMAS_TAB_POSITION = 0;
     public static final int TOP_RATED_CINEMAS_TAB_POSITION = 1;
     public static final int UP_COMING_CINEMAS_TAB_POSITION = 2;
+
+    @Inject MainPresenter presenter;
 
     @Override
     protected int getLayoutId() {
@@ -45,16 +61,46 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onStart() {
-        super.onStart();
         mNavigationView.setNavigationItemSelectedListener(this);
+        super.onStart();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         mNavigationView.setNavigationItemSelectedListener(null);
+        super.onStop();
     }
 
+    @Override
+    public void startToListenInternetConnection() {
+        registerReceiver(mConnectionReceiver , new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        ((MediatekaApp)getApplicationContext()).setConnectionListener(presenter);
+    }
+
+    @Override
+    public void showNetworkError(){
+        mSnackbar = Snackbar.make(mViewPager, getString(R.string.message_network_error), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.message_retry) ,
+                        v -> presenter.onRetryButtonClicked(mConnectionReceiver.isInternetConnected(MainActivity.this)));
+        View view = mSnackbar.getView();
+        TextView textView = view.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        mSnackbar.show();
+    }
+
+    @Override
+    public void hideNetworkError(){
+        mSnackbar.dismiss();
+    }
+
+    @Override
+    protected void initDagger() {
+        MediatekaApp.getComponentsManager()
+                .getAppComponent()
+                .inject(this);
+    }
+
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void initViews() {
         mToolbar = getToolbar();
@@ -72,11 +118,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mTabLayout = findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
         mDrawer.addDrawerListener(mToggle);
+        mConnectionReceiver = new ConnectionReceiver();
     }
 
     @Override
     protected void initPresenter() {
-
+        presenter.setView(this);
+        presenter.initialize();
     }
 
     @Override
@@ -90,12 +138,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mToggle.syncState();
     }
 
-    private void setUpViewPager(ViewPager viewPager){
-        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(CinemaListFragment.newInstance(ACTUAL_CINEMAS_TAB_POSITION) , getString(R.string.actual_cinemas));
-        adapter.addFragment(CinemaListFragment.newInstance(TOP_RATED_CINEMAS_TAB_POSITION) , getString(R.string.by_rating));
-        adapter.addFragment(CinemaListFragment.newInstance(UP_COMING_CINEMAS_TAB_POSITION) , getString(R.string.coming_soon));
-        viewPager.setAdapter(adapter);
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
     @Override
@@ -149,6 +199,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    protected void onDestroy() {
+        unregisterReceiver(mConnectionReceiver);
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         if (mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
@@ -156,4 +212,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             super.onBackPressed();
         }
     }
+
+    private void setUpViewPager(ViewPager viewPager){
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(CinemaListFragment.newInstance(ACTUAL_CINEMAS_TAB_POSITION) , getString(R.string.actual_cinemas));
+        adapter.addFragment(CinemaListFragment.newInstance(TOP_RATED_CINEMAS_TAB_POSITION) , getString(R.string.by_rating));
+        adapter.addFragment(CinemaListFragment.newInstance(UP_COMING_CINEMAS_TAB_POSITION) , getString(R.string.coming_soon));
+        viewPager.setAdapter(adapter);
+    }
+
 }
