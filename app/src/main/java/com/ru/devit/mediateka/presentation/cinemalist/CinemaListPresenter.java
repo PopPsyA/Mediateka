@@ -7,6 +7,7 @@ import com.ru.devit.mediateka.domain.UseCaseSubscriber;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
+import com.ru.devit.mediateka.presentation.main.SyncConnectionListener;
 
 import java.util.List;
 
@@ -24,7 +25,9 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     private GetTopRatedCinemas getTopRatedCinemas;
     private GetUpComingCinemas getUpComingCinemas;
 
-    public CinemaListPresenter(GetCinemas getCinemas, GetTopRatedCinemas getTopRatedCinemas, GetUpComingCinemas getUpComingCinemas) {
+    public CinemaListPresenter(GetCinemas getCinemas ,
+                               GetTopRatedCinemas getTopRatedCinemas ,
+                               GetUpComingCinemas getUpComingCinemas) {
         this.getCinemas = getCinemas;
         this.getTopRatedCinemas = getTopRatedCinemas;
         this.getUpComingCinemas = getUpComingCinemas;
@@ -72,7 +75,7 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     }
 
     public void onLoadNextPage(){
-        currentPage = currentPage + 1;
+        currentPage += 1;
         setCurrentPage(currentPage);
         loadCinemas();
     }
@@ -92,7 +95,6 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
 
     public interface View extends BaseView{
         void showCinemas(List<Cinema> cinemaEntities);
-        void showNetworkError();
         void openCinemaDetails(int cinemaId , int viewHolderPosition);
         void onPopularTabSelected();
         void onTopRatedTabSelected();
@@ -102,10 +104,6 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     private class CinemaListSubscriber extends UseCaseSubscriber<List<Cinema>> {
         @Override
         public void onNext(List<Cinema> cinemas) {
-//            if (cinemas.size() == 0){
-//                getView().showNetworkError("Чтобы синхронизировать данные , подкюлчитесь к интернету");
-//                return;
-//            }
             if (cinemas.size() == 0){
                 return;
             }
@@ -117,7 +115,6 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
         public void onError(Throwable e) {
             e.printStackTrace();
             getView().hideLoading();
-            getView().showNetworkError();
         }
 
         @Override
