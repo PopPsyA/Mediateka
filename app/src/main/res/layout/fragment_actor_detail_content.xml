@@ -19,7 +19,7 @@
             android:text="@string/biography"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-        <TextView
+        <com.ru.devit.mediateka.presentation.widget.CutableTextView
             android:id="@+id/tv_actor_detail_biography"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
