@@ -7,20 +7,16 @@
     android:paddingBottom="10dp"
     tools:context=".presentation.cinemadetail.CinemaDetailsActivity">
 
-    <TextView
+    <com.ru.devit.mediateka.presentation.widget.CutableTextView
         android:id="@+id/tv_cinema_detail_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground"
         android:fontFamily="sans-serif-condensed"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/colorBlack"
         android:textSize="14sp"
-        android:ellipsize="end"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
