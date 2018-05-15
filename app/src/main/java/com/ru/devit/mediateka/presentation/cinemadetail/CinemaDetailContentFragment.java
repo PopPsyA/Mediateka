@@ -62,6 +62,12 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
     }
 
     @Override
+    public void onStart() {
+        mDescriptionTextView.setOnClickListener(v -> presenter.onDescriptionClicked());
+        super.onStart();
+    }
+
+    @Override
     public void showCinemaContent(Cinema cinema) {
         mDescriptionTextView.setText(cinema.getDescription().isEmpty() ?
                 getString(R.string.message_cinema_desc_not_entered) : cinema.getDescription());
@@ -69,6 +75,16 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
         mDirectedByTextView.setText(cinema.getDirectorName());
         mBudgetTextView.setText(getString(R.string.dollar_char , NumberFormat.getInstance(Locale.US).format(cinema.getBudget())));
         mRevenueTextView.setText(getString(R.string.dollar_char , NumberFormat.getInstance(Locale.US).format(cinema.getCinemaRevenue())));
+    }
+
+    @Override
+    public void showShortDescription(int lines){
+        mDescriptionTextView.setMaxLines(lines);
+    }
+
+    @Override
+    public void showFullDescription(int lines){
+        mDescriptionTextView.setMaxLines(lines);
     }
 
     @Override

@@ -11,19 +11,23 @@
         android:id="@+id/tv_cinema_detail_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:background="?android:selectableItemBackground"
         android:fontFamily="sans-serif-condensed"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/colorBlack"
         android:textSize="14sp"
-        tools:text="Приматолог Дэвис Окойни предпочитает держаться подальше от людей и держит контакт с..."
+        android:ellipsize="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Приматолог Дэвис Окойни предпочитает держаться подальше от людей и держит контакт с..."/>
 
         <TextView
             android:id="@+id/text_release_date"
@@ -41,9 +45,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            tools:text="2 November , 2017"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_release_date"
-            app:layout_constraintStart_toEndOf="@+id/text_release_date" />
+            app:layout_constraintStart_toEndOf="@+id/text_release_date"
+            tools:text="2 November , 2017"/>
 
         <TextView
             android:id="@+id/text_directed_by"
@@ -61,9 +65,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            tools:text="David Peyton"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_directed_by"
-            app:layout_constraintStart_toEndOf="@+id/text_directed_by" />
+            app:layout_constraintStart_toEndOf="@+id/text_directed_by"
+            tools:text="David Peyton"/>
 
         <TextView
             android:id="@+id/text_budget"
@@ -81,9 +85,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            tools:text="1,000,000$"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_budget"
-            app:layout_constraintStart_toEndOf="@+id/text_budget" />
+            app:layout_constraintStart_toEndOf="@+id/text_budget"
+            tools:text="1,000,000$"/>
 
         <TextView
             android:id="@+id/text_revenue"
