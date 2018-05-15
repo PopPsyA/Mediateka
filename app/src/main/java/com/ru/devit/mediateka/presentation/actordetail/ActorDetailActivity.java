@@ -89,9 +89,6 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     @Override
     protected void initToolbar(){
         super.initToolbar();
-        if (isAboveLollipop()){
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

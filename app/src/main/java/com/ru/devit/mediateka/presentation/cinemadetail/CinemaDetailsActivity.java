@@ -120,9 +120,6 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     @Override
     protected void initToolbar(){
         super.initToolbar();
-        if (isAboveLollipop()){
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

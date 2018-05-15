@@ -18,6 +18,7 @@
 
     <style name="AppTheme.NoActionBar.ActorDetailTheme">
         <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 
