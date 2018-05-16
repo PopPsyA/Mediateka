@@ -37,7 +37,6 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     private RecyclerView mRecyclerViewCinemas;
     private LinearLayoutManager mLinearLayoutManager;
     private SwipeRefreshLayout mSwipeRefresherLayout;
-    private Snackbar mSnackBar;
     private CinemaListAdapter adapter;
 
     @Inject CinemaListPresenter presenter;
@@ -112,6 +111,11 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     @Override
     public void onUpComingTabSelected() {
         // Im thinking...
+    }
+
+    public void scrollToFirstPosition() {
+        int firstPosition = 0;
+        mRecyclerViewCinemas.smoothScrollToPosition(firstPosition);
     }
 
     private void initAdapter() {

@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -33,6 +34,7 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.cinemalist.CinemaListFragment;
 import com.ru.devit.mediateka.presentation.popularactors.PopularActors;
 import com.ru.devit.mediateka.presentation.search.SearchActivity;
+import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
 
 import javax.inject.Inject;
 
@@ -44,6 +46,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
     private ActionBarDrawerToggle mToggle;
+    private ViewPagerAdapter mViewPagerAdapter;
+    private FloatingActionButton mFloatingActionBarScrollUp;
     private Snackbar mSnackbar;
     private ConnectionReceiver mConnectionReceiver;
 
@@ -62,12 +66,14 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     @Override
     protected void onStart() {
         mNavigationView.setNavigationItemSelectedListener(this);
+        mFloatingActionBarScrollUp.setOnClickListener(v -> presenter.onFABScrollUpClicked());
         super.onStart();
     }
 
     @Override
     protected void onStop() {
         mNavigationView.setNavigationItemSelectedListener(null);
+        mFloatingActionBarScrollUp.setOnClickListener(null);
         super.onStop();
     }
 
@@ -86,6 +92,12 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         TextView textView = view.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
         mSnackbar.show();
+    }
+
+    @Override
+    public void scrollToFirstPosition(){
+        CinemaListFragment fragment = (CinemaListFragment) mViewPagerAdapter.getItem(mViewPager.getCurrentItem());
+        fragment.scrollToFirstPosition();
     }
 
     @Override
@@ -118,6 +130,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         mTabLayout = findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
         mDrawer.addDrawerListener(mToggle);
+        mFloatingActionBarScrollUp = findViewById(R.id.fab_up_list_to_start_position);
         mConnectionReceiver = new ConnectionReceiver();
     }
 
@@ -214,11 +227,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     }
 
     private void setUpViewPager(ViewPager viewPager){
-        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(CinemaListFragment.newInstance(ACTUAL_CINEMAS_TAB_POSITION) , getString(R.string.actual_cinemas));
-        adapter.addFragment(CinemaListFragment.newInstance(TOP_RATED_CINEMAS_TAB_POSITION) , getString(R.string.by_rating));
-        adapter.addFragment(CinemaListFragment.newInstance(UP_COMING_CINEMAS_TAB_POSITION) , getString(R.string.coming_soon));
-        viewPager.setAdapter(adapter);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(ACTUAL_CINEMAS_TAB_POSITION) , getString(R.string.actual_cinemas));
+        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(TOP_RATED_CINEMAS_TAB_POSITION) , getString(R.string.by_rating));
+        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(UP_COMING_CINEMAS_TAB_POSITION) , getString(R.string.coming_soon));
+        viewPager.setAdapter(mViewPagerAdapter);
     }
 
 }

@@ -7,13 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:context=".presentation.main.MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="com.ru.devit.mediateka.presentation.main.MainActivity">
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
@@ -48,6 +49,17 @@
                 app:layout_anchorGravity="bottom"/>
 
         </android.support.design.widget.AppBarLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_up_list_to_start_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:backgroundTint="@color/colorBlack"
+            app:srcCompat="@drawable/ic_arrow_up"
+            app:layout_anchor="@id/view_pager"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior="com.ru.devit.mediateka.presentation.widget.HideableFABBehaviour"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"

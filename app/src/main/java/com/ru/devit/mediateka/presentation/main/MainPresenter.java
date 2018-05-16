@@ -35,9 +35,14 @@ public class MainPresenter extends BasePresenter<MainPresenter.View> implements 
         }
     }
 
+    public void onFABScrollUpClicked() {
+        getView().scrollToFirstPosition();
+    }
+
     public interface View extends BaseView {
         void startToListenInternetConnection();
         void showNetworkError();
         void hideNetworkError();
+        void scrollToFirstPosition();
     }
 }
