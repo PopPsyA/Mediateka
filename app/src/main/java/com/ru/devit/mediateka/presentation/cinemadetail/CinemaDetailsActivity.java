@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.util.Log;
@@ -165,6 +166,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 .into(image, new Callback() {
                     @Override
                     public void onSuccess() {
+                        mSmallPosterImageView.setBackgroundColor(ContextCompat.getColor(CinemaDetailsActivity.this , android.R.color.transparent));
                         if (posterPosition == SMALL_POSTER_POSITION){
                             Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                             Palette.from(bitmap)

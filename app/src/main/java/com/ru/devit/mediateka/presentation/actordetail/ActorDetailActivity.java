@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.view.Menu;
@@ -104,6 +106,7 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         mProgressBarBackGround = findViewById(R.id.pb_background_actor_poster);
         mProgressBarActor = findViewById(R.id.pb_actor);
         mAppBar = findViewById(R.id.app_bar_actor);
+        mActorAvatar.setImageResource(R.color.colorPosterBackground);
     }
 
     @Override

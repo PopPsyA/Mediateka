@@ -19,4 +19,5 @@
     <color name="colorLightGreen">#ffa6c575</color>
     <color name="colorBlue">#FF1976D2</color>
     <color name="colorDarkBackground">#FF424242</color>
+    <color name="colorPosterBackground">#242425</color>
 </resources>
