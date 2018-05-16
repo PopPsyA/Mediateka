@@ -12,7 +12,7 @@ import com.ru.devit.mediateka.R;
 
 public class CutableTextView extends AppCompatTextView {
 
-    private static final int SHORT_TEXT_LINES = 5;
+    private static final int SHORT_TEXT_LINES = 4;
     private static final int FULL_TEXT_LINES = Integer.MAX_VALUE;
 
     private boolean clicked = false;
