@@ -3,16 +3,12 @@ package com.ru.devit.mediateka.presentation.cinemadetail;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,9 +43,6 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private TabLayout mTabLayout;
     private ProgressBar mProgressBarBackgroundImage;
     private AppBarLayout mAppBarLayout;
-
-    private final int BACKGROUND_POSTER_POSITION = 1;
-    private final int SMALL_POSTER_POSITION = 0;
 
     @Inject CinemaDetailPresenter presenter;
 
@@ -88,8 +81,8 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     @Override
     public void showCinemaDetail(Cinema cinema) {
         AnimUtils.startRevealAnimation(mBackgroundPoster);
-        renderImage(cinema.getPosterPath() , mSmallPosterImageView , SMALL_POSTER_POSITION , Constants.IMG_PATH_W185);
-        renderImage(cinema.getBackdropPath() , mBackgroundPoster , BACKGROUND_POSTER_POSITION , Constants.IMG_PATH_W500);
+        renderImage(cinema.getPosterPath() , mSmallPosterImageView , true , Constants.IMG_PATH_W185);
+        renderImage(cinema.getBackdropPath() , mBackgroundPoster , false , Constants.IMG_PATH_W1280);
         mCinemaHeaderView.render(cinema);
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());
         setUpViewPager(mViewPager , mTabLayout , cinema);
@@ -158,35 +151,31 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void renderImage(String url , ImageView image , int posterPosition , String imgPath){
+    private void renderImage(String url , ImageView image , boolean itSmallPoster , String imgPath){
         Picasso.with(CinemaDetailsActivity.this)
                 .load(imgPath + url)
-                .placeholder(posterPosition == SMALL_POSTER_POSITION ? R.color.colorDarkBackground : R.color.colorWhite)
+                .placeholder(itSmallPoster ? R.color.colorPosterBackground : R.color.colorWhite)
                 .error(R.drawable.ic_cinema)
                 .into(image, new Callback() {
                     @Override
                     public void onSuccess() {
                         mSmallPosterImageView.setBackgroundColor(ContextCompat.getColor(CinemaDetailsActivity.this , android.R.color.transparent));
-                        if (posterPosition == SMALL_POSTER_POSITION){
-                            Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                        if (itSmallPoster){
+                            final Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                             Palette.from(bitmap)
                                     .generate(palette -> {
+                                        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
                                         Palette.Swatch mutedSwatch = palette.getMutedSwatch();
                                         if (mutedSwatch != null) {
                                             mTabLayout.setBackgroundColor(mutedSwatch.getRgb());
                                         }
-                                    });
-                        } else if (posterPosition == BACKGROUND_POSTER_POSITION){
-                            mProgressBarBackgroundImage.setVisibility(View.GONE);
-                            Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                            Palette.from(bitmap)
-                                    .generate(palette -> {
-                                        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
                                         if (darkMutedSwatch != null){
                                             getCollapsingToolbarLayout().setContentScrimColor(darkMutedSwatch.getRgb());
                                             getCollapsingToolbarLayout().setBackgroundColor(darkMutedSwatch.getRgb());
                                         }
                                     });
+                        } else {
+                            mProgressBarBackgroundImage.setVisibility(View.GONE);
                         }
                     }
 

@@ -27,12 +27,17 @@
                 android:fitsSystemWindows="true">
 
                 <ImageView
-                    android:id="@+id/actor_detail_background"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:background="@color/colorDarkBackground"
+                    android:id="@+id/iv_actor_detail_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"/>
+                    android:background="@color/colorDarkBackground"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="w,5:8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline"
@@ -46,14 +51,12 @@
                     android:layout_width="140dp"
                     android:layout_height="120dp"
                     android:layout_gravity="start|bottom"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:transitionName="@string/transition_actor_avatar"
                     app:layout_collapseMode="none"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/stub"
                     tools:targetApi="lollipop" />
 
                 <TextView
@@ -71,7 +74,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/actor_detail_avatar"
-                    app:layout_constraintTop_toBottomOf="@+id/actor_detail_background"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_actor_detail_background"
                     tools:text="Margot Robbie" />
 
                 <ProgressBar
@@ -83,10 +86,10 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/actor_detail_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_actor_detail_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/actor_detail_background" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_actor_detail_background" />
 
                 <ProgressBar
                     android:id="@+id/pb_actor"
@@ -100,7 +103,21 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/actor_detail_background" />
+                    app:layout_constraintTop_toBottomOf="@+id/iv_actor_detail_background" />
+
+
+                <View
+                    android:id="@+id/stub"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_actor_detail_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.88" />
 
             </android.support.constraint.ConstraintLayout>
 

@@ -28,11 +28,12 @@
 
                 <ImageView
                     android:id="@+id/iv_cinema_detail_background_poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/cinema_background_poster_width"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:background="@color/colorDarkBackground"
                     android:fitsSystemWindows="true"
                     android:scaleType="fitXY"
+                    app:layout_constraintDimensionRatio="w,5:8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -42,12 +43,11 @@
                     android:layout_width="@dimen/cinema_poster_width"
                     android:layout_height="@dimen/cinema_poster_height"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:background="@color/colorPosterBackground"
                     android:src="@color/colorPosterBackground"
                     android:transitionName="@string/transition_cinema_poster_image"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/stub"
                     tools:targetApi="lollipop" />
 
                 <com.ru.devit.mediateka.presentation.widget.CinemaHeaderView
@@ -64,13 +64,18 @@
                     app:layout_constraintStart_toEndOf="@+id/iv_cinema_small_poster"
                     app:layout_constraintTop_toBottomOf="@+id/iv_cinema_detail_background_poster" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="160dp"
-                    />
+                <View
+                    android:id="@+id/stub"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_cinema_detail_background_poster"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.88" />
 
             </android.support.constraint.ConstraintLayout>
 
