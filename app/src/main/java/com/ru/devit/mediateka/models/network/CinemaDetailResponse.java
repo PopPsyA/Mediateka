@@ -1,18 +1,12 @@
 package com.ru.devit.mediateka.models.network;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class CinemaDetailResponse {
     @SerializedName("adult") private boolean adult;
     @SerializedName("backdrop_path") private String backdropPath;
     @SerializedName("budget") private int budget;
-    @SerializedName("homepage") private String homepage;
     @SerializedName("id") public int id;
-    @SerializedName("imdb_id") private String imdbId;
-    @SerializedName("original_language") private String originalLanguage;
     @SerializedName("original_title") private String originalTitle;
     @SerializedName("overview") private String overview;
     @SerializedName("popularity") private float popularity;
@@ -21,13 +15,12 @@ public class CinemaDetailResponse {
     @SerializedName("revenue") private int revenue;
     @SerializedName("runtime") private int runtime;
     @SerializedName("status") private String status;
-    @SerializedName("tagline") private String tagline;
     @SerializedName("title") public String title;
-    @SerializedName("video") private boolean video;
     @SerializedName("vote_average") private float voteAverage;
     @SerializedName("vote_count") private int voteCount;
     @SerializedName("genres") private Genres[] genres;
     @SerializedName("credits") private Credits credits;
+    private ImagesResponse imagesResponse;
 
     public boolean isAdult() {
         return adult;
@@ -41,20 +34,8 @@ public class CinemaDetailResponse {
         return budget;
     }
 
-    public String getHomepage() {
-        return homepage;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
     }
 
     public String getOriginalTitle() {
@@ -89,16 +70,8 @@ public class CinemaDetailResponse {
         return status;
     }
 
-    public String getTagline() {
-        return tagline;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public boolean isVideo() {
-        return video;
     }
 
     public float getVoteAverage() {
@@ -115,6 +88,14 @@ public class CinemaDetailResponse {
 
     public Credits getCredits(){
         return credits;
+    }
+
+    public ImagesResponse getImagesResponse() {
+        return imagesResponse;
+    }
+
+    public void setImages(ImagesResponse imagesResponse) {
+        this.imagesResponse = imagesResponse;
     }
 
     public class Genres {

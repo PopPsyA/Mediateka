@@ -46,6 +46,11 @@
             android:name=".presentation.popularactors.PopularActors"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+            android:name=".presentation.posterslider.PosterSliderActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

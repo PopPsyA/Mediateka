@@ -21,10 +21,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class RetrofitModule {
+class RetrofitModule {
 
-    private final String BASE_URL = "https://api.themoviedb.org/3/";
-    private final String LOCAL_LANGUAGE = Locale.getDefault().getLanguage();
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     @Provides
     @Singleton
@@ -47,9 +46,7 @@ public class RetrofitModule {
 
             HttpUrl url = originalUrl.newBuilder()
                     .addQueryParameter("api_key" , BuildConfig.THE_MOVIE_DB_API_KEY)
-                    .addQueryParameter("language" , LOCAL_LANGUAGE)
                     .build();
-
             Request.Builder request = original.newBuilder()
                     .url(url);
 
