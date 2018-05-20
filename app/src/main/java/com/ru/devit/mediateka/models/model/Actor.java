@@ -22,7 +22,7 @@ public class Actor implements Parcelable {
     private String age;
     private int order;
     private List<Cinema> cinemas;
-
+    private List<String> postersUrl;
 
     public Actor(){}
 
@@ -187,5 +187,13 @@ public class Actor implements Parcelable {
 
     public List<Cinema> getCinemas() {
         return cinemas;
+    }
+
+    public List<String> getPostersUrl() {
+        return postersUrl;
+    }
+
+    public void setPostersUrl(List<String> postersUrl) {
+        this.postersUrl = postersUrl;
     }
 }

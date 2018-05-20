@@ -39,6 +39,8 @@ public interface CinemaApiService {
     Flowable<ActorResponse> searchActors(@Query("language") String lang , @Query("query") String query);
 
     @GET("movie/{movie_id}/images")
-    Single<ImagesResponse> getImagesForCinema(@Path("movie_id") int cinemaId , @Query("language") String lang);
+    Single<ImagesResponse> getImagesForCinema(@Path("movie_id") int cinemaId);
 
+    @GET("person/{person_id}/images")
+    Single<ImagesResponse> getImagesForActor(@Path("person_id") int actorId);
 }

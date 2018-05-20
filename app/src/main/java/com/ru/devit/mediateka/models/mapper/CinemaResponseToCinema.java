@@ -94,7 +94,7 @@ public class CinemaResponseToCinema{
 
     private void setPosters(CinemaDetailResponse response , Cinema cinema){
         final List<String> posterUrls = new ArrayList<>();
-        for (final Poster poster : response.getImagesResponse().getPosters()){
+        for (final Poster poster : response.getImagesResponse().getCinemaPosters()){
             posterUrls.add(poster.getPosterUrl());
         }
         cinema.setPosterUrls(posterUrls);

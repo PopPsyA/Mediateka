@@ -35,7 +35,7 @@ public class PosterSliderActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mViewPagerPosters = findViewById(R.id.vp_cinema_posters);
+        mViewPagerPosters = findViewById(R.id.vp_posters);
         List<String> posters = getIntent().getStringArrayListExtra(POSTERS);
         mAdapterPosters = new PosterSliderAdapter(getSupportFragmentManager() , posters);
         mViewPagerPosters.setAdapter(mAdapterPosters);

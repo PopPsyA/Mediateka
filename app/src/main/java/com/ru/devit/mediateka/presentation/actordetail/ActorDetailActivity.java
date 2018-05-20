@@ -22,11 +22,14 @@ import com.ru.devit.mediateka.di.actor.ActorDetailModule;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
+import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -70,8 +73,15 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         renderImage(actor.getProfilePath() , mActorAvatar , Constants.IMG_PATH_W185 , true);
         renderImage(actor.getProfileBackgroundPath() , mImageViewActorBackground , Constants.IMG_PATH_W1280, false);
         mTextViewActorName.setText(actor.getName());
+        mActorAvatar.setOnClickListener(v -> presenter.onAvatarClicked(actor.getPostersUrl()));
         addOffsetChangeListener(mAppBar , actor.getName());
         setUpViewPager(mViewPager , mTabLayout , actor);
+    }
+
+    @Override
+    public void showPosters(List<String> posterUrls){
+        Intent intent = PosterSliderActivity.makeIntent(this , posterUrls);
+        startActivity(intent);
     }
 
     @Override

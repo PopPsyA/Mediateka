@@ -8,11 +8,15 @@ import com.ru.devit.mediateka.models.mapper.ActorDetailEntityToActor;
 import com.ru.devit.mediateka.models.mapper.ActorDetailResponseToActor;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.models.network.ActorDetailResponse;
+import com.ru.devit.mediateka.models.network.ImagesResponse;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+import io.reactivex.functions.BiFunction;
 
 public class ActorRemoteRepository implements ActorRepository {
 
@@ -21,6 +25,7 @@ public class ActorRemoteRepository implements ActorRepository {
     private final ActorDetailEntityToActor dbMapper;
     private final ActorLocalRepository cache;
     private final CinemaActorJoinDao cinemaActorJoinDao;
+    private static final String LOCAL_LANGUAGE = Locale.getDefault().getLanguage();
 
     public ActorRemoteRepository(CinemaApiService apiService,
                                          ActorDetailResponseToActor networkMapper,
@@ -36,7 +41,7 @@ public class ActorRemoteRepository implements ActorRepository {
 
     @Override
     public Flowable<List<Actor>> searchActors(String query) {
-        return apiService.searchActors(query)
+        return apiService.searchActors(LOCAL_LANGUAGE , query)
                 .map(networkMapper::map)
                 .doAfterNext(actors -> cache.insertActors(dbMapper.map(actors)))
                 .onErrorResumeNext(throwable -> {
@@ -46,8 +51,12 @@ public class ActorRemoteRepository implements ActorRepository {
 
     @Override
     public Single<Actor> getActorById(final int actorId) {
-        return apiService.getActorById(actorId , "tagged_images,movie_credits")
-                .map(networkMapper::map)
+        return Single.zip(apiService.getActorById(actorId, LOCAL_LANGUAGE, "tagged_images,movie_credits"),
+                          apiService.getImagesForActor(actorId) ,
+                (response, imagesResponse) -> {
+                    response.setImagesResponse(imagesResponse);
+                    return networkMapper.map(response);
+                })
                 .doAfterSuccess(actor -> {
                     cache.updateActor(actorId ,
                             actor.getBiography() ,

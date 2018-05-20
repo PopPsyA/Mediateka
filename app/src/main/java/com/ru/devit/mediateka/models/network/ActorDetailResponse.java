@@ -19,6 +19,7 @@ public class ActorDetailResponse{
 	@SerializedName("homepage") private Object homepage;
 	@SerializedName("tagged_images") private TaggedImages taggedImages;
 	@SerializedName("movie_credits") private MovieCredits movieCredits;
+	private ImagesResponse imagesResponse;
 
 	public String getBirthday(){
 		return birthday;
@@ -78,6 +79,14 @@ public class ActorDetailResponse{
 
 	public MovieCredits getMovieCredits() {
 		return movieCredits;
+	}
+
+	public ImagesResponse getImagesResponse() {
+		return imagesResponse;
+	}
+
+	public void setImagesResponse(ImagesResponse imagesResponse) {
+		this.imagesResponse = imagesResponse;
 	}
 
 	public class TaggedImages {

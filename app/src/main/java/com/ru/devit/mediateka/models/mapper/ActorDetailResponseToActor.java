@@ -6,6 +6,7 @@ import com.ru.devit.mediateka.models.network.ActorDetailResponse;
 import com.ru.devit.mediateka.models.network.ActorNetwork;
 import com.ru.devit.mediateka.models.network.ActorResponse;
 import com.ru.devit.mediateka.models.network.CinemaNetwork;
+import com.ru.devit.mediateka.models.network.Poster;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class ActorDetailResponseToActor {
         checkAgeThenSet(response , actor);
         generateRandomBackgroundPoster(response , actor);
         setCinemas(response , actor);
+        setPosters(response , actor);
         return actor;
     }
 
@@ -82,5 +84,13 @@ public class ActorDetailResponseToActor {
             cinemas.add(cinema);
         }
         actor.setCinemas(cinemas);
+    }
+
+    private void setPosters(ActorDetailResponse response , Actor actor){
+        List<String> posterUrls = new ArrayList<>();
+        for (Poster poster : response.getImagesResponse().getActorPosters()){
+            posterUrls.add(poster.getPosterUrl());
+        }
+        actor.setPostersUrl(posterUrls);
     }
 }

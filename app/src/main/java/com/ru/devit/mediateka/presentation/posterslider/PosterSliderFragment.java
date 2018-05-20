@@ -31,7 +31,7 @@ public class PosterSliderFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_slider_poster, container , false);
-        mPosterImageView = view.findViewById(R.id.iv_cinema_poster_slider);
+        mPosterImageView = view.findViewById(R.id.iv_poster_slider);
         return view;
     }
 

@@ -68,7 +68,7 @@ public class CinemaRemoteRepository implements CinemaRepository {
     @Override
     public Single<Cinema> getCinemaById(final int cinemaId) {
         return Single.zip(apiService.getCinemaById(cinemaId, LOCAL_LANGUAGE , "credits"),
-                          apiService.getImagesForCinema(cinemaId, "") ,
+                          apiService.getImagesForCinema(cinemaId) ,
                 (cinemaDetailResponse, imagesResponse) -> {
                     cinemaDetailResponse.setImages(imagesResponse);
                     return mapper.map(cinemaDetailResponse);
