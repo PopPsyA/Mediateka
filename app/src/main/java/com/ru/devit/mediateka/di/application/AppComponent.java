@@ -6,6 +6,7 @@ import com.ru.devit.mediateka.di.actor.ActorModule;
 import com.ru.devit.mediateka.di.cinema.CinemaModule;
 import com.ru.devit.mediateka.presentation.actordetail.ActorDetailActivity;
 import com.ru.devit.mediateka.presentation.main.MainActivity;
+import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.search.SearchActivity;
 import com.ru.devit.mediateka.presentation.actordetail.ActorDetailContentFragment;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
@@ -21,6 +22,7 @@ public interface AppComponent {
 
     void inject(MainActivity mainActivity);
     void inject(SearchActivity searchActivity);
+    void inject(PosterSliderActivity posterSliderActivity);
 
     CinemaComponent plusCinemaComponent(CinemaModule cinemaModule);
     ActorComponent plusActorComponent(ActorModule actorModule);
