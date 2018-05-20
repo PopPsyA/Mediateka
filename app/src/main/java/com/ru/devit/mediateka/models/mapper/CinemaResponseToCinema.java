@@ -7,6 +7,7 @@ import com.ru.devit.mediateka.models.network.CinemaDetailResponse;
 import com.ru.devit.mediateka.models.network.CinemaNetwork;
 import com.ru.devit.mediateka.models.network.CinemaResponse;
 import com.ru.devit.mediateka.models.network.CrewNetwork;
+import com.ru.devit.mediateka.models.network.Poster;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class CinemaResponseToCinema{
         setGenres(response , cinema);
         setActors(response , cinema);
         setDirectorName(response , cinema);
+        setPosters(response , cinema);
         return cinema;
     }
 
@@ -88,5 +90,13 @@ public class CinemaResponseToCinema{
                 break;
             }
         }
+    }
+
+    private void setPosters(CinemaDetailResponse response , Cinema cinema){
+        final List<String> posterUrls = new ArrayList<>();
+        for (final Poster poster : response.getImagesResponse().getPosters()){
+            posterUrls.add(poster.getPosterUrl());
+        }
+        cinema.setPosterUrls(posterUrls);
     }
 }

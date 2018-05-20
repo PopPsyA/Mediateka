@@ -6,6 +6,8 @@ import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
 
+import java.util.List;
+
 public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.View> {
 
     private final GetCinemaById getCinemaById;
@@ -26,6 +28,11 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         this.cinemaId = cinemaId;
     }
 
+    void onSmallPosterClicked(List<String> posterUrls) {
+        getView().showListPosters(posterUrls);
+    }
+
+
     public void onDestroy(){
         getCinemaById.dispose();
         setView(null);
@@ -33,6 +40,7 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
 
     public interface View extends BaseView{
         void showCinemaDetail(Cinema cinemaDetail);
+        void showListPosters(List<String> postersUrl);
     }
 
     private final class CinemaDetailSubscriber extends UseCaseSubscriber<Cinema>{

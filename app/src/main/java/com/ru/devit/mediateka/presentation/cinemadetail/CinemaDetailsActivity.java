@@ -19,6 +19,7 @@ import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
@@ -28,6 +29,7 @@ import com.ru.devit.mediateka.utils.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -50,6 +52,12 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         Intent intent = new Intent(context , CinemaDetailsActivity.class);
         intent.putExtra(CINEMA_ID , cinemaId);
         return intent;
+    }
+
+    @Override
+    protected void onStop() {
+        mAppBarLayout.addOnOffsetChangedListener(null);
+        super.onStop();
     }
 
     @Override
@@ -79,13 +87,20 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     }
 
     @Override
-    public void showCinemaDetail(Cinema cinema) {
+    public void showCinemaDetail(final Cinema cinema) {
         AnimUtils.startRevealAnimation(mBackgroundPoster);
         renderImage(cinema.getPosterPath() , mSmallPosterImageView , true , Constants.IMG_PATH_W185);
         renderImage(cinema.getBackdropPath() , mBackgroundPoster , false , Constants.IMG_PATH_W1280);
         mCinemaHeaderView.render(cinema);
+        mSmallPosterImageView.setOnClickListener(v -> presenter.onSmallPosterClicked(cinema.getPosterUrls()));
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());
         setUpViewPager(mViewPager , mTabLayout , cinema);
+    }
+
+    @Override
+    public void showListPosters(List<String> posterUrls){
+        Intent intent = PosterSliderActivity.makeIntent(this , posterUrls);
+        startActivity(intent);
     }
 
     @Override
@@ -103,12 +118,6 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
             }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStop() {
-        mAppBarLayout.addOnOffsetChangedListener(null);
-        super.onStop();
     }
 
     @Override
