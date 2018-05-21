@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PosterSliderAdapter extends FragmentStatePagerAdapter {
@@ -13,6 +15,7 @@ public class PosterSliderAdapter extends FragmentStatePagerAdapter {
     PosterSliderAdapter(FragmentManager fm , List<String> posterUrls) {
         super(fm);
         this.posterUrls = posterUrls;
+        checkNotNull(posterUrls);
     }
 
     @Override
@@ -23,5 +26,11 @@ public class PosterSliderAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return posterUrls.size();
+    }
+
+    private void checkNotNull(List<String> urls){
+        if (urls == null){
+            posterUrls = Collections.emptyList();
+        }
     }
 }
