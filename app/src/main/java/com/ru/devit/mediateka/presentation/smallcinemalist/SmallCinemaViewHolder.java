@@ -33,19 +33,19 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
 
     void render(Cinema cinema , int viewHolderPosition) {
         onItemClicked(cinema.getId() , viewHolderPosition);
-        renderImage(cinema.getPosterUrl() , mImageViewCinemaPoster);
+        renderImage(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()));
         mTextViewCinemaDate.setText(FormatterUtils.getYearFromDate(cinema.getReleaseDate()));
         mTextViewTitle.setText(cinema.getTitle());
         mTextViewGenres.setText(cinema.getGenres());
         mTextViewCharacter.setText(TextUtils.isEmpty(cinema.getCharacter()) ? "" : getContext().getString(R.string.role , cinema.getCharacter()));
     }
 
-    void renderImage(String posterUrl , ImageView imageView){
+    void renderImage(String url){
         Picasso.with(getContext())
-                .load(UrlImagePathCreator.create185pPictureUrl(posterUrl))
+                .load(url)
                 .placeholder(R.color.colorDarkBackground)
                 .error(R.drawable.ic_cinema)
-                .into(imageView);
+                .into(mImageViewCinemaPoster);
     }
 
     private void onItemClicked(int cinemaId , int viewHolderPosition){

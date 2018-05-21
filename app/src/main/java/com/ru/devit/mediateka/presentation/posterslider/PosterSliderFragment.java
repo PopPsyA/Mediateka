@@ -41,12 +41,12 @@ public class PosterSliderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String imageUrl = getArguments().getString(POSTER_URL);
         renderImage(mPosterImageView ,
-                imageUrl);
+                UrlImagePathCreator.create780pPictureUrl(imageUrl));
     }
 
     private void renderImage(ImageView image , String imgUrl){
         Picasso.with(getContext())
-                .load(UrlImagePathCreator.create780pPictureUrl(imgUrl))
+                .load(imgUrl)
                 .into(image);
     }
 }

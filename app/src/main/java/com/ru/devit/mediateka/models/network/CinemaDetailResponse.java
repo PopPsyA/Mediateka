@@ -10,7 +10,7 @@ public class CinemaDetailResponse {
     @SerializedName("original_title") private String originalTitle;
     @SerializedName("overview") private String overview;
     @SerializedName("popularity") private float popularity;
-    @SerializedName("poster_path") private String posterPath;
+    @SerializedName("poster_path") private String posterUrl;
     @SerializedName("release_date") private String releaseDate;
     @SerializedName("revenue") private int revenue;
     @SerializedName("runtime") private int runtime;
@@ -50,8 +50,8 @@ public class CinemaDetailResponse {
         return popularity;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public String getPosterUrl() {
+        return posterUrl;
     }
 
     public String getReleaseDate() {

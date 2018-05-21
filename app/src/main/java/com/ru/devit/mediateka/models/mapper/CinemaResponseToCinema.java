@@ -46,9 +46,9 @@ public class CinemaResponseToCinema{
         cinema.setOriginalTitle(response.getOriginalTitle());
         cinema.setDescription(response.getOverview());
         cinema.setStatus(response.getStatus());
-        cinema.setPosterPath(response.getPosterPath());
+        cinema.setPosterUrl(response.getPosterUrl());
         cinema.setReleaseDate(response.getReleaseDate());
-        cinema.setBackdropPath(response.getBackdropPath());
+        cinema.setBackdropUrl(response.getBackdropPath());
         cinema.setPopularity(response.getPopularity());
         cinema.setVoteAverage(response.getVoteAverage());
         cinema.setCinemaRevenue(response.getRevenue());

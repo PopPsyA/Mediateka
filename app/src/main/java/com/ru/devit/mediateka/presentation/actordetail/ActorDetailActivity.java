@@ -70,8 +70,8 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     @Override
     public void showActorDetail(Actor actor) {
         AnimUtils.startRevealAnimation(mImageViewActorBackground);
-        renderImage(actor.getProfilePath() , mActorAvatar , true);
-        renderImage(actor.getProfileBackgroundPath() , mImageViewActorBackground , false);
+        renderImage(UrlImagePathCreator.create185pPictureUrl(actor.getProfilePath()) , mActorAvatar , true);
+        renderImage(UrlImagePathCreator.create1280pPictureUrl(actor.getProfileBackgroundPath()) , mImageViewActorBackground , false);
         mTextViewActorName.setText(actor.getName());
         mActorAvatar.setOnClickListener(v -> presenter.onAvatarClicked(actor.getPostersUrl()));
         addOffsetChangeListener(mAppBar , actor.getName());
@@ -165,7 +165,7 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
 
     private void renderImage(final String url , final ImageView image , boolean itAvatar){
         Picasso.with(ActorDetailActivity.this)
-                .load(itAvatar ? UrlImagePathCreator.create185pPictureUrl(url) : UrlImagePathCreator.create1280pPictureUrl(url))
+                .load(url)
                 .placeholder(itAvatar ? R.color.colorPosterBackground : R.color.colorWhite)
                 .error(R.drawable.ic_actor_default_avatar)
                 .into(image, new Callback() {

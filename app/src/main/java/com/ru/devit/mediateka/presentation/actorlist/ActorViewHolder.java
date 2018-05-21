@@ -32,7 +32,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     }
 
     void render(Actor actor , int viewHolderPosition){
-        renderAvatar(actor);
+        renderAvatar(UrlImagePathCreator.create185pPictureUrl(actor.getProfilePath()));
         onActorClicked(actor.getActorId() , viewHolderPosition);
         actorName.setText(actor.getName());
         if (actor.getCharacter() == null){
@@ -46,9 +46,9 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void renderAvatar(Actor actor){
+    private void renderAvatar(String url){
         Picasso.with(getContext())
-                .load(UrlImagePathCreator.create185pPictureUrl(actor.getProfilePath()))
+                .load(url)
                 .error(VectorDrawableCompat.create(getContext().getResources() , R.drawable.ic_actor_default_avatar , getContext().getTheme()))
                 .into(avatar);
     }

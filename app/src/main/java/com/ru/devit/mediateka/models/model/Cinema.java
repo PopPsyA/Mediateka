@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
-import java.util.Locale;
 
 public class Cinema implements Parcelable {
     private int cinemaId;
@@ -14,14 +13,13 @@ public class Cinema implements Parcelable {
     private int page;
     private int totalPages;
     private int totalResults;
-    private String backdropPath;
+    private String backdropUrl;
     private int budget;
     private String homepage;
     private String imdbId;
     private String originalLanguage;
     private String originalTitle;
     private float popularity;
-    private String posterPath;
     private String releaseDate;
     private int revenue;
     private int duration;
@@ -99,12 +97,12 @@ public class Cinema implements Parcelable {
         return result;
     }
 
-    public String getBackdropPath() {
-        return backdropPath;
+    public String getBackdropUrl() {
+        return backdropUrl;
     }
 
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
     }
 
     public int getBudget() {
@@ -145,14 +143,6 @@ public class Cinema implements Parcelable {
 
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
     }
 
     public int getCinemaRevenue() {

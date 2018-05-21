@@ -38,7 +38,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
     void render(Cinema cinema , int viewHolderPosition) {
         onMoreInfoButtonClicked(cinema.getId() , viewHolderPosition);
         onPosterClicked(cinema.getId() , viewHolderPosition);
-        renderPoster(cinema.getPosterUrl());
+        renderPoster(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()));
         render(cinema.getTitle() , cinema.getVoteAverage() ,
                     cinema.getReleaseDate() , cinema.getDescription() ,
                     cinema.getGenres());
@@ -54,7 +54,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
 
     private void renderPoster(String url){
         Picasso.with(getContext())
-                .load(UrlImagePathCreator.create185pPictureUrl(url))
+                .load(url)
                 .placeholder(R.color.colorDarkBackground)
                 .error(R.drawable.ic_cinema)
                 .into(posterImageView);
