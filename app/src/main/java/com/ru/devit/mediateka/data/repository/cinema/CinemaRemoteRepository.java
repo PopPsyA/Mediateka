@@ -25,9 +25,8 @@ public class CinemaRemoteRepository implements CinemaRepository {
     private CinemaMapper mapper;
     private final CinemaApiService apiService;
     private final CinemaActorJoinDao cinemaActorJoinDao;
-    private static final String LOCAL_LANGUAGE = Locale.getDefault().getLanguage();
 
-    private SingleTransformer<CinemaResponse , List<Cinema>> cacheCinemas = upstream ->
+    private final SingleTransformer<CinemaResponse , List<Cinema>> cacheCinemas = upstream ->
              upstream.map(mapper::map)
             .doAfterSuccess(cinemas -> {
                 cinemaCache.insertCinemas(mapper.map(cinemas));
@@ -46,29 +45,29 @@ public class CinemaRemoteRepository implements CinemaRepository {
 
     @Override
     public Single<List<Cinema>> getCinemas(final int pageIndex) {
-        return apiService.getCinemas(LOCAL_LANGUAGE , pageIndex)
+        return apiService.getCinemas(pageIndex)
                 .compose(cacheCinemas)
                 .onErrorResumeNext(throwable -> cinemaCache.getCinemas(pageIndex));
     }
 
     @Override
     public Single<List<Cinema>> getTopRatedCinemas(final int pageIndex) {
-        return apiService.getTopRatedCinemas(LOCAL_LANGUAGE , pageIndex)
+        return apiService.getTopRatedCinemas(pageIndex)
                 .compose(cacheCinemas)
                 .onErrorResumeNext(throwable -> cinemaCache.getTopRatedCinemas(pageIndex));
     }
 
     @Override
     public Single<List<Cinema>> getUpComingCinemas(final int pageIndex) {
-        return apiService.getUpComingCinemas(LOCAL_LANGUAGE , pageIndex)
+        return apiService.getUpComingCinemas(pageIndex)
                 .compose(cacheCinemas)
                 .onErrorResumeNext(throwable -> cinemaCache.getUpComingCinemas(pageIndex));
     }
 
     @Override
     public Single<Cinema> getCinemaById(final int cinemaId) {
-        return Single.zip(apiService.getCinemaById(cinemaId, LOCAL_LANGUAGE , "credits"),
-                          apiService.getImagesForCinema(cinemaId) ,
+        return Single.zip(apiService.getCinemaById(cinemaId , "credits"),
+                          apiService.getImagesForCinema(cinemaId , "en,null") , // null , because it written in documentation(null == all other language's)
                 (cinemaDetailResponse, imagesResponse) -> {
                     cinemaDetailResponse.setImages(imagesResponse);
                     return mapper.map(cinemaDetailResponse);
@@ -87,7 +86,7 @@ public class CinemaRemoteRepository implements CinemaRepository {
 
     @Override
     public Flowable<List<Cinema>> searchCinemas(String query) {
-        return apiService.searchCinemas(LOCAL_LANGUAGE , query)
+        return apiService.searchCinemas(query)
                 .map(mapper::map)
                 .doAfterNext(cinemas -> cinemaCache.insertCinemas(mapper.map(cinemas)))
                 .onErrorResumeNext(throwable -> {

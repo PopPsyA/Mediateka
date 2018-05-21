@@ -25,7 +25,6 @@ public class ActorRemoteRepository implements ActorRepository {
     private final ActorDetailEntityToActor dbMapper;
     private final ActorLocalRepository cache;
     private final CinemaActorJoinDao cinemaActorJoinDao;
-    private static final String LOCAL_LANGUAGE = Locale.getDefault().getLanguage();
 
     public ActorRemoteRepository(CinemaApiService apiService,
                                          ActorDetailResponseToActor networkMapper,
@@ -41,7 +40,7 @@ public class ActorRemoteRepository implements ActorRepository {
 
     @Override
     public Flowable<List<Actor>> searchActors(String query) {
-        return apiService.searchActors(LOCAL_LANGUAGE , query)
+        return apiService.searchActors(query)
                 .map(networkMapper::map)
                 .doAfterNext(actors -> cache.insertActors(dbMapper.map(actors)))
                 .onErrorResumeNext(throwable -> {
@@ -51,7 +50,7 @@ public class ActorRemoteRepository implements ActorRepository {
 
     @Override
     public Single<Actor> getActorById(final int actorId) {
-        return Single.zip(apiService.getActorById(actorId, LOCAL_LANGUAGE, "tagged_images,movie_credits"),
+        return Single.zip(apiService.getActorById(actorId ,"tagged_images,movie_credits"),
                           apiService.getImagesForActor(actorId) ,
                 (response, imagesResponse) -> {
                     response.setImagesResponse(imagesResponse);

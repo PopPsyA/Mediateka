@@ -15,31 +15,31 @@ import retrofit2.http.Query;
 public interface CinemaApiService {
 
     @GET("movie/popular")
-    Single<CinemaResponse> getCinemas(@Query("language") String lang , @Query("page") int pageIndex);
+    Single<CinemaResponse> getCinemas(@Query("page") int pageIndex);
 
     @GET("movie/top_rated")
-    Single<CinemaResponse> getTopRatedCinemas(@Query("language") String lang , @Query("page") int pageIndex);
+    Single<CinemaResponse> getTopRatedCinemas(@Query("page") int pageIndex);
 
     @GET("movie/upcoming")
-    Single<CinemaResponse> getUpComingCinemas(@Query("language") String lang , @Query("page") int pageIndex);
+    Single<CinemaResponse> getUpComingCinemas(@Query("page") int pageIndex);
 
     @GET("movie/{movie_id}")
-    Single<CinemaDetailResponse> getCinemaById(@Path("movie_id") int movieId , @Query("language") String lang , @Query("append_to_response") String appendToResponse);
+    Single<CinemaDetailResponse> getCinemaById(@Path("movie_id") int movieId , @Query("append_to_response") String appendToResponse);
 
     @GET("person/{person_id}")
-    Single<ActorDetailResponse> getActorById(@Path("person_id") int actorId ,@Query("language") String lang ,  @Query("append_to_response") String appendToResponse);
+    Single<ActorDetailResponse> getActorById(@Path("person_id") int actorId , @Query("append_to_response") String appendToResponse);
 
     @GET("person/popular")
-    Single<ActorResponse> getPopularActors(@Query("language") String lang , @Query("page") int pageIndex);
+    Single<ActorResponse> getPopularActors(@Query("page") int pageIndex);
 
     @GET("search/movie")
-    Flowable<CinemaResponse> searchCinemas(@Query("language") String lang , @Query("query") String query);
+    Flowable<CinemaResponse> searchCinemas(@Query("query") String searchQuery);
 
     @GET("search/person")
-    Flowable<ActorResponse> searchActors(@Query("language") String lang , @Query("query") String query);
+    Flowable<ActorResponse> searchActors(@Query("query") String searchQuery);
 
     @GET("movie/{movie_id}/images")
-    Single<ImagesResponse> getImagesForCinema(@Path("movie_id") int cinemaId);
+    Single<ImagesResponse> getImagesForCinema(@Path("movie_id") int cinemaId , @Query("include_image_language") String includedLanguages);
 
     @GET("person/{person_id}/images")
     Single<ImagesResponse> getImagesForActor(@Path("person_id") int actorId);
