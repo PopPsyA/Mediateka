@@ -25,7 +25,7 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
 import com.ru.devit.mediateka.utils.AnimUtils;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -70,8 +70,8 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     @Override
     public void showActorDetail(Actor actor) {
         AnimUtils.startRevealAnimation(mImageViewActorBackground);
-        renderImage(actor.getProfilePath() , mActorAvatar , Constants.IMG_PATH_W185 , true);
-        renderImage(actor.getProfileBackgroundPath() , mImageViewActorBackground , Constants.IMG_PATH_W1280, false);
+        renderImage(actor.getProfilePath() , mActorAvatar , true);
+        renderImage(actor.getProfileBackgroundPath() , mImageViewActorBackground , false);
         mTextViewActorName.setText(actor.getName());
         mActorAvatar.setOnClickListener(v -> presenter.onAvatarClicked(actor.getPostersUrl()));
         addOffsetChangeListener(mAppBar , actor.getName());
@@ -163,9 +163,9 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void renderImage(final String url , final ImageView image , final String size , boolean itAvatar){
+    private void renderImage(final String url , final ImageView image , boolean itAvatar){
         Picasso.with(ActorDetailActivity.this)
-                .load(size + url)
+                .load(itAvatar ? UrlImagePathCreator.create185pPictureUrl(url) : UrlImagePathCreator.create1280pPictureUrl(url))
                 .placeholder(itAvatar ? R.color.colorPosterBackground : R.color.colorWhite)
                 .error(R.drawable.ic_actor_default_avatar)
                 .into(image, new Callback() {

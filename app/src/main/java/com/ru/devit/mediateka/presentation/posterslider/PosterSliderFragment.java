@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ru.devit.mediateka.R;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
 
 public class PosterSliderFragment extends Fragment {
@@ -41,13 +41,12 @@ public class PosterSliderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String imageUrl = getArguments().getString(POSTER_URL);
         renderImage(mPosterImageView ,
-                imageUrl ,
-                Constants.IMG_PATH_W780);
+                imageUrl);
     }
 
-    private void renderImage(ImageView image , String imgUrl , String imgResolution){
+    private void renderImage(ImageView image , String imgUrl){
         Picasso.with(getContext())
-                .load(imgResolution + imgUrl)
+                .load(UrlImagePathCreator.create780pPictureUrl(imgUrl))
                 .into(image);
     }
 }

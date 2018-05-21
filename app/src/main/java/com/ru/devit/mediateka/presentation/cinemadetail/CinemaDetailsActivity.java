@@ -25,7 +25,7 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
 import com.ru.devit.mediateka.presentation.widget.CinemaHeaderView;
 import com.ru.devit.mediateka.utils.AnimUtils;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -89,8 +89,8 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     @Override
     public void showCinemaDetail(final Cinema cinema) {
         AnimUtils.startRevealAnimation(mBackgroundPoster);
-        renderImage(cinema.getPosterPath() , mSmallPosterImageView , true , Constants.IMG_PATH_W185);
-        renderImage(cinema.getBackdropPath() , mBackgroundPoster , false , Constants.IMG_PATH_W1280);
+        renderImage(cinema.getPosterPath() , mSmallPosterImageView , true);
+        renderImage(cinema.getBackdropPath() , mBackgroundPoster , false);
         mCinemaHeaderView.render(cinema);
         mSmallPosterImageView.setOnClickListener(v -> presenter.onSmallPosterClicked(cinema.getPosterUrls()));
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());
@@ -160,9 +160,9 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void renderImage(String url , ImageView image , boolean itSmallPoster , String imgPath){
+    private void renderImage(String url , ImageView image , boolean itSmallPoster){
         Picasso.with(CinemaDetailsActivity.this)
-                .load(imgPath + url)
+                .load(itSmallPoster ? UrlImagePathCreator.create185pPictureUrl(url) : UrlImagePathCreator.create1280pPictureUrl(url))
                 .placeholder(itSmallPoster ? R.color.colorPosterBackground : R.color.colorWhite)
                 .error(R.drawable.ic_cinema)
                 .into(image, new Callback() {

@@ -3,7 +3,6 @@ package com.ru.devit.mediateka.presentation.smallcinemalist;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +42,7 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
 
     void renderImage(String posterUrl , ImageView imageView){
         Picasso.with(getContext())
-                .load(Constants.IMG_PATH_W185 + posterUrl)
+                .load(UrlImagePathCreator.create185pPictureUrl(posterUrl))
                 .placeholder(R.color.colorDarkBackground)
                 .error(R.drawable.ic_cinema)
                 .into(imageView);

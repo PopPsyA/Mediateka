@@ -3,12 +3,13 @@ package com.ru.devit.mediateka.domain.cinemausecases;
 import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.utils.Constants;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
+
+import static com.ru.devit.mediateka.utils.FormatterUtils.DEFAULT_VALUE;
 
 public class GetUpComingCinemas extends UseCase<List<Cinema>> {
 
@@ -27,7 +28,7 @@ public class GetUpComingCinemas extends UseCase<List<Cinema>> {
                 .toFlowable()
                 .flatMap(cinemas -> Flowable.fromIterable(cinemas)
                         .filter(cinema -> !cinema.getDescription().isEmpty())
-                        .filter(cinema -> !cinema.getReleaseDate().equals(Constants.DEFAULT_VALUE) && cinema.getVoteAverage() == 0)
+                        .filter(cinema -> !cinema.getReleaseDate().equals(DEFAULT_VALUE) && cinema.getVoteAverage() == 0)
                         .toList()
                         .toFlowable());
 

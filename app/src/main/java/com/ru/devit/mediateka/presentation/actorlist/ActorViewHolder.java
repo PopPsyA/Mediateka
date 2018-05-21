@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,7 +48,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     @SuppressWarnings("ConstantConditions")
     private void renderAvatar(Actor actor){
         Picasso.with(getContext())
-                .load(Constants.IMG_PATH_W185 + actor.getProfilePath())
+                .load(UrlImagePathCreator.create185pPictureUrl(actor.getProfilePath()))
                 .error(VectorDrawableCompat.create(getContext().getResources() , R.drawable.ic_actor_default_avatar , getContext().getTheme()))
                 .into(avatar);
     }

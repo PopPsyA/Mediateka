@@ -7,6 +7,7 @@ import com.ru.devit.mediateka.models.network.ActorNetwork;
 import com.ru.devit.mediateka.models.network.ActorResponse;
 import com.ru.devit.mediateka.models.network.CinemaNetwork;
 import com.ru.devit.mediateka.models.network.Poster;
+import com.ru.devit.mediateka.utils.FormatterUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import static com.ru.devit.mediateka.utils.Constants.DEFAULT_VALUE;
 import static com.ru.devit.mediateka.utils.FormatterUtils.*;
 
 public class ActorDetailResponseToActor {

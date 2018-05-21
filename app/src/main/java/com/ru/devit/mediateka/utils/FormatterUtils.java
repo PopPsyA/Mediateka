@@ -10,6 +10,7 @@ import java.util.Locale;
 public class FormatterUtils {
 
     private static final SparseArrayCompat<String> genres = new SparseArrayCompat<>();
+    public static final String DEFAULT_VALUE = "N/A";
 
     static {
         genres.put(28 , "боевик");
@@ -35,7 +36,7 @@ public class FormatterUtils {
 
     public static String formatDate(String releaseDate){
         if (releaseDate == null){
-            return Constants.DEFAULT_VALUE;
+            return DEFAULT_VALUE;
         }
         SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat newDateFormat = new SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault());
@@ -62,7 +63,7 @@ public class FormatterUtils {
 
     public static String getYearFromDate(String releaseDate) {
         if (releaseDate == null || releaseDate.length() == 0){
-            return Constants.DEFAULT_VALUE;
+            return DEFAULT_VALUE;
         }
         if (releaseDate.length() == 3){
             return releaseDate.substring(0 , 3);
@@ -78,7 +79,7 @@ public class FormatterUtils {
 
     public static String defaultValueIfNull(String value){
         if (value == null){
-            return Constants.DEFAULT_VALUE;
+            return DEFAULT_VALUE;
         }
         return value;
     }

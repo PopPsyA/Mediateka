@@ -6,10 +6,13 @@ import com.ru.devit.mediateka.domain.UseCaseSubscriber;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.FormatterUtils;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 
 import java.util.Collections;
 import java.util.List;
+
+import static com.ru.devit.mediateka.utils.FormatterUtils.*;
 
 
 public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.View> {
@@ -59,7 +62,7 @@ public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.V
 
     private void sortByDate(List<Cinema> cinemas){
         Collections.sort(cinemas, (cinema, cinema2) -> {
-            if (cinema.getReleaseDate().equals(Constants.DEFAULT_VALUE) || cinema2.getReleaseDate().equals(Constants.DEFAULT_VALUE)){
+            if (cinema.getReleaseDate().equals(FormatterUtils.DEFAULT_VALUE) || cinema2.getReleaseDate().equals(DEFAULT_VALUE)){
                 return cinema.getReleaseDate().compareTo(cinema2.getReleaseDate());
             }
             int releaseDate1 = Integer.valueOf(cinema.getReleaseDate());

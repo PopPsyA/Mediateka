@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.getYearFromDate;
@@ -54,7 +54,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
 
     private void renderPoster(String url){
         Picasso.with(getContext())
-                .load(Constants.IMG_PATH_W185 + url)
+                .load(UrlImagePathCreator.create185pPictureUrl(url))
                 .placeholder(R.color.colorDarkBackground)
                 .error(R.drawable.ic_cinema)
                 .into(posterImageView);

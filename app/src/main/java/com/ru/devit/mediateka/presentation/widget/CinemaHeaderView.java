@@ -3,14 +3,12 @@ package com.ru.devit.mediateka.presentation.widget;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.utils.Constants;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 
 public class CinemaHeaderView extends ConstraintLayout {

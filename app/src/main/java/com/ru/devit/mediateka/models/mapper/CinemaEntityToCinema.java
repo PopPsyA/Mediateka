@@ -1,16 +1,16 @@
 package com.ru.devit.mediateka.models.mapper;
 
-import android.util.Log;
-
 import com.ru.devit.mediateka.models.db.ActorEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.utils.Constants;
+import com.ru.devit.mediateka.utils.FormatterUtils;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ru.devit.mediateka.utils.FormatterUtils.DEFAULT_VALUE;
 import static com.ru.devit.mediateka.utils.FormatterUtils.defaultValueIfNull;
 import static com.ru.devit.mediateka.utils.FormatterUtils.emptyValueIfNull;
 
@@ -79,7 +79,7 @@ public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
         cinema.setAdult(cinemaEntity.isAdult());
         cinema.setDescription(emptyValueIfNull(cinemaEntity.getDescription()));
         cinema.setPosterUrl(cinemaEntity.getPosterUrl());
-        cinema.setReleaseDate(cinemaEntity.getReleaseDate().length() == 4 ? Constants.DEFAULT_VALUE : cinemaEntity.getReleaseDate());
+        cinema.setReleaseDate(cinemaEntity.getReleaseDate().length() == 4 ? DEFAULT_VALUE : cinemaEntity.getReleaseDate());
         cinema.setTitle(cinemaEntity.getTitle());
         cinema.setVoteAverage(cinemaEntity.getVoteAverage());
         cinema.setPopularity(cinemaEntity.getPopularity());

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.utils.Constants;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 
 import java.text.NumberFormat;
