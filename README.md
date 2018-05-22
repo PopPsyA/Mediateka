@@ -1,3 +1,6 @@
+![192px](https://user-images.githubusercontent.com/34313493/40320871-f2835e0e-5d4e-11e8-9fb0-5f0482d410e3.png)
+
+
 # Mediateka
 ## About
 The app demonstrates principles of Clean Architecture in Android.
