@@ -10,16 +10,18 @@ import java.util.List;
 public class PosterSliderAdapter extends FragmentStatePagerAdapter {
 
     private List<String> posterUrls;
+    private final boolean isForBackgroundPoster;
 
-    PosterSliderAdapter(FragmentManager fm , List<String> posterUrls) {
+    public PosterSliderAdapter(FragmentManager fm , List<String> posterUrls , boolean isForBackgroundPoster) {
         super(fm);
         this.posterUrls = posterUrls;
+        this.isForBackgroundPoster = isForBackgroundPoster;
         checkNotNull(posterUrls);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return PosterSliderFragment.newInstance(posterUrls.get(position));
+        return PosterSliderFragment.newInstance(posterUrls.get(position) , isForBackgroundPoster);
     }
 
     @Override

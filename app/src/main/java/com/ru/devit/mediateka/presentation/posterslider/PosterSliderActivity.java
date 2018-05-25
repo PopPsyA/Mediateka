@@ -60,7 +60,7 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
     protected void initViews() {
         mViewPagerPosters = findViewById(R.id.vp_posters);
         mTextViewPosterCount = findViewById(R.id.tv_poster_count);
-        mAdapterPosters = new PosterSliderAdapter(getSupportFragmentManager() , getPosterUrls());
+        mAdapterPosters = new PosterSliderAdapter(getSupportFragmentManager() , getPosterUrls() , false);
         mViewPagerPosters.setAdapter(mAdapterPosters);
     }
 

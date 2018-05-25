@@ -34,6 +34,7 @@ public class Cinema implements Parcelable {
     private String character;
     private List<Actor> actors;
     private List<String> posterUrls;
+    private List<String> backdropUrls;
 
     public Cinema(){}
 
@@ -318,5 +319,13 @@ public class Cinema implements Parcelable {
 
     public void setPosterUrls(List<String> posterUrls) {
         this.posterUrls = posterUrls;
+    }
+
+    public List<String> getBackdropUrls() {
+        return backdropUrls;
+    }
+
+    public void setBackdropUrls(List<String> backdropUrls) {
+        this.backdropUrls = backdropUrls;
     }
 }

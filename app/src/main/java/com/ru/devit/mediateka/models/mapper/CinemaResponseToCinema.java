@@ -1,5 +1,7 @@
 package com.ru.devit.mediateka.models.mapper;
 
+import android.util.Log;
+
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.models.network.ActorNetwork;
@@ -94,9 +96,17 @@ public class CinemaResponseToCinema{
 
     private void setPosters(CinemaDetailResponse response , Cinema cinema){
         final List<String> posterUrls = new ArrayList<>();
+        final List<String> backdropUrls = new ArrayList<>(8);
         for (final Poster poster : response.getImagesResponse().getCinemaPosters()){
             posterUrls.add(poster.getPosterUrl());
         }
+        for (final Poster poster : response.getImagesResponse().getCinemaBackgroundPosters()){
+            backdropUrls.add(poster.getPosterUrl());
+            if (backdropUrls.size() >= 8){
+                break;
+            }
+        }
+        cinema.setBackdropUrls(backdropUrls);
         cinema.setPosterUrls(posterUrls);
     }
 }

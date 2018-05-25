@@ -11,9 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
@@ -23,6 +21,7 @@ import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
+import com.ru.devit.mediateka.presentation.posterslider.PosterSliderAdapter;
 import com.ru.devit.mediateka.presentation.widget.CinemaHeaderView;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
@@ -38,13 +37,13 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     private static final String CINEMA_ID = "cinema_id";
 
-    private ImageView mBackgroundPoster;
+    private ViewPager mViewPagerBackgroundPoster;
+    private ViewPager mViewPagerCinemaInfo;
     private ImageView mSmallPosterImageView;
     private CinemaHeaderView mCinemaHeaderView;
-    private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private ProgressBar mProgressBarBackgroundImage;
     private AppBarLayout mAppBarLayout;
+    private PosterSliderAdapter mBackgroundPosterSliderAdapter;
 
     @Inject CinemaDetailPresenter presenter;
 
@@ -67,12 +66,11 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     protected void initViews(){
-        mBackgroundPoster = findViewById(R.id.iv_cinema_detail_background_poster);
+        mViewPagerBackgroundPoster = findViewById(R.id.vp_cinema_detail_background_poster);
         mSmallPosterImageView = findViewById(R.id.iv_cinema_small_poster);
         mCinemaHeaderView = findViewById(R.id.cinema_header_view);
-        mViewPager = findViewById(R.id.view_pager);
+        mViewPagerCinemaInfo = findViewById(R.id.view_pager);
         mTabLayout = findViewById(R.id.tab_layout);
-        mProgressBarBackgroundImage = findViewById(R.id.progressBackgroundImage);
         mAppBarLayout = findViewById(R.id.app_bar_cinema);
     }
 
@@ -88,13 +86,15 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public void showCinemaDetail(final Cinema cinema) {
-        AnimUtils.startRevealAnimation(mBackgroundPoster);
-        renderImage(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()) , mSmallPosterImageView , true);
-        renderImage(UrlImagePathCreator.create1280pPictureUrl(cinema.getBackdropUrl()) , mBackgroundPoster , false);
+        AnimUtils.startRevealAnimation(mViewPagerBackgroundPoster);
+        mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , cinema.getBackdropUrls() , true);
+        mViewPagerBackgroundPoster.setAdapter(mBackgroundPosterSliderAdapter);
+        renderImage(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()) , mSmallPosterImageView);
+        //renderImage(UrlImagePathCreator.create1280pPictureUrl(cinema.getBackdropUrl()) , mBackgroundPoster , false);
         mCinemaHeaderView.render(cinema);
         mSmallPosterImageView.setOnClickListener(v -> presenter.onSmallPosterClicked(cinema.getPosterUrls()));
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());
-        setUpViewPager(mViewPager , mTabLayout , cinema);
+        setUpViewPager(mViewPagerCinemaInfo, mTabLayout , cinema);
     }
 
     @Override
@@ -160,37 +160,33 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void renderImage(String url , ImageView image , boolean itSmallPoster){
+    private void renderImage(String url, ImageView image){
         Picasso.with(CinemaDetailsActivity.this)
                 .load(url)
-                .placeholder(itSmallPoster ? R.color.colorPosterBackground : R.color.colorWhite)
+                .placeholder(R.color.colorPosterBackground)
                 .error(R.drawable.ic_cinema)
                 .into(image, new Callback() {
                     @Override
                     public void onSuccess() {
                         mSmallPosterImageView.setBackgroundColor(ContextCompat.getColor(CinemaDetailsActivity.this , android.R.color.transparent));
-                        if (itSmallPoster){
-                            final Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                            Palette.from(bitmap)
-                                    .generate(palette -> {
-                                        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
-                                        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                                        if (mutedSwatch != null) {
-                                            mTabLayout.setBackgroundColor(mutedSwatch.getRgb());
-                                        }
-                                        if (darkMutedSwatch != null){
-                                            getCollapsingToolbarLayout().setContentScrimColor(darkMutedSwatch.getRgb());
-                                            getCollapsingToolbarLayout().setBackgroundColor(darkMutedSwatch.getRgb());
-                                        }
-                                    });
-                        } else {
-                            mProgressBarBackgroundImage.setVisibility(View.GONE);
-                        }
+                        final Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                        Palette.from(bitmap)
+                                .generate(palette -> {
+                                    Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+                                    Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+                                    if (mutedSwatch != null) {
+                                        mTabLayout.setBackgroundColor(mutedSwatch.getRgb());
+                                    }
+                                    if (darkMutedSwatch != null){
+                                        getCollapsingToolbarLayout().setContentScrimColor(darkMutedSwatch.getRgb());
+                                        getCollapsingToolbarLayout().setBackgroundColor(darkMutedSwatch.getRgb());
+                                    }
+                                });
                     }
 
                     @Override
                     public void onError() {
-                        mProgressBarBackgroundImage.setVisibility(View.GONE);
+
                     }
                 });
     }
