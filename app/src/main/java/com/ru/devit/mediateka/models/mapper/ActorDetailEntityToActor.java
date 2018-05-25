@@ -63,18 +63,17 @@ public class ActorDetailEntityToActor extends Mapper<Actor , ActorEntity> {
         actor.setBiography(emptyValueIfNull(value.getBiography()));
         actor.setBirthDay(defaultValueIfNull(value.getBirthDay()));
         actor.setPlaceOfBirth(defaultValueIfNull(value.getPlaceOfBirth()));
-        actor.setProfilePath(value.getPlaceOfBirth());
+        actor.setProfileUrl(value.getPlaceOfBirth());
     }
 
     private void fillActorEntity(ActorEntity actorEntity, Actor value) {
         actorEntity.setActorId(value.getActorId());
         actorEntity.setActorName(value.getName());
         actorEntity.setAge(value.getAge());
-        actorEntity.setProfilePath(value.getProfilePath());
+        actorEntity.setProfilePath(value.getProfileUrl());
         actorEntity.setBiography(value.getBiography());
         actorEntity.setBirthDay(value.getBirthDay());
         actorEntity.setPlaceOfBirth(value.getPlaceOfBirth());
-        actorEntity.setProfileBackgroundPath(value.getProfileBackgroundPath());
         actorEntity.setCastId(value.getCastId());
     }
 

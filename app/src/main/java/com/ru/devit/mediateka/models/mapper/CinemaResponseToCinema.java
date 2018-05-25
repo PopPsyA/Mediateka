@@ -1,7 +1,5 @@
 package com.ru.devit.mediateka.models.mapper;
 
-import android.util.Log;
-
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.models.network.ActorNetwork;
@@ -78,7 +76,7 @@ public class CinemaResponseToCinema{
             actor.setName(cast.getName());
             actor.setCastId(cast.getCastId());
             actor.setCharacter(cast.getCharacter());
-            actor.setProfilePath(cast.getProfilePath());
+            actor.setProfileUrl(cast.getProfilePath());
             actor.setOrder(cast.getOrder());
             actors.add(actor);
         }

@@ -23,6 +23,7 @@ import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
+import com.ru.devit.mediateka.presentation.posterslider.PosterSliderAdapter;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
@@ -41,12 +42,12 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
 
     private CircleImageView mActorAvatar;
     private TextView mTextViewActorName;
-    private ImageView mImageViewActorBackground;
-    private ViewPager mViewPager;
+    private ViewPager mViewPagerActorInfo;
+    private ViewPager mViewPagerActorBackground;
     private TabLayout mTabLayout;
-    private ProgressBar mProgressBarBackgroundImage;
     private ProgressBar mProgressBarActor;
     private AppBarLayout mAppBar;
+    private PosterSliderAdapter mBackgroundPosterSliderAdapter;
 
     @Inject ActorDetailPresenter presenter;
 
@@ -69,13 +70,14 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
 
     @Override
     public void showActorDetail(Actor actor) {
-        AnimUtils.startRevealAnimation(mImageViewActorBackground);
-        renderImage(UrlImagePathCreator.create185pPictureUrl(actor.getProfilePath()) , mActorAvatar , true);
-        renderImage(UrlImagePathCreator.create1280pPictureUrl(actor.getProfileBackgroundPath()) , mImageViewActorBackground , false);
+        AnimUtils.startRevealAnimation(mViewPagerActorBackground);
+        renderImage(UrlImagePathCreator.create185pPictureUrl(actor.getProfileUrl()) , mActorAvatar);
+        mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , actor.getBackgroundUrls() ,false);
+        mViewPagerActorBackground.setAdapter(mBackgroundPosterSliderAdapter);
         mTextViewActorName.setText(actor.getName());
         mActorAvatar.setOnClickListener(v -> presenter.onAvatarClicked(actor.getPostersUrl()));
         addOffsetChangeListener(mAppBar , actor.getName());
-        setUpViewPager(mViewPager , mTabLayout , actor);
+        setUpViewPager(mViewPagerActorInfo, mTabLayout , actor);
     }
 
     @Override
@@ -112,11 +114,10 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     @Override
     protected void initViews(){
         mActorAvatar = findViewById(R.id.actor_detail_avatar);
-        mViewPager = findViewById(R.id.view_pager);
+        mViewPagerActorInfo = findViewById(R.id.view_pager);
+        mViewPagerActorBackground = findViewById(R.id.vp_actor_detail_background);
         mTabLayout = findViewById(R.id.tab_layout);
         mTextViewActorName = findViewById(R.id.actor_detail_name);
-        mImageViewActorBackground = findViewById(R.id.iv_actor_detail_background);
-        mProgressBarBackgroundImage = findViewById(R.id.pb_background_actor_poster);
         mProgressBarActor = findViewById(R.id.pb_actor);
         mAppBar = findViewById(R.id.app_bar_actor);
         mActorAvatar.setImageResource(R.color.colorPosterBackground);
@@ -163,32 +164,27 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void renderImage(final String url , final ImageView image , boolean itAvatar){
+    private void renderImage(final String url, final ImageView image){
         Picasso.with(ActorDetailActivity.this)
                 .load(url)
-                .placeholder(itAvatar ? R.color.colorPosterBackground : R.color.colorWhite)
+                .placeholder(R.color.colorPosterBackground)
                 .error(R.drawable.ic_actor_default_avatar)
                 .into(image, new Callback() {
                     @Override
                     public void onSuccess() {
-                        if (itAvatar){
-                            Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                            Palette.from(bitmap)
-                                    .generate(palette -> {
-                                        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
-                                        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                                        if (darkMutedSwatch != null) {
-                                            getCollapsingToolbarLayout().setBackgroundColor(darkMutedSwatch.getRgb());
-                                            getCollapsingToolbarLayout().setContentScrimColor(darkMutedSwatch.getRgb());
-                                        }
-                                        if (mutedSwatch != null) {
-                                            mTabLayout.setBackgroundColor(mutedSwatch.getRgb());
-                                        }
-                                    });
-
-                        } else {
-                            mProgressBarBackgroundImage.setVisibility(View.GONE);
-                        }
+                        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                        Palette.from(bitmap)
+                                .generate(palette -> {
+                                    Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+                                    Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+                                    if (darkMutedSwatch != null) {
+                                        getCollapsingToolbarLayout().setBackgroundColor(darkMutedSwatch.getRgb());
+                                        getCollapsingToolbarLayout().setContentScrimColor(darkMutedSwatch.getRgb());
+                                    }
+                                    if (mutedSwatch != null) {
+                                        mTabLayout.setBackgroundColor(mutedSwatch.getRgb());
+                                    }
+                                });
                     }
 
                     @Override
@@ -197,7 +193,6 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
                             mActorAvatar.setImageDrawable(VectorDrawableCompat
                                     .create(getResources() , R.drawable.ic_actor_default_avatar , getTheme()));
                         }
-                        mProgressBarBackgroundImage.setVisibility(View.GONE);
                     }
                 });
     }

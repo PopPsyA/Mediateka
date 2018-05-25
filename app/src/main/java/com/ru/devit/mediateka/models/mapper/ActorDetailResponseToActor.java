@@ -7,7 +7,6 @@ import com.ru.devit.mediateka.models.network.ActorNetwork;
 import com.ru.devit.mediateka.models.network.ActorResponse;
 import com.ru.devit.mediateka.models.network.CinemaNetwork;
 import com.ru.devit.mediateka.models.network.Poster;
-import com.ru.devit.mediateka.utils.FormatterUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,21 +19,33 @@ import static com.ru.devit.mediateka.utils.FormatterUtils.*;
 
 public class ActorDetailResponseToActor {
 
-    private final Random random = new Random();
-
     public Actor map(ActorDetailResponse response){
         Actor actor = new Actor();
         actor.setActorId(response.getId());
-        actor.setProfilePath(response.getProfilePath());
+        actor.setProfileUrl(response.getProfilePath());
         actor.setName(response.getName());
         actor.setBiography(response.getBiography());
         actor.setDeathDay((String) response.getDeathday());
         actor.setPlaceOfBirth(defaultValueIfNull(response.getPlaceOfBirth()));
         checkAgeThenSet(response , actor);
-        generateRandomBackgroundPoster(response , actor);
         setCinemas(response , actor);
         setPosters(response , actor);
+        setBackgroundPosters(response , actor);
         return actor;
+    }
+
+    private void setBackgroundPosters(ActorDetailResponse response, Actor actor) {
+        List<String> backgroundUrls = new ArrayList<>(8);
+        int backgroundPostersSize = response.getTaggedImages().getImageResults().size();
+        if (backgroundPostersSize != 0){
+            for (ActorDetailResponse.ImageResult backgroundImg : response.getTaggedImages().getImageResults()){
+                backgroundUrls.add(backgroundImg.getBackgroundPoster());
+                if (backgroundUrls.size() >= 8){
+                    break;
+                }
+            }
+            actor.setBackgroundUrls(backgroundUrls);
+        }
     }
 
     public List<Actor> map(ActorResponse response){
@@ -43,18 +54,10 @@ public class ActorDetailResponseToActor {
             Actor actor = new Actor();
             actor.setName(actorNetwork.getName());
             actor.setActorId(actorNetwork.getActorId());
-            actor.setProfilePath(actorNetwork.getProfilePath());
+            actor.setProfileUrl(actorNetwork.getProfilePath());
             actors.add(actor);
         }
         return actors;
-    }
-
-    private void generateRandomBackgroundPoster(ActorDetailResponse response , Actor actor){
-        int backgroundPostersSize = response.getTaggedImages().getImageResults().size();
-        if (backgroundPostersSize != 0){
-            String backgroundPoster = response.getTaggedImages().getImageResults().get(random.nextInt(backgroundPostersSize)).getBackgroundPoster();
-            actor.setProfileBackgroundPath(backgroundPoster);
-        }
     }
 
     private void checkAgeThenSet(ActorDetailResponse response , Actor actor){

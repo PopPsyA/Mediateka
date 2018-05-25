@@ -4,8 +4,6 @@ import com.ru.devit.mediateka.models.db.ActorEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.utils.FormatterUtils;
-import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +56,7 @@ public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
         actorEntity.setActorId(actor.getActorId());
         actorEntity.setActorName(actor.getName());
         actorEntity.setCharacter(actor.getCharacter());
-        actorEntity.setProfilePath(actor.getProfilePath());
+        actorEntity.setProfilePath(actor.getProfileUrl());
         actorEntity.setOrder(actor.getOrder());
     }
 
@@ -66,7 +64,7 @@ public class CinemaEntityToCinema extends Mapper<Cinema, CinemaEntity> {
         actor.setActorId(actorEntity.getActorId());
         actor.setName(actorEntity.getActorName());
         actor.setCharacter(emptyValueIfNull(actorEntity.getCharacter()));
-        actor.setProfilePath(actorEntity.getProfilePath());
+        actor.setProfileUrl(actorEntity.getProfilePath());
         actor.setBiography(actor.getBiography());
         actor.setOrder(actorEntity.getOrder());
     }

@@ -16,20 +16,20 @@ public class Actor implements Parcelable {
     private String deathDay;
     private String biography;
     private String name;
-    private String profilePath;
-    private String profileBackgroundPath;
+    private String profileUrl;
     private String placeOfBirth;
     private String age;
     private int order;
     private List<Cinema> cinemas;
     private List<String> postersUrl;
+    private List<String> backgroundUrls;
 
     public Actor(){}
 
     protected Actor(Parcel in) {
         actorId = in.readInt();
         name = in.readString();
-        profilePath = in.readString();
+        profileUrl = in.readString();
         biography = in.readString();
         placeOfBirth = in.readString();
         age = in.readString();
@@ -45,7 +45,7 @@ public class Actor implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(actorId);
         parcel.writeString(name);
-        parcel.writeString(profilePath);
+        parcel.writeString(profileUrl);
         parcel.writeString(biography);
         parcel.writeString(placeOfBirth);
         parcel.writeString(age);
@@ -109,12 +109,12 @@ public class Actor implements Parcelable {
         this.name = name;
     }
 
-    public String getProfilePath() {
-        return profilePath;
+    public String getProfileUrl() {
+        return profileUrl;
     }
 
-    public void setProfilePath(String profilePath) {
-        this.profilePath = profilePath;
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 
     public int getActorId() {
@@ -157,14 +157,6 @@ public class Actor implements Parcelable {
         this.biography = biography;
     }
 
-    public String getProfileBackgroundPath() {
-        return profileBackgroundPath;
-    }
-
-    public void setProfileBackgroundPath(String profileBackgroundPath) {
-        this.profileBackgroundPath = profileBackgroundPath;
-    }
-
     public String getAge() {
         return age;
     }
@@ -195,5 +187,13 @@ public class Actor implements Parcelable {
 
     public void setPostersUrl(List<String> postersUrl) {
         this.postersUrl = postersUrl;
+    }
+
+    public List<String> getBackgroundUrls() {
+        return backgroundUrls;
+    }
+
+    public void setBackgroundUrls(List<String> backgroundUrls) {
+        this.backgroundUrls = backgroundUrls;
     }
 }
