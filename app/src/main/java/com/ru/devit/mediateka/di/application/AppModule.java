@@ -19,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 @Module
-@Singleton
 public class AppModule {
 
     private final Context context;
