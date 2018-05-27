@@ -23,6 +23,7 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderAdapter;
 import com.ru.devit.mediateka.presentation.widget.CinemaHeaderView;
+import com.ru.devit.mediateka.presentation.widget.IndicatorView;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Callback;
@@ -41,6 +42,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private ViewPager mViewPagerCinemaInfo;
     private ImageView mSmallPosterImageView;
     private CinemaHeaderView mCinemaHeaderView;
+    private IndicatorView mIndicatorView;
     private TabLayout mTabLayout;
     private AppBarLayout mAppBarLayout;
     private PosterSliderAdapter mBackgroundPosterSliderAdapter;
@@ -69,6 +71,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mViewPagerBackgroundPoster = findViewById(R.id.vp_cinema_detail_background_poster);
         mSmallPosterImageView = findViewById(R.id.iv_cinema_small_poster);
         mCinemaHeaderView = findViewById(R.id.cinema_header_view);
+        mIndicatorView = findViewById(R.id.cinema_indicator_view);
         mViewPagerCinemaInfo = findViewById(R.id.view_pager);
         mTabLayout = findViewById(R.id.tab_layout);
         mAppBarLayout = findViewById(R.id.app_bar_cinema);
@@ -89,6 +92,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         AnimUtils.startRevealAnimation(mViewPagerBackgroundPoster);
         mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , cinema.getBackdropUrls() , true);
         mViewPagerBackgroundPoster.setAdapter(mBackgroundPosterSliderAdapter);
+        mIndicatorView.setUpWithViewPager(mViewPagerBackgroundPoster);
         renderImage(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()) , mSmallPosterImageView);
         //renderImage(UrlImagePathCreator.create1280pPictureUrl(cinema.getBackdropUrl()) , mBackgroundPoster , false);
         mCinemaHeaderView.render(cinema);

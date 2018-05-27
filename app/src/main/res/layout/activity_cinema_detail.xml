@@ -64,6 +64,16 @@
                     app:layout_constraintStart_toEndOf="@+id/iv_cinema_small_poster"
                     app:layout_constraintTop_toBottomOf="@+id/vp_cinema_detail_background_poster" />
 
+                <com.ru.devit.mediateka.presentation.widget.IndicatorView
+                    android:id="@+id/cinema_indicator_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/vp_cinema_detail_background_poster"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.9" />
+
                 <View
                     android:id="@+id/stub"
                     android:layout_width="20dp"
