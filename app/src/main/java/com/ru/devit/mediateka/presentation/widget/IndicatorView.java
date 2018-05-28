@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.ru.devit.mediateka.R;
@@ -80,6 +81,9 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         mViewPager = viewPager;
         mViewPager.addOnPageChangeListener(this);
         indicatorCount = Objects.requireNonNull(mViewPager.getAdapter()).getCount();
+        if (indicatorCount <= 1){
+            return;
+        }
         requestLayout();
     }
 
