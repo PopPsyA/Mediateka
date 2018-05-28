@@ -5,10 +5,14 @@ import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
 
+import org.reactivestreams.Publisher;
+
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 public class GetCinemas extends UseCase<List<Cinema>> {
 
@@ -25,10 +29,9 @@ public class GetCinemas extends UseCase<List<Cinema>> {
     public Flowable<List<Cinema>> createUseCase() {
         return repository.getCinemas(pageIndex)
                 .toFlowable()
-                .flatMap(cinemas -> Flowable.fromIterable(cinemas)
-                        .filter(cinema -> !cinema.getDescription().isEmpty())
-                        .toList()
-                        .toFlowable());
-
+                .flatMap(Flowable::fromIterable)
+                .filter(cinema -> !cinema.getDescription().isEmpty())
+                .toList()
+                .toFlowable();
     }
 }

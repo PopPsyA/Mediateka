@@ -26,10 +26,10 @@ public class GetTopRatedCinemas extends UseCase<List<Cinema>> {
     public Flowable<List<Cinema>> createUseCase() {
         return repository.getTopRatedCinemas(pageIndex)
                 .toFlowable()
-                .flatMap(cinemas -> Flowable.fromIterable(cinemas)
+                .flatMap(Flowable::fromIterable)
                 .filter(cinema -> !cinema.getDescription().equals(""))
                 .filter(cinema -> !cinema.getReleaseDate().equals(DEFAULT_VALUE))
                 .toList()
-                .toFlowable());
+                .toFlowable();
     }
 }

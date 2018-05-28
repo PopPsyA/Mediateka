@@ -26,11 +26,10 @@ public class GetUpComingCinemas extends UseCase<List<Cinema>> {
     public Flowable<List<Cinema>> createUseCase() {
         return repository.getUpComingCinemas(pageIndex)
                 .toFlowable()
-                .flatMap(cinemas -> Flowable.fromIterable(cinemas)
-                        .filter(cinema -> !cinema.getDescription().isEmpty())
-                        .filter(cinema -> !cinema.getReleaseDate().equals(DEFAULT_VALUE) && cinema.getVoteAverage() == 0)
-                        .toList()
-                        .toFlowable());
-
+                .flatMap(Flowable::fromIterable)
+                .filter(cinema -> !cinema.getDescription().isEmpty())
+                .filter(cinema -> !cinema.getReleaseDate().equals(DEFAULT_VALUE) && cinema.getVoteAverage() == 0)
+                .toList()
+                .toFlowable();
     }
 }
