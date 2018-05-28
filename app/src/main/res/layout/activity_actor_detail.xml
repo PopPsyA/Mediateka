@@ -38,12 +38,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/guideline"
+                <com.ru.devit.mediateka.presentation.widget.IndicatorView
+                    android:id="@+id/actor_indicator_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="160dp"/>
+                    app:layout_constraintBottom_toBottomOf="@id/vp_actor_detail_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.90" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/actor_detail_avatar"
@@ -89,7 +92,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vp_actor_detail_background" />
-
 
                 <View
                     android:id="@+id/stub"

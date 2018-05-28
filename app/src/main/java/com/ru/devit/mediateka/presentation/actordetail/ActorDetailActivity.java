@@ -25,6 +25,7 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderAdapter;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
+import com.ru.devit.mediateka.presentation.widget.IndicatorView;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Callback;
@@ -44,6 +45,7 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     private TextView mTextViewActorName;
     private ViewPager mViewPagerActorInfo;
     private ViewPager mViewPagerActorBackground;
+    private IndicatorView mIndicatorView;
     private TabLayout mTabLayout;
     private ProgressBar mProgressBarActor;
     private AppBarLayout mAppBar;
@@ -74,6 +76,7 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         renderImage(UrlImagePathCreator.create185pPictureUrl(actor.getProfileUrl()) , mActorAvatar);
         mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , actor.getBackgroundUrls() ,false);
         mViewPagerActorBackground.setAdapter(mBackgroundPosterSliderAdapter);
+        mIndicatorView.setUpWithViewPager(mViewPagerActorBackground);
         mTextViewActorName.setText(actor.getName());
         mActorAvatar.setOnClickListener(v -> presenter.onAvatarClicked(actor.getPostersUrl()));
         addOffsetChangeListener(mAppBar , actor.getName());
@@ -116,6 +119,7 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         mActorAvatar = findViewById(R.id.actor_detail_avatar);
         mViewPagerActorInfo = findViewById(R.id.view_pager);
         mViewPagerActorBackground = findViewById(R.id.vp_actor_detail_background);
+        mIndicatorView = findViewById(R.id.actor_indicator_view);
         mTabLayout = findViewById(R.id.tab_layout);
         mTextViewActorName = findViewById(R.id.actor_detail_name);
         mProgressBarActor = findViewById(R.id.pb_actor);
