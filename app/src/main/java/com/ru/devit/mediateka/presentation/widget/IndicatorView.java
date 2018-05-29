@@ -44,15 +44,16 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        float distanceBetweenDots = diameter * 1.3f;
         int radius = diameter / 2;
         for (int i = 0; i < indicatorCount; i++){
-            int cx = diameter + (size * i);
+            float cx = size + (distanceBetweenDots * i);
             canvas.drawCircle(cx , diameter, radius , mDefaultIndicatorPaint);
         }
-        float selectedPosition = (size * currentPosition);
-        float nextPosition = size * (currentPosition + 1);
+        float selectedPosition = (distanceBetweenDots * currentPosition);
+        float nextPosition = distanceBetweenDots * (currentPosition + 1);
 
-        canvas.drawCircle(diameter + lerp(selectedPosition , nextPosition , offset) , diameter, radius , mSelectedIndicatorPaint);
+        canvas.drawCircle(size + lerp(selectedPosition , nextPosition , offset) , diameter, radius , mSelectedIndicatorPaint);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         if (heightMode == MeasureSpec.EXACTLY){
             result = heightSize;
         } else {
-            result = 2 * diameter + getPaddingTop() + getPaddingBottom();
+            result = size + getPaddingTop() + getPaddingBottom();
             if (heightMode == MeasureSpec.AT_MOST){
                 result = Math.min(result , heightSize);
             }
