@@ -24,13 +24,13 @@ public interface CinemaDao {
     @Query("SELECT * FROM CinemaTable WHERE page = :page AND vote_average > 8 ORDER BY vote_average DESC")
     Single<List<CinemaEntity>> getTopRatedCinemas(int page);
 
-    @Query("SELECT * FROM CinemaTable WHERE page = :page AND vote_average = 0")
+    @Query("SELECT * FROM CinemaTable WHERE page = :page AND vote_average = 0 AND release_date >= 2018")
     Single<List<CinemaEntity>> getUpComingCinemas(int page);
 
     @Query("SELECT * FROM CinemaTable WHERE cinemaId = :id")
     Single<CinemaEntity> getCinemaById(final int id);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<CinemaEntity> cinemaEntities);
 
     @Query("UPDATE CinemaTable SET budget = :budget , revenue = :revenue , cinema_duration = :cinemaDuration , director_name = :directorName " +
