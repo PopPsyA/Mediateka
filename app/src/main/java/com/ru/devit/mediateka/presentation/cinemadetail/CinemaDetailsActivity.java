@@ -94,7 +94,6 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mViewPagerBackgroundPoster.setAdapter(mBackgroundPosterSliderAdapter);
         mIndicatorView.setUpWithViewPager(mViewPagerBackgroundPoster);
         renderImage(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()) , mSmallPosterImageView);
-        //renderImage(UrlImagePathCreator.create1280pPictureUrl(cinema.getBackdropUrl()) , mBackgroundPoster , false);
         mCinemaHeaderView.render(cinema);
         mSmallPosterImageView.setOnClickListener(v -> presenter.onSmallPosterClicked(cinema.getPosterUrls()));
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());

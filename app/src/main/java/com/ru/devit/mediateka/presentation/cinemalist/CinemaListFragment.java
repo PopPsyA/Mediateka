@@ -63,13 +63,6 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     }
 
     @Override
-    public void onDestroy() {
-        presenter.onDestroy();
-        MediatekaApp.getComponentsManager().clearCinemaComponent();
-        super.onDestroy();
-    }
-
-    @Override
     public void showLoading() {
         mSwipeRefresherLayout.setRefreshing(true);
     }
@@ -111,6 +104,13 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     @Override
     public void onUpComingTabSelected() {
         // Im thinking...
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        MediatekaApp.getComponentsManager().clearCinemaComponent();
+        super.onDestroy();
     }
 
     public void scrollToFirstPosition() {
