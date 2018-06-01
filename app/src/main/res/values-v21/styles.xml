@@ -21,5 +21,9 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.PosterSliderTheme">
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+    </style>
+
 
 </resources>

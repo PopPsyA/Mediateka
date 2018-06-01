@@ -42,4 +42,7 @@
     <style name="AppTheme.NoActionBar.ActorDetailTheme">
     </style>
 
+    <style name="AppTheme.NoActionBar.PosterSliderTheme">
+    </style>
+
 </resources>

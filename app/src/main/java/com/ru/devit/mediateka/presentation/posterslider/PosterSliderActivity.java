@@ -2,6 +2,7 @@ package com.ru.devit.mediateka.presentation.posterslider;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 public class PosterSliderActivity extends BaseActivity implements PosterSliderPresenter.View {
 
     private static final String POSTERS = "cinema_posters";
+    private static final String TRANSITION_NAME = "transition_name";
 
     private ViewPager mViewPagerPosters;
     private TextView mTextViewPosterCount;
@@ -27,9 +29,10 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
 
     @Inject PosterSliderPresenter presenter;
 
-    public static Intent makeIntent(Context context , List<String> posterUrls) {
+    public static Intent makeIntent(Context context , List<String> posterUrls , String transitionName) {
         Intent intent = new Intent(context , PosterSliderActivity.class);
         intent.putStringArrayListExtra(POSTERS , (ArrayList<String>) posterUrls);
+        intent.putExtra(TRANSITION_NAME , transitionName);
         return intent;
     }
 
@@ -62,6 +65,9 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
         mTextViewPosterCount = findViewById(R.id.tv_poster_count);
         mAdapterPosters = new PosterSliderAdapter(getSupportFragmentManager() , getPosterUrls() , false);
         mViewPagerPosters.setAdapter(mAdapterPosters);
+        if (isAboveLollipop()){
+            mViewPagerPosters.setTransitionName(getIntent().getStringExtra(TRANSITION_NAME));
+        }
     }
 
     @Override
