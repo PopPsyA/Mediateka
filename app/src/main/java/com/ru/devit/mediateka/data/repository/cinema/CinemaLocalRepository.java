@@ -1,5 +1,7 @@
 package com.ru.devit.mediateka.data.repository.cinema;
 
+import android.util.Log;
+
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
 import com.ru.devit.mediateka.domain.CinemaRepository;
@@ -8,6 +10,7 @@ import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.mapper.CinemaMapper;
 import com.ru.devit.mediateka.models.model.Cinema;
 
+import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -44,7 +47,7 @@ public class CinemaLocalRepository implements CinemaRepository {
 
     @Override
     public Single<List<Cinema>> getUpComingCinemas(int pageIndex) {
-        return cinemaDao.getUpComingCinemas(pageIndex)
+        return cinemaDao.getUpComingCinemas(pageIndex , Calendar.getInstance().get(Calendar.YEAR))
                 .compose(mapCinemas);
     }
 

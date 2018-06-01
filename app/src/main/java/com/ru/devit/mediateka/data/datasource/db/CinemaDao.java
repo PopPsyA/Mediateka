@@ -24,8 +24,8 @@ public interface CinemaDao {
     @Query("SELECT * FROM CinemaTable WHERE page = :page AND vote_average > 8 ORDER BY vote_average DESC")
     Single<List<CinemaEntity>> getTopRatedCinemas(int page);
 
-    @Query("SELECT * FROM CinemaTable WHERE page = :page AND vote_average = 0 AND release_date >= 2018")
-    Single<List<CinemaEntity>> getUpComingCinemas(int page);
+    @Query("SELECT * FROM CinemaTable WHERE page = :page AND vote_average = 0 AND release_date >= :currentYear")
+    Single<List<CinemaEntity>> getUpComingCinemas(int page , int currentYear);
 
     @Query("SELECT * FROM CinemaTable WHERE cinemaId = :id")
     Single<CinemaEntity> getCinemaById(final int id);
