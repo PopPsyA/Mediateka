@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
@@ -75,6 +78,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mViewPagerCinemaInfo = findViewById(R.id.view_pager);
         mTabLayout = findViewById(R.id.tab_layout);
         mAppBarLayout = findViewById(R.id.app_bar_cinema);
+
     }
 
     @Override
@@ -102,8 +106,12 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public void showListPosters(List<String> posterUrls){
-        Intent intent = PosterSliderActivity.makeIntent(this , posterUrls);
-        startActivity(intent);
+        ActivityOptionsCompat activityOptions =  ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this ,
+                mSmallPosterImageView ,
+                getString(R.string.transition_cinema_poster_image));
+        Intent intent = PosterSliderActivity.makeIntent(this , posterUrls , getString(R.string.transition_cinema_poster_image));
+        ActivityCompat.startActivity(this , intent , activityOptions.toBundle());
     }
 
     @Override
