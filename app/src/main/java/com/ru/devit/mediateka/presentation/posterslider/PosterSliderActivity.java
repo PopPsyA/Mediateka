@@ -50,7 +50,7 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
     @Override
     protected int getLayoutId() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         return R.layout.activity_posters_slider;
     }
 
