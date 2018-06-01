@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.view.Menu;
@@ -85,8 +87,12 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
 
     @Override
     public void showPosters(List<String> posterUrls){
-        Intent intent = PosterSliderActivity.makeIntent(this , posterUrls);
-        startActivity(intent);
+        ActivityOptionsCompat activityOptions =  ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this ,
+                mActorAvatar ,
+                getString(R.string.transition_actor_avatar));
+        Intent intent = PosterSliderActivity.makeIntent(this , posterUrls , getString(R.string.transition_actor_avatar));
+        ActivityCompat.startActivity(this , intent , activityOptions.toBundle());
     }
 
     @Override
