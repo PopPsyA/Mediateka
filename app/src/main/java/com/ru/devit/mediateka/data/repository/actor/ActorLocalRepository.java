@@ -28,15 +28,17 @@ public class ActorLocalRepository implements ActorRepository {
     }
 
     @Override
-    public Flowable<List<Actor>> searchActors(String query) {
-        return null;
-    }
-
-    @Override
     public Single<Actor> getActorById(final int actorId) {
         return actorDao.getActorById(actorId)
                 .map(actorEntity -> mapper.mapDetailActor(actorEntity ,
                         cinemaActorJoinDao.getCinemasForActor(actorId)));
+    }
+
+    @Override
+    public Flowable<List<Actor>> searchActors(String query) {
+        return actorDao.getAllActorsByName(query)
+                .map(mapper::reverseMap);
+
     }
 
     public void insertCinemasForActor(List<CinemaEntity> cinemaEntities) {

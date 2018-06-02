@@ -39,16 +39,6 @@ public class ActorRemoteRepository implements ActorRepository {
     }
 
     @Override
-    public Flowable<List<Actor>> searchActors(String query) {
-        return apiService.searchActors(query)
-                .map(networkMapper::map)
-                .doAfterNext(actors -> cache.insertActors(dbMapper.map(actors)))
-                .onErrorResumeNext(throwable -> {
-                    return cache.searchActors("%" + query + "%");
-                });
-    }
-
-    @Override
     public Single<Actor> getActorById(final int actorId) {
         return Single.zip(apiService.getActorById(actorId ,"tagged_images,movie_credits"),
                           apiService.getImagesForActor(actorId) ,
@@ -66,6 +56,16 @@ public class ActorRemoteRepository implements ActorRepository {
                     createRelationBetweenActorAndCinemas(actorId , actor.getCinemas());
                 })
                 .onErrorResumeNext(throwable -> cache.getActorById(actorId));
+    }
+
+    @Override
+    public Flowable<List<Actor>> searchActors(String query) {
+        return apiService.searchActors(query)
+                .map(networkMapper::map)
+                .doAfterNext(actors -> cache.insertActors(dbMapper.map(actors)))
+                .onErrorResumeNext(throwable -> {
+                    return cache.searchActors("%" + query + "%");
+                });
     }
 
     private void createRelationBetweenActorAndCinemas(final int actorId , List<Cinema> cinemas){

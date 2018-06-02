@@ -12,6 +12,7 @@ import com.ru.devit.mediateka.models.db.CinemaEntity;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 import static android.arch.persistence.room.OnConflictStrategy.*;
@@ -24,6 +25,9 @@ public interface ActorDao {
 
     @Query("SELECT * FROM ActorTable")
     List<ActorEntity> getAllActors();
+
+    @Query("SELECT * FROM ActorTable WHERE actorName = :actorName")
+    Flowable<List<ActorEntity>> getAllActorsByName(final String actorName);
 
     @Insert(onConflict = REPLACE)
     void insertActors(List<ActorEntity> actorEntities);
