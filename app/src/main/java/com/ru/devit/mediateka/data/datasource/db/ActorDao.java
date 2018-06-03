@@ -4,7 +4,6 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
 import com.ru.devit.mediateka.models.db.ActorEntity;
 import com.ru.devit.mediateka.models.db.CinemaEntity;
@@ -26,7 +25,7 @@ public interface ActorDao {
     @Query("SELECT * FROM ActorTable")
     List<ActorEntity> getAllActors();
 
-    @Query("SELECT * FROM ActorTable WHERE actorName = :actorName")
+    @Query("SELECT * FROM ActorTable WHERE actorName LIKE :actorName")
     Flowable<List<ActorEntity>> getAllActorsByName(final String actorName);
 
     @Insert(onConflict = REPLACE)

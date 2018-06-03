@@ -3,7 +3,7 @@ ext {
   //Version
   supportVersion = '27.0.1'
 
-  rxJavaVersion = '2.1.5'
+  rxJavaVersion = '2.1.14'
   rxAndroidVersion = '2.0.1'
 
   picassoVersion = '2.5.2'
