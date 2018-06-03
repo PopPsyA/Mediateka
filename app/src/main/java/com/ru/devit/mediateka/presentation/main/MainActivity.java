@@ -85,13 +85,17 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
 
     @Override
     public void showNetworkError(){
-        mSnackbar = Snackbar.make(mViewPager, getString(R.string.message_network_error), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.message_retry) ,
-                        v -> presenter.onRetryButtonClicked(mConnectionReceiver.isInternetConnected(MainActivity.this)));
-        View view = mSnackbar.getView();
-        TextView textView = view.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setMaxLines(5);
-        mSnackbar.show();
+        if (isAboveLollipop()){
+            mSnackbar = Snackbar.make(mViewPager, getString(R.string.message_network_error), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.message_retry) ,
+                            v -> presenter.onRetryButtonClicked(mConnectionReceiver.isInternetConnected(MainActivity.this)));
+            View view = mSnackbar.getView();
+            TextView textView = view.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setMaxLines(5);
+            mSnackbar.show();
+        } else {
+            Toast.makeText(this , getString(R.string.message_network_error) , Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
