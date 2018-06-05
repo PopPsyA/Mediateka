@@ -10,6 +10,7 @@ import com.ru.devit.mediateka.models.network.Poster;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
@@ -34,20 +35,6 @@ public class ActorDetailResponseToActor {
         return actor;
     }
 
-    private void setBackgroundPosters(ActorDetailResponse response, Actor actor) {
-        List<String> backgroundUrls = new ArrayList<>(8);
-        int backgroundPostersSize = response.getTaggedImages().getImageResults().size();
-        if (backgroundPostersSize != 0){
-            for (ActorDetailResponse.ImageResult backgroundImg : response.getTaggedImages().getImageResults()){
-                backgroundUrls.add(backgroundImg.getBackgroundPoster());
-                if (backgroundUrls.size() >= 8){
-                    break;
-                }
-            }
-            actor.setBackgroundUrls(backgroundUrls);
-        }
-    }
-
     public List<Actor> map(ActorResponse response){
         List<Actor> actors = new ArrayList<>();
         for (ActorNetwork actorNetwork : response.getActors()){
@@ -58,6 +45,24 @@ public class ActorDetailResponseToActor {
             actors.add(actor);
         }
         return actors;
+    }
+
+    private void setBackgroundPosters(ActorDetailResponse response, Actor actor) {
+        List<String> backgroundUrls = new ArrayList<>(8);
+        if (response.getTaggedImages() != null){
+            int backgroundPostersSize = response.getTaggedImages().getImageResults().size();
+            if (backgroundPostersSize != 0){
+                for (ActorDetailResponse.ImageResult backgroundImg : response.getTaggedImages().getImageResults()){
+                    backgroundUrls.add(backgroundImg.getBackgroundPoster());
+                    if (backgroundUrls.size() >= 8){
+                        break;
+                    }
+                }
+            }
+        } else {
+            backgroundUrls = Collections.emptyList();
+        }
+        actor.setBackgroundUrls(backgroundUrls);
     }
 
     private void checkAgeThenSet(ActorDetailResponse response , Actor actor){
@@ -74,25 +79,33 @@ public class ActorDetailResponseToActor {
 
     private void setCinemas(ActorDetailResponse response , Actor actor){
         List<Cinema> cinemas = new ArrayList<>();
-        for (CinemaNetwork cinemaNetwork : response.getMovieCredits().getCinemas()){
-            Cinema cinema = new Cinema();
-            cinema.setId(cinemaNetwork.getId());
-            cinema.setTitle(cinemaNetwork.getTitle());
-            cinema.setReleaseDate(getYearFromDate(cinemaNetwork.getReleaseDate()));
-            cinema.setDescription(cinemaNetwork.getDescription());
-            cinema.setPosterUrl(cinemaNetwork.getPosterUrl());
-            cinema.setVoteAverage(cinemaNetwork.getVoteAverage());
-            cinema.setGenres(formatGenres(cinemaNetwork.getGenreIds()));
-            cinema.setCharacter(cinemaNetwork.getCharacter());
-            cinemas.add(cinema);
+        if (response.getMovieCredits() != null){
+            for (CinemaNetwork cinemaNetwork : response.getMovieCredits().getCinemas()){
+                Cinema cinema = new Cinema();
+                cinema.setId(cinemaNetwork.getId());
+                cinema.setTitle(cinemaNetwork.getTitle());
+                cinema.setReleaseDate(getYearFromDate(cinemaNetwork.getReleaseDate()));
+                cinema.setDescription(cinemaNetwork.getDescription());
+                cinema.setPosterUrl(cinemaNetwork.getPosterUrl());
+                cinema.setVoteAverage(cinemaNetwork.getVoteAverage());
+                cinema.setGenres(formatGenres(cinemaNetwork.getGenreIds()));
+                cinema.setCharacter(cinemaNetwork.getCharacter());
+                cinemas.add(cinema);
+            }
+        } else {
+            cinemas = Collections.emptyList();
         }
         actor.setCinemas(cinemas);
     }
 
     private void setPosters(ActorDetailResponse response , Actor actor){
         List<String> posterUrls = new ArrayList<>();
-        for (Poster poster : response.getImagesResponse().getActorPosters()){
-            posterUrls.add(poster.getPosterUrl());
+        if (response.getImagesResponse() != null){
+            for (Poster poster : response.getImagesResponse().getActorPosters()){
+                posterUrls.add(poster.getPosterUrl());
+            }
+        } else {
+            posterUrls = Collections.emptyList();
         }
         actor.setPostersUrl(posterUrls);
     }
