@@ -36,12 +36,12 @@ public class ActorDetailResponseToActor {
     }
 
     public List<Actor> map(ActorResponse response){
-        List<Actor> actors = new ArrayList<>();
+        final List<Actor> actors = new ArrayList<>();
         for (ActorNetwork actorNetwork : response.getActors()){
-            Actor actor = new Actor();
-            actor.setName(actorNetwork.getName());
+            final Actor actor = new Actor();
+            actor.setName(emptyValueIfNull(actorNetwork.getName()));
             actor.setActorId(actorNetwork.getActorId());
-            actor.setProfileUrl(actorNetwork.getProfilePath());
+            actor.setProfileUrl(emptyValueIfNull(actorNetwork.getProfilePath()));
             actors.add(actor);
         }
         return actors;
