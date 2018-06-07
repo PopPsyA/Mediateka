@@ -53,7 +53,7 @@ public class FormatterUtils {
 
     public static String formatGenres(int[] genresIds){
         StringBuilder result = new StringBuilder();
-        if (genresIds.length == 0) return "";
+        if (genresIds == null || genresIds.length == 0) return "";
         for (int genresId : genresIds) {
             result.append(genres.get(genresId)).append(", ");
         }

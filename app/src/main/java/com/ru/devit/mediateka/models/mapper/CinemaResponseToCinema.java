@@ -11,27 +11,34 @@ import com.ru.devit.mediateka.models.network.Poster;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CinemaResponseToCinema{
 
+    /*
+    That blueprints to do for test , for each don't work properly.
+     */
     public List<Cinema> map(CinemaResponse cinemaResponse) {
         List<Cinema> cinemas = new ArrayList<>();
-        for (CinemaNetwork response : cinemaResponse.getCinemas()){
-            Cinema cinema = new Cinema();
-            cinema.setPage(cinemaResponse.getPage());
-            cinema.setTotalPages(cinemaResponse.getTotalPages());
-            cinema.setTotalResults(cinemaResponse.getTotalResults());
-            cinema.setId(response.getId());
-            cinema.setVoteAverage(response.getVoteAverage());
-            cinema.setTitle(response.getTitle());
-            cinema.setAdult(response.isAdult());
-            cinema.setDescription(response.getDescription());
-            cinema.setPosterUrl(response.getPosterUrl());
-            cinema.setReleaseDate(response.getReleaseDate());
-            cinema.setPopularity(response.getPopularity());
-            cinema.setGenres(FormatterUtils.formatGenres(response.getGenreIds()));
-            cinemas.add(cinema);
+        if (cinemaResponse.getCinemas() != null){
+            for (int i = 0; i < cinemaResponse.getCinemas().size(); i++){
+                final Cinema cinema = new Cinema();
+                final CinemaNetwork response = cinemaResponse.getCinemas().get(i);
+                cinema.setPage(cinemaResponse.getPage());
+                cinema.setTotalPages(cinemaResponse.getTotalPages());
+                cinema.setTotalResults(cinemaResponse.getTotalResults());
+                cinema.setId(response.getId());
+                cinema.setVoteAverage(response.getVoteAverage());
+                cinema.setTitle(response.getTitle());
+                cinema.setAdult(response.isAdult());
+                cinema.setDescription(response.getDescription());
+                cinema.setPosterUrl(response.getPosterUrl());
+                cinema.setReleaseDate(response.getReleaseDate());
+                cinema.setPopularity(response.getPopularity());
+                cinema.setGenres(FormatterUtils.formatGenres(response.getGenreIds()));
+                cinemas.add(cinema);
+            }
         }
         return cinemas;
     }
@@ -60,34 +67,45 @@ public class CinemaResponseToCinema{
     }
 
     private void setGenres(CinemaDetailResponse response , Cinema cinema){
-        int[] ids = new int[response.getGenres().length];
-        for (int i = 0; i < response.getGenres().length; i++){
-            CinemaDetailResponse.Genres[] genres = response.getGenres();
-            ids[i] = genres[i].getId();
+        int[] ids;
+        if (response.getGenres() != null){
+            ids = new int[response.getGenres().length];
+            for (int i = 0; i < response.getGenres().length; i++){
+                CinemaDetailResponse.Genres[] genres = response.getGenres();
+                ids[i] = genres[i].getId();
+            }
+        } else {
+            ids = new int[]{0}; // empty genres , like Collections.emptyList();
         }
         cinema.setGenres(FormatterUtils.formatGenres(ids));
     }
 
     private void setActors(CinemaDetailResponse response , Cinema cinema){
         List<Actor> actors = new ArrayList<>();
-        for (ActorNetwork cast : response.getCredits().getCast()){
-            Actor actor = new Actor();
-            actor.setActorId(cast.getActorId());
-            actor.setName(cast.getName());
-            actor.setCastId(cast.getCastId());
-            actor.setCharacter(cast.getCharacter());
-            actor.setProfileUrl(cast.getProfilePath());
-            actor.setOrder(cast.getOrder());
-            actors.add(actor);
+        if (response.getCredits() != null){
+            for (ActorNetwork cast : response.getCredits().getCast()){
+                Actor actor = new Actor();
+                actor.setActorId(cast.getActorId());
+                actor.setName(cast.getName());
+                actor.setCastId(cast.getCastId());
+                actor.setCharacter(cast.getCharacter());
+                actor.setProfileUrl(cast.getProfilePath());
+                actor.setOrder(cast.getOrder());
+                actors.add(actor);
+            }
+        } else {
+            actors = Collections.emptyList();
         }
         cinema.setActors(actors);
     }
 
     private void setDirectorName(CinemaDetailResponse response , Cinema cinema){
-        for (CrewNetwork crew : response.getCredits().getCrews()){
-            if (crew.getJob().equals("Director")){
-                cinema.setDirectorName(FormatterUtils.defaultValueIfNull(crew.getName()));
-                break;
+        if (response.getCredits() != null){
+            for (CrewNetwork crew : response.getCredits().getCrews()){
+                if (crew.getJob().equals("Director")){
+                    cinema.setDirectorName(FormatterUtils.defaultValueIfNull(crew.getName()));
+                    break;
+                }
             }
         }
     }
@@ -95,13 +113,15 @@ public class CinemaResponseToCinema{
     private void setPosters(CinemaDetailResponse response , Cinema cinema){
         final List<String> posterUrls = new ArrayList<>();
         final List<String> backdropUrls = new ArrayList<>(8);
-        for (final Poster poster : response.getImagesResponse().getCinemaPosters()){
-            posterUrls.add(poster.getPosterUrl());
-        }
-        for (final Poster poster : response.getImagesResponse().getCinemaBackgroundPosters()){
-            backdropUrls.add(poster.getPosterUrl());
-            if (backdropUrls.size() >= 8){
-                break;
+        if (response.getImagesResponse() != null){
+            for (final Poster poster : response.getImagesResponse().getCinemaPosters()){
+                posterUrls.add(poster.getPosterUrl());
+            }
+            for (final Poster poster : response.getImagesResponse().getCinemaBackgroundPosters()){
+                backdropUrls.add(poster.getPosterUrl());
+                if (backdropUrls.size() >= 8){
+                    break;
+                }
             }
         }
         cinema.setBackdropUrls(backdropUrls);

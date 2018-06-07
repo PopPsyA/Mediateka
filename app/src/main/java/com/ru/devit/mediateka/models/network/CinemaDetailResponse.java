@@ -6,7 +6,7 @@ public class CinemaDetailResponse {
     @SerializedName("adult") private boolean adult;
     @SerializedName("backdrop_path") private String backdropPath;
     @SerializedName("budget") private int budget;
-    @SerializedName("id") public int id;
+    @SerializedName("id") private int id;
     @SerializedName("original_title") private String originalTitle;
     @SerializedName("overview") private String overview;
     @SerializedName("popularity") private float popularity;
@@ -15,7 +15,7 @@ public class CinemaDetailResponse {
     @SerializedName("revenue") private int revenue;
     @SerializedName("runtime") private int runtime;
     @SerializedName("status") private String status;
-    @SerializedName("title") public String title;
+    @SerializedName("title") private String title;
     @SerializedName("vote_average") private float voteAverage;
     @SerializedName("vote_count") private int voteCount;
     @SerializedName("genres") private Genres[] genres;
