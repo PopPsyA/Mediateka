@@ -43,7 +43,7 @@ public class ActorDetailPresenter extends BasePresenter<ActorDetailPresenter.Vie
         void showPosters(List<String> posterUrls);
     }
 
-    private final class ActorDetailSubscriber extends UseCaseSubscriber<Actor>{
+    public class ActorDetailSubscriber extends UseCaseSubscriber<Actor>{
         @Override
         public void onNext(Actor actor) {
             getView().showActorDetail(actor);
