@@ -18,7 +18,7 @@ import static com.ru.devit.mediateka.utils.FormatterUtils.*;
 public class SmallCinemasPresenter extends BasePresenter<SmallCinemasPresenter.View> {
 
     private List<Cinema> cinemas;
-    private GetCinemaByQuery getCinemaByQuery;
+    private final GetCinemaByQuery getCinemaByQuery;
     private final SmallCinemaSubscriber smallCinemaSubscriber;
 
     public SmallCinemasPresenter(GetCinemaByQuery getCinemaByQuery) {
