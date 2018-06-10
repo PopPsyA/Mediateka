@@ -1,6 +1,9 @@
 ![Travis-ci](https://api.travis-ci.org/Devit951/Mediateka.svg)
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f85f24ef31a2cc09a4e3035a8bf528be7e899c75
 ![192px](https://user-images.githubusercontent.com/34313493/40320871-f2835e0e-5d4e-11e8-9fb0-5f0482d410e3.png)
 
 
