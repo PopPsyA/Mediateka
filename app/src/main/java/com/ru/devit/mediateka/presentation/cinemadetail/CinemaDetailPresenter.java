@@ -28,10 +28,9 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         this.cinemaId = cinemaId;
     }
 
-    void onSmallPosterClicked(List<String> posterUrls) {
+    public void onSmallPosterClicked(List<String> posterUrls) {
         getView().showListPosters(posterUrls);
     }
-
 
     public void onDestroy(){
         getCinemaById.dispose();
