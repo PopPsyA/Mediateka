@@ -2,7 +2,7 @@ package com.ru.devit.mediateka.domain;
 
 import io.reactivex.functions.Action;
 
-public final class Actions {
+public class Actions {
 
     private Action actionOnNext;
     private Action actionOnDataLoaded;
