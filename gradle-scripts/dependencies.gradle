@@ -1,7 +1,7 @@
 ext {
 
   //Version
-  supportVersion = '27.0.1'
+  supportVersion = '27.1.1'
 
   rxJavaVersion = '2.1.14'
   rxAndroidVersion = '2.0.1'
@@ -51,7 +51,7 @@ ext {
   gson = buildDependency(gsonPackage, 'gson', gsonVersion)
   gsonConverter = 'com.squareup.retrofit2:converter-gson:2.1.0'
   retrofit = 'com.squareup.retrofit2:retrofit:2.3.0'
-  cardView = 'com.android.support:cardview-v7:27.0.1'
+  cardView = 'com.android.support:cardview-v7:27.1.1'
 
   //Testing
   testingDependencies = [

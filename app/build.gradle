@@ -24,6 +24,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -50,7 +53,7 @@ dependencies {
     implementation 'android.arch.persistence.room:rxjava2:1.1.0'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-    implementation 'com.android.support:palette-v7:27.1.0'
+    implementation 'com.android.support:palette-v7:27.1.1'
 
     testImplementation testingDependencies.junit
     testImplementation testingDependencies.mockito
