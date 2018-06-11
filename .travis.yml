@@ -5,6 +5,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y pax
   - yes | sdkmanager "platforms;android-26"
+  - yes | sdkmanager "platforms;android-27"
 env:
   global:
   - ANDROID_API_LEVEL=26
