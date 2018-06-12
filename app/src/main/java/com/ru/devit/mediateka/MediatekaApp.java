@@ -8,6 +8,9 @@ import com.ru.devit.mediateka.data.datasource.db.AppDatabase;
 import com.ru.devit.mediateka.di.ComponentsManager;
 import com.ru.devit.mediateka.presentation.main.SyncConnectionListener;
 
+import io.reactivex.internal.functions.Functions;
+import io.reactivex.plugins.RxJavaPlugins;
+
 
 public class MediatekaApp extends Application {
 
@@ -20,6 +23,7 @@ public class MediatekaApp extends Application {
         super.onCreate();
         initComponentsManager();
         initAppComponent();
+        RxJavaPlugins.setErrorHandler(Functions.emptyConsumer());
     }
 
     public static ComponentsManager getComponentsManager(){
