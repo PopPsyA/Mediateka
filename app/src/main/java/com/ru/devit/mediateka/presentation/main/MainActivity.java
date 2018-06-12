@@ -1,12 +1,14 @@
 package com.ru.devit.mediateka.presentation.main;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -17,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,19 +29,19 @@ import android.widget.Toast;
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.data.ConnectionReceiver;
-import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
+import com.ru.devit.mediateka.presentation.common.OnTabSelectedListener;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.cinemalist.CinemaListFragment;
-import com.ru.devit.mediateka.presentation.popularactors.PopularActors;
 import com.ru.devit.mediateka.presentation.search.SearchActivity;
-import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
+import com.ru.devit.mediateka.utils.AnimUtils;
 
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View, NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
+    private AppBarLayout mAppBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private DrawerLayout mDrawer;
@@ -67,6 +68,12 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     protected void onStart() {
         mNavigationView.setNavigationItemSelectedListener(this);
         mFloatingActionBarScrollUp.setOnClickListener(v -> presenter.onFABScrollUpClicked());
+        mTabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                presenter.onTabSelected(tab.getPosition());
+            }
+        });
         super.onStart();
     }
 
@@ -110,6 +117,21 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     }
 
     @Override
+    public void onPopularTabSelected() {
+        dynamicallyChangeColor(R.color.colorPurple);
+    }
+
+    @Override
+    public void onTopRatedTabSelected() {
+        dynamicallyChangeColor(R.color.colorOrange);
+    }
+
+    @Override
+    public void onUpComingTabSelected() {
+        dynamicallyChangeColor(R.color.colorRed);
+    }
+
+    @Override
     protected void initDagger() {
         MediatekaApp.getComponentsManager()
                 .getAppComponent()
@@ -125,6 +147,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
+        mAppBar = findViewById(R.id.main_app_bar);
+        changeStatusBarColor(R.color.colorPurple);
         mNavigationView = findViewById(R.id.nav_view);
         mDrawer = findViewById(R.id.drawer_layout);
         mToggle = new ActionBarDrawerToggle(this , mDrawer , mToolbar , R.string.nav_open , R.string.nav_close);
@@ -210,7 +234,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
                 break;
             }
         }
-
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -228,6 +251,15 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void dynamicallyChangeColor(@ColorRes int color) {
+        int parsedColor = ContextCompat.getColor(this , color);
+        AnimUtils.startRevealAnimationWithOutVisibility(mAppBar);
+        changeStatusBarColor(color); // i don't use parsedColor because inside this method , used ContextCompat
+        mTabLayout.setBackgroundColor(parsedColor);
+        mToolbar.setBackgroundColor(parsedColor);
+        mFloatingActionBarScrollUp.setBackgroundTintList(ColorStateList.valueOf(parsedColor));
     }
 
     private void setUpViewPager(ViewPager viewPager){
