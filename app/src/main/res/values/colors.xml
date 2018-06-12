@@ -10,12 +10,14 @@
     <color name="colorYellow">#effb0d</color>
     <color name="colorBlack">#FF000000</color>
     <color name="colorRed">#FFF40808</color>
+    <color name="colorDarkRed">#c30000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorOrange">#FFFF9100</color>
+    <color name="colorDarkOrange">#c56200</color>
     <color name="colorDarkGreen">#009933</color>
     <color name="colorLightOrange">#B3613D</color>
     <color name="colorPurple">#8e24aa</color>
-    <color name="colorPurpleDark">#5c007a</color>
+    <color name="colorDarkPurple">#5c007a</color>
     <color name="colorDivider">#1FFFFFFF</color>
     <color name="colorLightGreen">#ffa6c575</color>
     <color name="colorBlue">#FF1976D2</color>

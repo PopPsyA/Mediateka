@@ -118,17 +118,17 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
 
     @Override
     public void onPopularTabSelected() {
-        dynamicallyChangeColor(R.color.colorPurple);
+        dynamicallyChangeColor(R.color.colorPurple , R.color.colorDarkPurple);
     }
 
     @Override
     public void onTopRatedTabSelected() {
-        dynamicallyChangeColor(R.color.colorOrange);
+        dynamicallyChangeColor(R.color.colorOrange , R.color.colorDarkOrange);
     }
 
     @Override
     public void onUpComingTabSelected() {
-        dynamicallyChangeColor(R.color.colorRed);
+        dynamicallyChangeColor(R.color.colorRed , R.color.colorDarkRed);
     }
 
     @Override
@@ -253,10 +253,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         }
     }
 
-    private void dynamicallyChangeColor(@ColorRes int color) {
+    private void dynamicallyChangeColor(@ColorRes int color , @ColorRes int statusBarColor) {
         int parsedColor = ContextCompat.getColor(this , color);
         AnimUtils.startRevealAnimationWithOutVisibility(mAppBar);
-        changeStatusBarColor(color); // i don't use parsedColor because inside this method , used ContextCompat
+        changeStatusBarColor(statusBarColor);
         mTabLayout.setBackgroundColor(parsedColor);
         mToolbar.setBackgroundColor(parsedColor);
         mFloatingActionBarScrollUp.setBackgroundTintList(ColorStateList.valueOf(parsedColor));
