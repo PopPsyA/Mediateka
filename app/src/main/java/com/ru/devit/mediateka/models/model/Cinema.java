@@ -29,7 +29,7 @@ public class Cinema implements Parcelable {
     private boolean video;
     private float voteAverage;
     private int voteCount;
-    private String genres;
+    private int[] genresId;
     private String directorName;
     private String character;
     private List<Actor> actors;
@@ -194,12 +194,12 @@ public class Cinema implements Parcelable {
         this.voteCount = voteCount;
     }
 
-    public String getGenres() {
-        return genres;
+    public int[] getGenres() {
+        return genresId;
     }
 
-    public void setGenres(String genres) {
-        this.genres = genres;
+    public void setGenres(int[] genresId) {
+        this.genresId = genresId;
     }
 
     public int getPage() {

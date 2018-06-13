@@ -3,6 +3,7 @@ package com.ru.devit.mediateka.presentation.cinemalist;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
+import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
+
+import java.util.Arrays;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.getYearFromDate;
 
@@ -40,8 +44,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
         onPosterClicked(cinema.getId() , viewHolderPosition);
         renderPoster(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()));
         render(cinema.getTitle() , cinema.getVoteAverage() ,
-                    cinema.getReleaseDate() , cinema.getDescription() ,
-                    cinema.getGenres());
+                    cinema.getReleaseDate() , cinema.getDescription());
     }
 
     private void onMoreInfoButtonClicked(int cinemaId , int viewHolderPosition){
@@ -60,7 +63,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
                 .into(posterImageView);
     }
 
-    private void render(String title , float rating , String date , String desc , String genres){
+    private void render(String title , float rating , String date , String desc){
         titleTextView.setText(title);
         ratingTextView.setText(String.valueOf(rating));
         if (rating < 6.0){
@@ -70,7 +73,6 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
         }
         releaseDateTextView.setText(getYearFromDate(date));
         descriptionTextView.setText(desc);
-        genresTextView.setText(genres);
     }
 
     private Context getContext(){

@@ -38,4 +38,23 @@
     <string name="message_network_error">Чтобы синхронизировать данные , подкюлчитесь к интернету</string>
     <string name="search_cinemas">Поиск фильмов…</string>
     <string name="search_actors">Поиск актёров…</string>
+    <string name="genre_action">боевик</string>
+    <string name="genre_adventure">приключение</string>
+    <string name="genre_cartoon">мультфильм</string>
+    <string name="genre_comedy">комедия</string>
+    <string name="genre_crime">криминал</string>
+    <string name="genre_documentary">документальный</string>
+    <string name="genre_drama">драма</string>
+    <string name="genre_family">семейный</string>
+    <string name="genre_western">вестерн</string>
+    <string name="genre_war">военный</string>
+    <string name="genre_thriller">триллер</string>
+    <string name="genre_tv_show">телевизионный фильм</string>
+    <string name="genre_fantasy">фантастика</string>
+    <string name="genre_music">музыка</string>
+    <string name="genre_horror">ужасы</string>
+    <string name="genre_history">история</string>
+    <string name="genre_science_fiction">фантастика</string>
+    <string name="genre_melodrama">мелодрама</string>
+    <string name="genre_detective">детектив</string>
 </resources>

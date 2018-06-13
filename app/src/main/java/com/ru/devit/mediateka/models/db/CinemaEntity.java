@@ -6,6 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
+import com.ru.devit.mediateka.models.IntArrayConverter;
+
 import java.util.List;
 
 @Entity(tableName = "CinemaTable")
@@ -23,12 +25,11 @@ public class CinemaEntity {
     @ColumnInfo(name = "vote_average") private float voteAverage;
     @ColumnInfo(name = "popularity") private float popularity;
     @ColumnInfo(name = "budget") private int budget;
-    @ColumnInfo(name = "genre_ids") private String genreIds;
+    @ColumnInfo(name = "genre_ids") private int[] genreIds;
     @ColumnInfo(name = "director_name") private String directorName;
     @ColumnInfo(name = "actor_character") private String actorCharacterName;
     @ColumnInfo(name = "cinema_duration") private int cinemaDuration;
     @ColumnInfo(name = "revenue") private int revenue;
-
 
     public CinemaEntity(){}
 
@@ -120,11 +121,11 @@ public class CinemaEntity {
         this.budget = budget;
     }
 
-    public String getGenreIds() {
+    public int[] getGenreIds() {
         return genreIds;
     }
 
-    public void setGenreIds(String genreIds) {
+    public void setGenreIds(int[] genreIds) {
         this.genreIds = genreIds;
     }
 

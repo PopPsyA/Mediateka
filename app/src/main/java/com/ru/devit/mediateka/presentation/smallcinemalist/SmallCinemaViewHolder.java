@@ -36,7 +36,7 @@ class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
         renderImage(UrlImagePathCreator.create185pPictureUrl(cinema.getPosterUrl()));
         mTextViewCinemaDate.setText(FormatterUtils.getYearFromDate(cinema.getReleaseDate()));
         mTextViewTitle.setText(cinema.getTitle());
-        mTextViewGenres.setText(cinema.getGenres());
+        mTextViewGenres.setText(FormatterUtils.formatGenres(cinema.getGenres() , getContext()));
         mTextViewCharacter.setText(TextUtils.isEmpty(cinema.getCharacter()) ? "" : getContext().getString(R.string.role , cinema.getCharacter()));
     }
 

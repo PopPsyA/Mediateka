@@ -36,7 +36,7 @@ public class CinemaResponseToCinema{
                 cinema.setPosterUrl(response.getPosterUrl());
                 cinema.setReleaseDate(response.getReleaseDate());
                 cinema.setPopularity(response.getPopularity());
-                cinema.setGenres(FormatterUtils.formatGenres(response.getGenreIds()));
+                cinema.setGenres(response.getGenreIds());
                 cinemas.add(cinema);
             }
         }
@@ -77,7 +77,7 @@ public class CinemaResponseToCinema{
         } else {
             ids = new int[]{0}; // empty genres , like Collections.emptyList();
         }
-        cinema.setGenres(FormatterUtils.formatGenres(ids));
+        cinema.setGenres(ids);
     }
 
     private void setActors(CinemaDetailResponse response , Cinema cinema){

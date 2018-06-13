@@ -1,6 +1,9 @@
 package com.ru.devit.mediateka.utils;
 
+import android.content.Context;
 import android.support.v4.util.SparseArrayCompat;
+
+import com.ru.devit.mediateka.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,29 +12,29 @@ import java.util.Locale;
 
 public class FormatterUtils {
 
-    private static final SparseArrayCompat<String> genres = new SparseArrayCompat<>();
+    private static final SparseArrayCompat<Integer> genres = new SparseArrayCompat<>();
     public static final String DEFAULT_VALUE = "N/A";
 
     static {
-        genres.put(28 , "боевик");
-        genres.put(12 , "приключения");
-        genres.put(16 , "мультфильм");
-        genres.put(35 , "комедия");
-        genres.put(80 , "криминал");
-        genres.put(99 , "документальный");
-        genres.put(18 , "драма");
-        genres.put(10751 , "семейный");
-        genres.put(14 , "фэнтези");
-        genres.put(36 , "история");
-        genres.put(27 , "ужасы");
-        genres.put(10402 , "музыка");
-        genres.put(10749 , "мелодрама");
-        genres.put(9648 , "детектив");
-        genres.put(878 , "фантастика");
-        genres.put(10770 , "телевизионный фильм");
-        genres.put(53 , "триллер");
-        genres.put(10752 , "военный");
-        genres.put(37 , "вестерн");
+        genres.put(28 , R.string.genre_action);
+        genres.put(12 , R.string.genre_adventure);
+        genres.put(16 , R.string.genre_cartoon);
+        genres.put(35 , R.string.genre_comedy);
+        genres.put(80 , R.string.genre_crime);
+        genres.put(99 , R.string.genre_documentary);
+        genres.put(18 , R.string.genre_drama);
+        genres.put(10751 , R.string.genre_family);
+        genres.put(14 , R.string.genre_fantasy);
+        genres.put(36 , R.string.genre_history);
+        genres.put(27 , R.string.genre_horror);
+        genres.put(10402 , R.string.genre_music);
+        genres.put(10749 , R.string.genre_melodrama);
+        genres.put(9648 , R.string.genre_detective);
+        genres.put(878 , R.string.genre_science_fiction);
+        genres.put(10770 , R.string.genre_tv_show);
+        genres.put(53 , R.string.genre_thriller);
+        genres.put(10752 , R.string.genre_war);
+        genres.put(37 , R.string.genre_western);
     }
 
     public static String formatDate(String releaseDate){
@@ -51,11 +54,11 @@ public class FormatterUtils {
         return newDateFormat.format(date);
     }
 
-    public static String formatGenres(int[] genresIds){
+    public static String formatGenres(int[] genresIds , Context context){
         StringBuilder result = new StringBuilder();
         if (genresIds == null || genresIds.length == 0) return "";
         for (int genresId : genresIds) {
-            result.append(genres.get(genresId)).append(", ");
+            result.append(context.getString(genres.get(genresId))).append(", ");
         }
         return result.deleteCharAt(result.length() - 2).toString(); // remove last chars ", "
     }

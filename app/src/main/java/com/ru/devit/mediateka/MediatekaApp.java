@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import com.ru.devit.mediateka.data.ConnectionReceiver;
-import com.ru.devit.mediateka.data.datasource.db.AppDatabase;
+import com.ru.devit.mediateka.data.datasource.db.MediatekaDatabase;
 import com.ru.devit.mediateka.di.ComponentsManager;
 import com.ru.devit.mediateka.presentation.main.SyncConnectionListener;
 
@@ -15,7 +15,7 @@ import io.reactivex.plugins.RxJavaPlugins;
 public class MediatekaApp extends Application {
 
     private static ComponentsManager componentsManager;
-    private static AppDatabase database;
+    private static MediatekaDatabase database;
     private static final String DATABASE_NAME = "mediateka_db";
 
     @Override
@@ -34,9 +34,9 @@ public class MediatekaApp extends Application {
         ConnectionReceiver.connectionListener = connectionListener;
     }
 
-    public AppDatabase getDatabaseInstance(){
+    public MediatekaDatabase getDatabaseInstance(){
         if (database == null){
-            database = Room.databaseBuilder(this , AppDatabase.class , DATABASE_NAME).build();
+            database = Room.databaseBuilder(this , MediatekaDatabase.class , DATABASE_NAME).build();
         }
         return database;
     }

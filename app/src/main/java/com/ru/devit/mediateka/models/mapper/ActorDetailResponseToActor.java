@@ -88,7 +88,7 @@ public class ActorDetailResponseToActor {
                 cinema.setDescription(cinemaNetwork.getDescription());
                 cinema.setPosterUrl(cinemaNetwork.getPosterUrl());
                 cinema.setVoteAverage(cinemaNetwork.getVoteAverage());
-                cinema.setGenres(formatGenres(cinemaNetwork.getGenreIds()));
+                cinema.setGenres(cinemaNetwork.getGenreIds());
                 cinema.setCharacter(cinemaNetwork.getCharacter());
                 cinemas.add(cinema);
             }
