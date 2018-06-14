@@ -1,3 +1,4 @@
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/Devit951/Mediateka)
 ![Travis-ci](https://api.travis-ci.org/Devit951/Mediateka.svg)
 [![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) 
 
