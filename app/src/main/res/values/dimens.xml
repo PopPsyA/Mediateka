@@ -18,4 +18,5 @@
     <dimen name="cinema_poster_width">100dp</dimen>
     <dimen name="cinema_background_poster_width">200dp</dimen>
     <dimen name="indicator_diametr">8dp</dimen>
+    <dimen name="cinema_fab_menu_add_to_favourite">80dp</dimen>
 </resources>

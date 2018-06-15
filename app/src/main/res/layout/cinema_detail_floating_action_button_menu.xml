@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:id="@+id/ll_add_to_favourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="invisible"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="@dimen/cinema_fab_menu_add_to_favourite"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            android:padding="4dp"
+            android:textColor="@color/colorWhite"
+            android:text="@string/add_to_favourites"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:elevation="0dp"
+            app:backgroundTint="@color/colorGray"
+            app:srcCompat="@drawable/ic_star"
+            app:fabSize="mini"/>
+
+    </LinearLayout>
+
+</LinearLayout>

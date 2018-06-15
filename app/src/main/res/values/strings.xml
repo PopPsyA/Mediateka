@@ -57,4 +57,5 @@
     <string name="genre_science_fiction">фантастика</string>
     <string name="genre_melodrama">мелодрама</string>
     <string name="genre_detective">детектив</string>
+    <string name="add_to_favourites">Добавить в избранное</string>
 </resources>

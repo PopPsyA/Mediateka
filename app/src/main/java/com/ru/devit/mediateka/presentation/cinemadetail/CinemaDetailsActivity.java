@@ -1,20 +1,26 @@
 package com.ru.devit.mediateka.presentation.cinemadetail;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
@@ -49,6 +55,9 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private TabLayout mTabLayout;
     private AppBarLayout mAppBarLayout;
     private PosterSliderAdapter mBackgroundPosterSliderAdapter;
+    private FloatingActionButton mFABCinemaMenu;
+    private LinearLayout mLinearLayoutAddToFavourite;
+    private View mViewForegroundStub;
 
     @Inject CinemaDetailPresenter presenter;
 
@@ -59,8 +68,17 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mFABCinemaMenu.setOnClickListener(v -> presenter.onFABCinemaMenuClicked());
+        mViewForegroundStub.setOnClickListener(v -> presenter.onForegroundViewClicked());
+    }
+
+    @Override
     protected void onStop() {
         mAppBarLayout.addOnOffsetChangedListener(null);
+        mFABCinemaMenu.setOnClickListener(null);
+        mViewForegroundStub.setOnClickListener(null);
         super.onStop();
     }
 
@@ -78,7 +96,13 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mViewPagerCinemaInfo = findViewById(R.id.view_pager);
         mTabLayout = findViewById(R.id.tab_layout);
         mAppBarLayout = findViewById(R.id.app_bar_cinema);
-
+        mFABCinemaMenu = findViewById(R.id.fab_cinema_menu);
+        mLinearLayoutAddToFavourite = findViewById(R.id.ll_add_to_favourite);
+        mViewForegroundStub = findViewById(R.id.view_foreground_stub);
+        ViewCompat.setTranslationZ(findViewById(R.id.layout_cinema_fab_menu) , 1f);
+        mLinearLayoutAddToFavourite.setScaleX(0);
+        mLinearLayoutAddToFavourite.setScaleY(0);
+        mViewForegroundStub.setAlpha(0.8f);
     }
 
     @Override
@@ -112,6 +136,30 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 getString(R.string.transition_cinema_poster_image));
         Intent intent = PosterSliderActivity.makeIntent(this , posterUrls , getString(R.string.transition_cinema_poster_image));
         ActivityCompat.startActivity(this , intent , activityOptions.toBundle());
+    }
+
+    @Override
+    public void showFABCinemaMenu(){
+        mLinearLayoutAddToFavourite.setVisibility(View.VISIBLE);
+        mViewForegroundStub.setVisibility(View.VISIBLE);
+        ViewCompat.setTranslationZ(mViewForegroundStub , 0.9f);
+        mFABCinemaMenu.animate()
+                .rotationBy(180);
+        mLinearLayoutAddToFavourite.animate()
+                .alphaBy(1)
+                .scaleX(1)
+                .scaleY(1);
+    }
+
+    @Override
+    public void hideFABCinemaMenu(){
+        mFABCinemaMenu.animate().rotationBy(-180);
+        mViewForegroundStub.setVisibility(View.GONE);
+        ViewCompat.setTranslationZ(mViewForegroundStub , 0f);
+        mLinearLayoutAddToFavourite.animate()
+                .alphaBy(0)
+                .scaleX(0)
+                .scaleY(0);
     }
 
     @Override
@@ -183,10 +231,12 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                         final Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                         Palette.from(bitmap)
                                 .generate(palette -> {
+                                    mFABCinemaMenu.setVisibility(View.VISIBLE);
                                     Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
                                     Palette.Swatch mutedSwatch = palette.getMutedSwatch();
                                     if (mutedSwatch != null) {
                                         mTabLayout.setBackgroundColor(mutedSwatch.getRgb());
+                                        mFABCinemaMenu.setBackgroundTintList(ColorStateList.valueOf(mutedSwatch.getRgb()));
                                     }
                                     if (darkMutedSwatch != null){
                                         getCollapsingToolbarLayout().setContentScrimColor(darkMutedSwatch.getRgb());

@@ -12,6 +12,7 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
 
     private final GetCinemaById getCinemaById;
     private int cinemaId;
+    private boolean isFABMenuOpen;
 
     public CinemaDetailPresenter(GetCinemaById getCinemaById) {
         this.getCinemaById = getCinemaById;
@@ -32,6 +33,21 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         getView().showListPosters(posterUrls);
     }
 
+    public void onFABCinemaMenuClicked() {
+        if (!isFABMenuOpen){
+            isFABMenuOpen = true;
+            getView().showFABCinemaMenu();
+        } else {
+            isFABMenuOpen = false;
+            getView().hideFABCinemaMenu();
+        }
+    }
+
+    public void onForegroundViewClicked() {
+        isFABMenuOpen = false;
+        getView().hideFABCinemaMenu();
+    }
+
     public void onDestroy(){
         getCinemaById.dispose();
         setView(null);
@@ -40,6 +56,8 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
     public interface View extends BaseView{
         void showCinemaDetail(Cinema cinemaDetail);
         void showListPosters(List<String> postersUrl);
+        void showFABCinemaMenu();
+        void hideFABCinemaMenu();
     }
 
     private final class CinemaDetailSubscriber extends UseCaseSubscriber<Cinema>{

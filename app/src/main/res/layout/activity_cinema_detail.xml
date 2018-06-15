@@ -78,9 +78,6 @@
                     android:id="@+id/stub"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/vp_cinema_detail_background_poster"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +107,32 @@
             app:tabMode="fixed" />
 
     </android.support.design.widget.AppBarLayout>
+
+    <View
+        android:id="@+id/view_foreground_stub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:visibility="gone"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_cinema_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_add"
+        app:layout_anchor="@id/view_pager"
+        app:layout_anchorGravity="bottom|end"
+        tools:visibility="visible"/>
+
+    <include
+        android:id="@+id/layout_cinema_fab_menu"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/cinema_detail_floating_action_button_menu"
+        android:layout_gravity="bottom|end"/>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
