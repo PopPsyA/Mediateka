@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.presentation.cinemalist;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +28,14 @@ public class CinemaListAdapter extends RecyclerView.Adapter<CinemaViewHolder> {
     }
 
     @Override
-    public CinemaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public CinemaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cinema , parent , false);
         return new CinemaViewHolder(view , onCinemaClickListener);
     }
 
     @Override
-    public void onBindViewHolder(CinemaViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CinemaViewHolder holder, int position) {
         Cinema cinema = cinemas.get(position);
         holder.render(cinema , holder.getAdapterPosition());
     }

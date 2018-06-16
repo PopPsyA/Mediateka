@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.presentation.actorlist;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,13 +24,14 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorViewHolder> {
     }
 
     @Override
-    public ActorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ActorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actor , parent , false);
         return new ActorViewHolder(view , onActorClickListener);
     }
 
     @Override
-    public void onBindViewHolder(ActorViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ActorViewHolder holder, int position) {
         Actor actor = actors.get(position);
         holder.render(actor , holder.getAdapterPosition());
     }

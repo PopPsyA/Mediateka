@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.presentation.smallcinemalist;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,15 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         cinemas = new ArrayList<>();
     }
 
+    public SmallCinemaListAdapter(OnCinemaClickListener onCinemaClickListener) {
+        this.onCinemaClickListener = onCinemaClickListener;
+        this.inSearchMode = false;
+        cinemas = new ArrayList<>();
+    }
+
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view;
         if (inSearchMode){
@@ -45,7 +53,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)){
             case HEADER_TYPE : {
                 ((SmallCinemaHeaderViewHolder)holder).render(cinemas.size());
