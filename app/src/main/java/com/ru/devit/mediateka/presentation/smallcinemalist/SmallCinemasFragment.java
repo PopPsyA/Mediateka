@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
-import com.ru.devit.mediateka.di.cinema.CinemaDetailModule;
+import com.ru.devit.mediateka.di.cinema.cinemadetail.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
@@ -126,7 +126,6 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
     }
 
     public void textFromSearchField(String query) {
-
         presenter.onGetTextFromSearchField(query);
     }
 

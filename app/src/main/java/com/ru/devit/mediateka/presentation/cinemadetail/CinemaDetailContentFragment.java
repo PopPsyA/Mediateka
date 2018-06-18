@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
-import com.ru.devit.mediateka.di.cinema.CinemaDetailModule;
+import com.ru.devit.mediateka.di.cinema.cinemadetail.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 
@@ -43,8 +43,7 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cinema_detail_content , container ,false);
-        return view;
+        return inflater.inflate(R.layout.fragment_cinema_detail_content , container ,false);
     }
 
     @Override
