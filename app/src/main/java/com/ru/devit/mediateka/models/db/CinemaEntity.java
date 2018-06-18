@@ -30,6 +30,7 @@ public class CinemaEntity {
     @ColumnInfo(name = "actor_character") private String actorCharacterName;
     @ColumnInfo(name = "cinema_duration") private int cinemaDuration;
     @ColumnInfo(name = "revenue") private int revenue;
+    @ColumnInfo(name = "is_favourite") private boolean isFavourite;
 
     public CinemaEntity(){}
 
@@ -167,5 +168,13 @@ public class CinemaEntity {
 
     public void setRevenue(int revenue) {
         this.revenue = revenue;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 }
