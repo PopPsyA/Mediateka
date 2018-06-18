@@ -13,14 +13,17 @@ import com.ru.devit.mediateka.models.model.Cinema;
 import java.util.Calendar;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.SingleTransformer;
 
 public class CinemaLocalRepository implements CinemaRepository {
+
+    private CinemaMapper mapper;
     private final CinemaDao cinemaDao;
     private final CinemaActorJoinDao cinemaActorJoinDao;
-    private CinemaMapper mapper;
 
     private SingleTransformer<List<CinemaEntity> , List<Cinema>> mapCinemas = upstream ->
             upstream.map(cinemaEntities -> mapper.getCinemaEntityToCinema().reverseMap(cinemaEntities));
@@ -51,14 +54,6 @@ public class CinemaLocalRepository implements CinemaRepository {
                 .compose(mapCinemas);
     }
 
-    void insertCinemas(List<CinemaEntity> cinemaEntities){
-        cinemaDao.insertAll(cinemaEntities);
-    }
-
-    void insertActors(List<ActorEntity> actors){
-        cinemaDao.insertActors(actors);
-    }
-
     @Override
     public Single<Cinema> getCinemaById(final int cinemaId) {
         return cinemaDao.getCinemaById(cinemaId)
@@ -73,8 +68,26 @@ public class CinemaLocalRepository implements CinemaRepository {
 
     }
 
+    public Maybe<List<Cinema>> getFavouriteListCinema() {
+        return cinemaDao.getFavouriteListCinema()
+                .map(cinemaEntities -> mapper.getCinemaEntityToCinema().reverseMap(cinemaEntities));
+    }
+
+    public Completable saveIntoDatabaseFavouriteCinema(final int cinemaId){
+        return Completable.fromAction(() -> {
+            cinemaDao.insertFavouriteCinema(cinemaId , true);
+        });
+    }
+
+    void insertCinemas(List<CinemaEntity> cinemaEntities){
+        cinemaDao.insertAll(cinemaEntities);
+    }
+
+    void insertActors(List<ActorEntity> actors){
+        cinemaDao.insertActors(actors);
+    }
+
     void updateCinema(int cinemaId , int budget , int revenue , int cinemaDuration , String directorName) {
         cinemaDao.updateCinema(cinemaId , budget , revenue , cinemaDuration , directorName);
     }
-
 }

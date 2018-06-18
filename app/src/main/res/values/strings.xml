@@ -58,4 +58,6 @@
     <string name="genre_melodrama">мелодрама</string>
     <string name="genre_detective">детектив</string>
     <string name="add_to_favourites">Добавить в избранное</string>
+    <string name="favourites_cinema">Избранные фильмы</string>
+    <string name="message_successfully_favourite_cinema_added">Фильм успешно добавлен в избранное</string>
 </resources>

@@ -33,6 +33,7 @@ import com.ru.devit.mediateka.presentation.common.OnTabSelectedListener;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.cinemalist.CinemaListFragment;
+import com.ru.devit.mediateka.presentation.favouritelistcinema.FavouriteListCinemaActivity;
 import com.ru.devit.mediateka.presentation.search.SearchActivity;
 import com.ru.devit.mediateka.utils.AnimUtils;
 
@@ -232,6 +233,9 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
             case R.id.nav_advanced_search : {
                 showToast(comingSoon);
                 break;
+            }
+            case R.id.nav_favourite_list_cinema: {
+                startActivity(new Intent(this , FavouriteListCinemaActivity.class));
             }
         }
         mDrawer.closeDrawer(GravityCompat.START);

@@ -1,7 +1,10 @@
 package com.ru.devit.mediateka.presentation.cinemadetail;
 
+import android.annotation.SuppressLint;
+
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaById;
 import com.ru.devit.mediateka.domain.UseCaseSubscriber;
+import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
@@ -10,12 +13,14 @@ import java.util.List;
 
 public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.View> {
 
-    private final GetCinemaById getCinemaById;
     private int cinemaId;
     private boolean isFABMenuOpen;
+    private final GetCinemaById getCinemaById;
+    private final GetFavouriteListCinema useCaseGetFavouriteListCinema;
 
-    public CinemaDetailPresenter(GetCinemaById getCinemaById) {
+    public CinemaDetailPresenter(GetCinemaById getCinemaById , GetFavouriteListCinema useCaseGetFavouriteListCinema) {
         this.getCinemaById = getCinemaById;
+        this.useCaseGetFavouriteListCinema = useCaseGetFavouriteListCinema;
     }
 
     @Override
@@ -38,19 +43,30 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
             isFABMenuOpen = true;
             getView().showFABCinemaMenu();
         } else {
-            isFABMenuOpen = false;
-            getView().hideFABCinemaMenu();
+            hideFABMenu();
         }
     }
 
     public void onForegroundViewClicked() {
-        isFABMenuOpen = false;
-        getView().hideFABCinemaMenu();
+        hideFABMenu();
+    }
+
+    @SuppressLint("CheckResult")
+    public void onAddFavouriteCinemaClicked() {
+        hideFABMenu();
+        useCaseGetFavouriteListCinema.saveFavouriteCinema(cinemaId)
+                .subscribe(getView()::showSuccessfullyFavouriteCinemaAdded);
     }
 
     public void onDestroy(){
         getCinemaById.dispose();
+        useCaseGetFavouriteListCinema.dispose();
         setView(null);
+    }
+
+    private void hideFABMenu() {
+        isFABMenuOpen = false;
+        getView().hideFABCinemaMenu();
     }
 
     public interface View extends BaseView{
@@ -58,6 +74,7 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         void showListPosters(List<String> postersUrl);
         void showFABCinemaMenu();
         void hideFABCinemaMenu();
+        void showSuccessfullyFavouriteCinemaAdded();
     }
 
     private final class CinemaDetailSubscriber extends UseCaseSubscriber<Cinema>{

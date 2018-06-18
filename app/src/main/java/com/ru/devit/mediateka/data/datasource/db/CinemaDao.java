@@ -13,6 +13,7 @@ import com.ru.devit.mediateka.models.model.Cinema;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Dao
@@ -30,7 +31,7 @@ public interface CinemaDao {
     @Query("SELECT * FROM CinemaTable WHERE cinemaId = :id")
     Single<CinemaEntity> getCinemaById(final int id);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insertAll(List<CinemaEntity> cinemaEntities);
 
     @Query("UPDATE CinemaTable SET budget = :budget , revenue = :revenue , cinema_duration = :cinemaDuration , director_name = :directorName " +
@@ -42,4 +43,10 @@ public interface CinemaDao {
 
     @Query("SELECT * FROM CinemaTable WHERE title LIKE :cinemaName")
     Flowable<List<CinemaEntity>> getCinemasByName(String cinemaName);
+
+    @Query("SELECT * FROM CinemaTable WHERE is_favourite")
+    Maybe<List<CinemaEntity>> getFavouriteListCinema();
+
+    @Query("UPDATE CinemaTable SET is_favourite = :isFavourite WHERE cinemaId = :cinemaId")
+    void insertFavouriteCinema(int cinemaId , boolean isFavourite);
 }

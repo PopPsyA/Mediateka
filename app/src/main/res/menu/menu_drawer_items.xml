@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group>
+    <group
+        android:id="@+id/group_1">
         <item
             android:id="@+id/nav_cinemas"
             android:icon="@drawable/ic_cinema"
@@ -22,10 +23,15 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
 
+        <item
+            android:id="@+id/nav_favourite_list_cinema"
+            android:icon="@drawable/ic_star"
+            android:title="@string/favourites_cinema"/>
+
     </group>
 
     <group
-        android:checkableBehavior="single">
+        android:id="@+id/group_2">
 
         <item
             android:id="@+id/nav_schedules"

@@ -51,6 +51,14 @@
             android:theme="@style/AppTheme.NoActionBar.PosterSliderTheme"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".presentation.favouritelistcinema.FavouriteListCinemaActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+
     </application>
 
 </manifest>

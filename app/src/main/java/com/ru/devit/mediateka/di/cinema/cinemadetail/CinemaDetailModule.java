@@ -4,6 +4,7 @@ import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.di.ActivityScope;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaById;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaByQuery;
+import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailContentPresenter;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailPresenter;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasPresenter;
@@ -19,8 +20,9 @@ public class CinemaDetailModule {
 
     @ActivityScope
     @Provides
-    CinemaDetailPresenter provideCinemaDetailPresenter(GetCinemaById getCinemaById){
-        return new CinemaDetailPresenter(getCinemaById);
+    CinemaDetailPresenter provideCinemaDetailPresenter(GetCinemaById getCinemaById ,
+                                                       GetFavouriteListCinema getFavouriteListCinema){
+        return new CinemaDetailPresenter(getCinemaById , getFavouriteListCinema);
     }
 
     @ActivityScope

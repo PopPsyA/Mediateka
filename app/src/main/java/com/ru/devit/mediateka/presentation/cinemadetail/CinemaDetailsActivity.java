@@ -1,12 +1,10 @@
 package com.ru.devit.mediateka.presentation.cinemadetail;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -21,10 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
-import com.ru.devit.mediateka.di.cinema.CinemaDetailModule;
+import com.ru.devit.mediateka.di.cinema.cinemadetail.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
@@ -72,6 +71,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         super.onStart();
         mFABCinemaMenu.setOnClickListener(v -> presenter.onFABCinemaMenuClicked());
         mViewForegroundStub.setOnClickListener(v -> presenter.onForegroundViewClicked());
+        mLinearLayoutAddToFavourite.setOnClickListener(v -> presenter.onAddFavouriteCinemaClicked());
     }
 
     @Override
@@ -160,6 +160,12 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 .alphaBy(0)
                 .scaleX(0)
                 .scaleY(0);
+    }
+
+    @Override
+    public void showSuccessfullyFavouriteCinemaAdded(){
+        Toast.makeText(this , getString(R.string.message_successfully_favourite_cinema_added) , Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override
