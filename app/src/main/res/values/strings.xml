@@ -62,4 +62,5 @@
     <string name="message_successfully_favourite_cinema_added">Фильм успешно добавлен в избранное</string>
     <string name="undo">Отмена</string>
     <string name="message_removed_cinema">%s успешно удален.</string>
+    <string name="delete">Удалить</string>
 </resources>

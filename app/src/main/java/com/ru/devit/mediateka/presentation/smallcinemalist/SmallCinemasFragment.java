@@ -148,7 +148,10 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
 
     private void initAdapter(){
         if (getArguments() != null){
-            adapter = new SmallCinemaListAdapter((cinemaId, viewHolderPosition) -> presenter.onCinemaClicked(cinemaId , viewHolderPosition), getArguments().getBoolean(IN_SEARCH_MODE));
+            adapter = new SmallCinemaListAdapter(getContext() ,
+                    (cinemaId, viewHolderPosition) -> presenter.onCinemaClicked(cinemaId , viewHolderPosition) ,
+                    getArguments().getBoolean(IN_SEARCH_MODE) ,
+                    true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mRecyclerViewCinemas.setLayoutManager(linearLayoutManager);
             mRecyclerViewCinemas.setAdapter(adapter);

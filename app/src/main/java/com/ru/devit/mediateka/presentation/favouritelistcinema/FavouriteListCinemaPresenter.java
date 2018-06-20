@@ -58,6 +58,10 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         cinemaList.remove(position);
     }
 
+    public void onUndoClicked(Cinema deletedCinema, int deletedIndex) {
+        cinemaList.add(deletedIndex , deletedCinema);
+    }
+
     interface View extends BaseView {
         void showFavouriteListCinema(List<Cinema> cinemaList);
         void showDetailedCinema(int cinemaId);

@@ -56,7 +56,10 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     @Override
     public void showUndoAction(String cinemaTitle , Cinema deletedCinema , int deletedIndex){
         Snackbar.make(mCoordinatorLayout , getString(R.string.message_removed_cinema , cinemaTitle) , LENGTH_LONG)
-                .setAction(getString(R.string.undo) , v -> adapter.restoreCinema(deletedCinema , deletedIndex))
+                .setAction(getString(R.string.undo) , v -> {
+                    presenter.onUndoClicked(deletedCinema , deletedIndex);
+                    adapter.restoreCinema(deletedCinema , deletedIndex);
+                })
                 .show();
     }
 
@@ -80,7 +83,11 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     protected void initViews() {
         mProgressBar = findViewById(R.id.pb_small_cinemas);
         mRecyclerViewFavouriteListCinema = findViewById(R.id.rv_small_cinemas);
-        adapter = new SmallCinemaListAdapter((cinemaId , viewHolderPos) -> presenter.onCinemaClicked(cinemaId) , true);
+        adapter = new SmallCinemaListAdapter(this ,
+                (cinemaId , viewHolderPos) -> presenter.onCinemaClicked(cinemaId) ,
+                true ,
+                R.color.colorWhite ,
+                false);
         mRecyclerViewFavouriteListCinema.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewFavouriteListCinema.setAdapter(adapter);
         mCoordinatorLayout = findViewById(R.id.cl_favourite_list_cinema);

@@ -1,7 +1,10 @@
 package com.ru.devit.mediateka.presentation.smallcinemalist;
 
+import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +24,29 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final OnCinemaClickListener onCinemaClickListener;
     private final List<Cinema> cinemas;
     private final boolean withOutHeader;
+    private final boolean withOutBackground;
+    @ColorRes private int viewHolderForegroundColor;
 
-    public SmallCinemaListAdapter(OnCinemaClickListener onCinemaClickListener , boolean withOutHeader) {
+    public SmallCinemaListAdapter(Context context ,
+                                  OnCinemaClickListener onCinemaClickListener ,
+                                  boolean withOutHeader ,
+                                  boolean withOutBackground) {
         this.onCinemaClickListener = onCinemaClickListener;
         this.withOutHeader = withOutHeader;
+        this.withOutBackground = withOutBackground;
         cinemas = new ArrayList<>();
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.selectableItemBackground , typedValue , true);
+        viewHolderForegroundColor = typedValue.resourceId;
+    }
+
+    public SmallCinemaListAdapter(Context context ,
+                                  OnCinemaClickListener onCinemaClickListener ,
+                                  boolean withOutHeader ,
+                                  @ColorRes int viewHolderForegroundColor ,
+                                  boolean withOutBackground) {
+        this(context , onCinemaClickListener , withOutHeader , withOutBackground);
+        this.viewHolderForegroundColor = viewHolderForegroundColor;
     }
 
     @Override
@@ -35,7 +56,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         View view;
         if (withOutHeader){
             view = inflater.inflate(R.layout.item_small_cinema , parent , false);
-            return new SmallCinemaViewHolder(view , onCinemaClickListener);
+            return new SmallCinemaViewHolder(view , onCinemaClickListener , viewHolderForegroundColor , withOutBackground);
         }
         if (viewType == HEADER_TYPE){
             view = inflater.inflate(R.layout.item_small_cinema_header, parent , false);
