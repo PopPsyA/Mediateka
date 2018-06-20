@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_favourite_list_cinema"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.favouritelistcinema.FavouriteListCinemaActivity">
@@ -24,7 +25,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
-                android:background="@color/colorPurple"/>
+                android:background="@color/colorPurple"
+                tools:title="@string/favourites_cinema"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -32,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -45,7 +47,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_small_cinemas"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

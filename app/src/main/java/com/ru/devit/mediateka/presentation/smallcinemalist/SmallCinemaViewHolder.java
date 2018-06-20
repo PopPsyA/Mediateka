@@ -14,7 +14,7 @@ import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.squareup.picasso.Picasso;
 
-class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
+public class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView mImageViewCinemaPoster;
     private TextView mTextViewCinemaDate , mTextViewTitle , mTextViewGenres , mTextViewCharacter;

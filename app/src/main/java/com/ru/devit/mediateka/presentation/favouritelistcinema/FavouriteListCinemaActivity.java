@@ -1,8 +1,14 @@
 package com.ru.devit.mediateka.presentation.favouritelistcinema;
 
 import android.content.Intent;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -12,17 +18,22 @@ import com.ru.devit.mediateka.di.cinema.cinemafavourite.CinemaFavouriteListModul
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
+import com.ru.devit.mediateka.presentation.common.RecyclerItemTouchHelper;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemaListAdapter;
+import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemaViewHolder;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class FavouriteListCinemaActivity extends BaseActivity implements FavouriteListCinemaPresenter.View {
+import static android.support.design.widget.Snackbar.LENGTH_LONG;
+
+public class FavouriteListCinemaActivity extends BaseActivity implements FavouriteListCinemaPresenter.View, RecyclerItemTouchHelper.Callback {
 
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerViewFavouriteListCinema;
     private SmallCinemaListAdapter adapter;
+    private CoordinatorLayout mCoordinatorLayout;
 
     @Inject FavouriteListCinemaPresenter presenter;
 
@@ -43,6 +54,19 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     }
 
     @Override
+    public void showUndoAction(String cinemaTitle , Cinema deletedCinema , int deletedIndex){
+        Snackbar.make(mCoordinatorLayout , getString(R.string.message_removed_cinema , cinemaTitle) , LENGTH_LONG)
+                .setAction(getString(R.string.undo) , v -> adapter.restoreCinema(deletedCinema , deletedIndex))
+                .show();
+    }
+
+    @Override
+    public void onSwiped(int adapterPos) {
+        presenter.onCinemaSwiped(adapterPos);
+        adapter.removeCinema(adapterPos);
+    }
+
+    @Override
     public void showLoading() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -56,9 +80,11 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     protected void initViews() {
         mProgressBar = findViewById(R.id.pb_small_cinemas);
         mRecyclerViewFavouriteListCinema = findViewById(R.id.rv_small_cinemas);
-        adapter = new SmallCinemaListAdapter((cinemaId , viewHolderPos) -> presenter.onCinemaClicked(cinemaId));
+        adapter = new SmallCinemaListAdapter((cinemaId , viewHolderPos) -> presenter.onCinemaClicked(cinemaId) , true);
         mRecyclerViewFavouriteListCinema.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewFavouriteListCinema.setAdapter(adapter);
+        mCoordinatorLayout = findViewById(R.id.cl_favourite_list_cinema);
+        new ItemTouchHelper(new RecyclerItemTouchHelper(ItemTouchHelper.LEFT , this)).attachToRecyclerView(mRecyclerViewFavouriteListCinema);
     }
 
     @Override

@@ -60,4 +60,6 @@
     <string name="add_to_favourites">Добавить в избранное</string>
     <string name="favourites_cinema">Избранные фильмы</string>
     <string name="message_successfully_favourite_cinema_added">Фильм успешно добавлен в избранное</string>
+    <string name="undo">Отмена</string>
+    <string name="message_removed_cinema">%s успешно удален.</string>
 </resources>
