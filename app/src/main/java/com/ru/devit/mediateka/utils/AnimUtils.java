@@ -24,13 +24,15 @@ public class AnimUtils {
 
     public static void startRevealAnimationWithOutVisibility(View view){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
-            int cx = view.getWidth();
-            int cy = view.getHeight();
+            view.post(() -> {
+                int cx = view.getWidth();
+                int cy = view.getHeight();
 
-            float endRadius = (float) Math.hypot(cx , cy);
-            Animator animator = ViewAnimationUtils.createCircularReveal(view , cx , cy , 0 , endRadius);
-            animator.setInterpolator(new FastOutSlowInInterpolator());
-            animator.start();
+                float endRadius = (float) Math.hypot(cx , cy);
+                Animator animator = ViewAnimationUtils.createCircularReveal(view , cx , cy , 0 , endRadius);
+                animator.setInterpolator(new FastOutSlowInInterpolator());
+                animator.start();
+            });
         }
     }
 }
