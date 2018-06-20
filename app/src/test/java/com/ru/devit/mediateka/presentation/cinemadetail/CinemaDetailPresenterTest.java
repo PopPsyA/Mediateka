@@ -2,6 +2,7 @@ package com.ru.devit.mediateka.presentation.cinemadetail;
 
 import com.ru.devit.mediateka.UnitTest;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaById;
+import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,6 +16,7 @@ public class CinemaDetailPresenterTest extends UnitTest {
 
     @Mock private CinemaDetailPresenter.View view;
     @Mock private GetCinemaById useCaseGetCinemaByIdMock;
+    @Mock private GetFavouriteListCinema useCaseGetFavouriteListCinema;
     @Mock private List<String> posterUrlsMock;
 
     private static final int TEST_CINEMA_ID = 456;
@@ -23,7 +25,7 @@ public class CinemaDetailPresenterTest extends UnitTest {
 
     @Override
     protected void onSetUp() {
-        presenter = new CinemaDetailPresenter(useCaseGetCinemaByIdMock);
+        presenter = new CinemaDetailPresenter(useCaseGetCinemaByIdMock , useCaseGetFavouriteListCinema);
     }
 
     @Test
