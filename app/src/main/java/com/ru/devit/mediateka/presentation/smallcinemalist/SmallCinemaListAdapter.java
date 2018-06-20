@@ -20,17 +20,11 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private final OnCinemaClickListener onCinemaClickListener;
     private final List<Cinema> cinemas;
-    private final boolean inSearchMode;
+    private final boolean withOutHeader;
 
-    public SmallCinemaListAdapter(OnCinemaClickListener onCinemaClickListener , boolean inSearchMode) {
+    public SmallCinemaListAdapter(OnCinemaClickListener onCinemaClickListener , boolean withOutHeader) {
         this.onCinemaClickListener = onCinemaClickListener;
-        this.inSearchMode = inSearchMode;
-        cinemas = new ArrayList<>();
-    }
-
-    public SmallCinemaListAdapter(OnCinemaClickListener onCinemaClickListener) {
-        this.onCinemaClickListener = onCinemaClickListener;
-        this.inSearchMode = false;
+        this.withOutHeader = withOutHeader;
         cinemas = new ArrayList<>();
     }
 
@@ -39,7 +33,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view;
-        if (inSearchMode){
+        if (withOutHeader){
             view = inflater.inflate(R.layout.item_small_cinema , parent , false);
             return new SmallCinemaViewHolder(view , onCinemaClickListener);
         }
@@ -60,7 +54,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 break;
             }
             case CONTENT_TYPE : {
-                if (inSearchMode){
+                if (withOutHeader){
                     Cinema cinema = cinemas.get(position);
                     ((SmallCinemaViewHolder)holder).render(cinema , holder.getAdapterPosition());
                 } else {
@@ -74,7 +68,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        if (inSearchMode){
+        if (withOutHeader){
             return cinemas.size();
         }
         return cinemas.size() + 1;
@@ -82,7 +76,7 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if (inSearchMode){
+        if (withOutHeader){
             return CONTENT_TYPE;
         }
         return position == 0 ? HEADER_TYPE : CONTENT_TYPE;
@@ -92,6 +86,16 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         cinemas.clear();
         cinemas.addAll(cinemaList);
         notifyDataSetChanged();
+    }
+
+    public void removeCinema(int position){
+        cinemas.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreCinema(Cinema cinema , int position){
+        cinemas.add(position , cinema);
+        notifyItemInserted(position);
     }
 
     public void clear(){
