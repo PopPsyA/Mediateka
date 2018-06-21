@@ -2,7 +2,6 @@
 ![Travis-ci](https://api.travis-ci.org/Devit951/Mediateka.svg)
 [![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) 
 
-
 ![192px](https://user-images.githubusercontent.com/34313493/40320871-f2835e0e-5d4e-11e8-9fb0-5f0482d410e3.png)
 
 
@@ -11,6 +10,13 @@
 The app demonstrates principles of Clean Architecture in Android.
 
 Based on data from https://www.themoviedb.org/
+
+## Screenshots
+![1](https://user-images.githubusercontent.com/21290800/41730825-30b29168-7596-11e8-9e67-a0ed2f254971.png)
+![4](https://user-images.githubusercontent.com/21290800/41730828-32aec50e-7596-11e8-8492-0e9224e188d1.png)
+![6](https://user-images.githubusercontent.com/21290800/41730831-3427bbac-7596-11e8-8367-08bce68c80cc.png)
+
+
 
 ## Simple illustrate demo app https://www.youtube.com/watch?v=mIP0qA8URfE
 
@@ -30,13 +36,12 @@ Based on data from https://www.themoviedb.org/
 
 ## Coming soon 
 1. Add the service which handle new cinams and create notification to show user
-2. Create watch list.
-3. The CinemaDetail's screen gives a possibility to set schedule time.
-4. Add PopularActors screen.
-5. Add Advanced Search screen.
-6. Support landscape orientation and tablets.
-7. Simple info screen , that contains app info.
-8. And more , more some beatiful features...
+2. The CinemaDetail's screen gives a possibility to set schedule time.
+3. Add PopularActors screen.
+4. Add Advanced Search screen.
+5. Support landscape orientation and tablets.
+6. Simple info screen , that contains app info.
+7. And more , more some beatiful features...
 
 ## Technology
 1. [Retrofit 2](https://github.com/square/retrofit) is the #1 library for network calls at the moment.
@@ -47,4 +52,4 @@ Based on data from https://www.themoviedb.org/
 6. [Pallete](https://developer.android.com/training/material/palette-colors) beatiful support libary for dynamic change background view color
 
 ## Testing
-Coming soon...
+100% Unit tested presentation layer.
