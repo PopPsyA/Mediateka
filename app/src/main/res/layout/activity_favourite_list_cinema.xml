@@ -18,7 +18,6 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:titleEnabled="false">
 
             <android.support.v7.widget.Toolbar
@@ -26,7 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 android:background="@color/colorPurple"
-                tools:title="@string/favourites_cinema"/>
+                app:layout_collapseMode="pin"
+                tools:title="@string/favourites_cinema" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
