@@ -74,10 +74,10 @@ public class FormatterUtils {
         return releaseDate.substring(0 , 4);
     }
 
-    public static String formatDuration(int duration){
+    public static String formatDuration(int duration , Context context){
         int hour = duration / 60;
         int minutes = duration % 60;
-        return String.format(Locale.getDefault() ,"%dч %d мин" , hour , minutes);
+        return context.getString(R.string.duration , hour , minutes);
     }
 
     public static String defaultValueIfNull(String value){

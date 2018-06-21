@@ -35,7 +35,7 @@ public class CinemaHeaderView extends ConstraintLayout {
     public void render(Cinema cinema){
         titleTextView.setText(cinema.getTitle());
         releaseDateTextView.setText(FormatterUtils.getYearFromDate(cinema.getReleaseDate()));
-        durationTextView.setText(FormatterUtils.formatDuration(cinema.getDuration()));
+        durationTextView.setText(FormatterUtils.formatDuration(cinema.getDuration() , getContext()));
         genresTextView.setText(FormatterUtils.formatGenres(cinema.getGenres() , getContext()));
     }
 
