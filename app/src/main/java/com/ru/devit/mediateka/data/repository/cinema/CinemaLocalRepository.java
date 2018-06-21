@@ -73,6 +73,12 @@ public class CinemaLocalRepository implements CinemaRepository {
                 .map(cinemaEntities -> mapper.getCinemaEntityToCinema().reverseMap(cinemaEntities));
     }
 
+    public Completable removeFromDatabaseFavouriteCinema(final int cinemaId){
+        return Completable.fromAction(() -> {
+            cinemaDao.insertFavouriteCinema(cinemaId , false);
+        });
+    }
+
     public Completable saveIntoDatabaseFavouriteCinema(final int cinemaId){
         return Completable.fromAction(() -> {
             cinemaDao.insertFavouriteCinema(cinemaId , true);

@@ -55,10 +55,12 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         String cinemaTitle = cinemaList.get(position).getTitle();
         final Cinema deletedCinema = cinemaList.get(position);
         getView().showUndoAction(cinemaTitle , deletedCinema , position);
+        useCaseFavouriteListCinema.removeFavouriteCinema(deletedCinema.getId()).subscribe();
         cinemaList.remove(position);
     }
 
     public void onUndoClicked(Cinema deletedCinema, int deletedIndex) {
+        useCaseFavouriteListCinema.saveFavouriteCinema(deletedCinema.getId()).subscribe();
         cinemaList.add(deletedIndex , deletedCinema);
     }
 

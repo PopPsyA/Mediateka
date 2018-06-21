@@ -38,4 +38,10 @@ public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Completable removeFavouriteCinema(final int cinemaId){
+        return repository.removeFromDatabaseFavouriteCinema(cinemaId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
