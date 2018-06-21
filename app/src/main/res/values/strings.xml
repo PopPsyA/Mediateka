@@ -63,4 +63,5 @@
     <string name="undo">Отмена</string>
     <string name="message_removed_cinema">%s успешно удален.</string>
     <string name="delete">Удалить</string>
+    <string name="duration">%dч %d мин</string>
 </resources>
