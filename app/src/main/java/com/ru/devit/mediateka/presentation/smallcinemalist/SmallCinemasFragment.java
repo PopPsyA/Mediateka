@@ -10,19 +10,16 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.cinemadetail.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
-import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ import javax.inject.Inject;
 public class SmallCinemasFragment extends Fragment implements SmallCinemasPresenter.View {
 
     private static final String CINEMAS = "actor_cinemas";
-    private static final String IN_SEARCH_MODE = "in_search_mode";
+    private static final String WITH_OUT_HEADER = "with_out_header";
 
     private RecyclerView mRecyclerViewCinemas;
     private SmallCinemaListAdapter adapter;
@@ -48,10 +45,10 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
         return fragment;
     }
 
-    public static SmallCinemasFragment newInstance(boolean inSearchMode) {
+    public static SmallCinemasFragment newInstance(boolean withOutHeader) {
         SmallCinemasFragment fragment = new SmallCinemasFragment();
         Bundle args = new Bundle();
-        args.putBoolean(IN_SEARCH_MODE , inSearchMode);
+        args.putBoolean(WITH_OUT_HEADER, withOutHeader);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +72,7 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
         if (args != null){
-            if (args.getBoolean(IN_SEARCH_MODE)){ // if we in search activity
+            if (args.getBoolean(WITH_OUT_HEADER)){ // if we in search activity
                 return;
             }
             presenter.setCinemas(getArguments().getParcelableArrayList(CINEMAS));
@@ -150,7 +147,7 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
         if (getArguments() != null){
             adapter = new SmallCinemaListAdapter(getContext() ,
                     (cinemaId, viewHolderPosition) -> presenter.onCinemaClicked(cinemaId , viewHolderPosition) ,
-                    getArguments().getBoolean(IN_SEARCH_MODE) ,
+                    getArguments().getBoolean(WITH_OUT_HEADER) ,
                     true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mRecyclerViewCinemas.setLayoutManager(linearLayoutManager);
