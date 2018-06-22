@@ -98,6 +98,11 @@ public class Cinema implements Parcelable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return title + "\n";
+    }
+
     public String getBackdropUrl() {
         return backdropUrl;
     }
