@@ -1,6 +1,8 @@
 package com.ru.devit.mediateka.presentation.favouritelistcinema;
 
 
+import android.annotation.SuppressLint;
+
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
@@ -51,12 +53,19 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         getView().showDetailedCinema(cinemaId);
     }
 
+    @SuppressLint("CheckResult")
     public void onCinemaSwiped(int position) {
         String cinemaTitle = cinemaList.get(position).getTitle();
         final Cinema deletedCinema = cinemaList.get(position);
         cinemaList.remove(position);
         useCaseFavouriteListCinema.removeFavouriteCinema(deletedCinema.getId())
                 .subscribe(() -> getView().showUndoAction(cinemaTitle , deletedCinema , position));
+    }
+    @SuppressLint("CheckResult")
+    public void onMenuClearFavouriteListClicked() {
+        cinemaList.clear();
+        useCaseFavouriteListCinema.clearFavouriteList()
+                .subscribe(getView()::showSuccessfullyFavouriteListCleared);
     }
 
     public void onUndoClicked(Cinema deletedCinema, int deletedIndex) {
@@ -69,5 +78,6 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         void showFavouriteListCinema(List<Cinema> cinemaList);
         void showDetailedCinema(int cinemaId);
         void showUndoAction(String cinemaTitle , Cinema deletedCinema , int deletedIndex);
+        void showSuccessfullyFavouriteListCleared();
     }
 }

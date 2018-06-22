@@ -13,6 +13,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
@@ -41,6 +42,12 @@ public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
 
     public Completable removeFavouriteCinema(final int cinemaId){
         return repository.removeFromDatabaseFavouriteCinema(cinemaId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Completable clearFavouriteList() {
+        return repository.clearFavouriteListCinema()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -1,6 +1,5 @@
 package com.ru.devit.mediateka.data.repository.cinema;
 
-import android.util.Log;
 
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
@@ -10,6 +9,8 @@ import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.mapper.CinemaMapper;
 import com.ru.devit.mediateka.models.model.Cinema;
 
+import org.reactivestreams.Publisher;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.SingleTransformer;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 public class CinemaLocalRepository implements CinemaRepository {
 
@@ -74,15 +77,19 @@ public class CinemaLocalRepository implements CinemaRepository {
     }
 
     public Completable removeFromDatabaseFavouriteCinema(final int cinemaId){
-        return Completable.fromAction(() -> {
-            cinemaDao.insertFavouriteCinema(cinemaId , false);
-        });
+        return Completable.fromAction(() -> cinemaDao.insertFavouriteCinema(cinemaId , false));
     }
 
     public Completable saveIntoDatabaseFavouriteCinema(final int cinemaId){
-        return Completable.fromAction(() -> {
-            cinemaDao.insertFavouriteCinema(cinemaId , true);
-        });
+        return Completable.fromAction(() -> cinemaDao.insertFavouriteCinema(cinemaId , true));
+    }
+
+    public Completable clearFavouriteListCinema(){
+        return Completable.fromPublisher(cinemaDao
+                .getFavouriteListCinema()
+                .toFlowable()
+                .flatMap(Flowable::fromIterable)
+                .doOnNext(cinemaEntity -> cinemaDao.insertFavouriteCinema(cinemaEntity.getCinemaId() , false)));
     }
 
     void insertCinemas(List<CinemaEntity> cinemaEntities){

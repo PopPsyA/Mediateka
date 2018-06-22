@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -27,6 +29,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
+import static android.support.design.widget.Snackbar.LENGTH_SHORT;
 
 public class FavouriteListCinemaActivity extends BaseActivity implements FavouriteListCinemaPresenter.View, RecyclerItemTouchHelper.Callback {
 
@@ -34,6 +37,8 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     private RecyclerView mRecyclerViewFavouriteListCinema;
     private SmallCinemaListAdapter adapter;
     private CoordinatorLayout mCoordinatorLayout;
+
+    private static final int MENU_CLEAR_FAVOURITE_LIST = 23;
 
     @Inject FavouriteListCinemaPresenter presenter;
 
@@ -67,6 +72,30 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     public void onSwiped(int adapterPos) {
         presenter.onCinemaSwiped(adapterPos);
         adapter.removeCinema(adapterPos);
+    }
+
+    @Override
+    public void showSuccessfullyFavouriteListCleared(){
+        Snackbar.make(mRecyclerViewFavouriteListCinema ,
+                getString(R.string.message_successfully_favourite_cinema_list_cleared) ,
+                LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE , MENU_CLEAR_FAVOURITE_LIST , Menu.NONE , getString(R.string.message_clear_favourite_list));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == MENU_CLEAR_FAVOURITE_LIST){
+            presenter.onMenuClearFavouriteListClicked();
+            adapter.clear();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
