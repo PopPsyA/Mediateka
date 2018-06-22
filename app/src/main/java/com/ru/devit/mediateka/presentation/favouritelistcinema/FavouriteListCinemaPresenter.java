@@ -54,13 +54,14 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
     public void onCinemaSwiped(int position) {
         String cinemaTitle = cinemaList.get(position).getTitle();
         final Cinema deletedCinema = cinemaList.get(position);
-        getView().showUndoAction(cinemaTitle , deletedCinema , position);
-        useCaseFavouriteListCinema.removeFavouriteCinema(deletedCinema.getId()).subscribe();
         cinemaList.remove(position);
+        useCaseFavouriteListCinema.removeFavouriteCinema(deletedCinema.getId())
+                .subscribe(() -> getView().showUndoAction(cinemaTitle , deletedCinema , position));
     }
 
     public void onUndoClicked(Cinema deletedCinema, int deletedIndex) {
-        useCaseFavouriteListCinema.saveFavouriteCinema(deletedCinema.getId()).subscribe();
+        useCaseFavouriteListCinema.saveFavouriteCinema(deletedCinema.getId())
+                .subscribe();
         cinemaList.add(deletedIndex , deletedCinema);
     }
 
