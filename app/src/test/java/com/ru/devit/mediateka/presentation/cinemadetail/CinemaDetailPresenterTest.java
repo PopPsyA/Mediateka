@@ -9,7 +9,11 @@ import org.mockito.Mock;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.functions.Action;
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 public class CinemaDetailPresenterTest extends UnitTest {
@@ -37,6 +41,17 @@ public class CinemaDetailPresenterTest extends UnitTest {
 
         verify(view).showLoading();
         verify(useCaseGetCinemaByIdMock).searchCinemaById(TEST_CINEMA_ID);
+    }
+
+    @Test
+    public void shouldSaveCinemaToFavouriteWhenAddToFavouriteClicked(){
+        presenter.setView(view);
+        presenter.setCinemaId(TEST_CINEMA_ID);
+        doReturn(Completable.complete()).when(useCaseGetFavouriteListCinema).saveFavouriteCinema(TEST_CINEMA_ID);
+        presenter.onAddFavouriteCinemaClicked();
+
+        verify(view).hideFABCinemaMenu();
+        verify(useCaseGetFavouriteListCinema).saveFavouriteCinema(TEST_CINEMA_ID);
     }
 
     @Test
