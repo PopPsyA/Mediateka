@@ -19,12 +19,16 @@ import io.reactivex.schedulers.Schedulers;
 public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
 
     private final CinemaLocalRepository repository;
+    private final Scheduler ioThread;
+    private final Scheduler uiThread;
 
     @Inject
     public GetFavouriteListCinema(@Named("executor_thread") Scheduler executorThread ,
                                   @Named("ui_thread") Scheduler uiThread ,
                                   CinemaLocalRepository repository) {
         super(executorThread, uiThread);
+        this.ioThread = executorThread;
+        this.uiThread = uiThread;
         this.repository = repository;
     }
 
@@ -36,19 +40,19 @@ public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
 
     public Completable saveFavouriteCinema(final int cinemaId){
         return repository.saveIntoDatabaseFavouriteCinema(cinemaId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(ioThread)
+                .observeOn(uiThread);
     }
 
     public Completable removeFavouriteCinema(final int cinemaId){
         return repository.removeFromDatabaseFavouriteCinema(cinemaId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(ioThread)
+                .observeOn(uiThread);
     }
 
     public Completable clearFavouriteList() {
         return repository.clearFavouriteListCinema()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(ioThread)
+                .observeOn(uiThread);
     }
 }
