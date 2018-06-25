@@ -8,6 +8,8 @@ import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.subscribers.DisposableSubscriber;
@@ -19,6 +21,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     public FavouriteListCinemaPresenter(GetFavouriteListCinema useCaseFavouriteListCinema) {
         this.useCaseFavouriteListCinema = useCaseFavouriteListCinema;
+        this.cinemaList = new ArrayList<>();
     }
 
     @Override
@@ -27,7 +30,6 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         useCaseFavouriteListCinema.subscribe(new DisposableSubscriber<List<Cinema>>() {
             @Override
             public void onNext(List<Cinema> cinemas) {
-                cinemaList = cinemas;
                 getView().showFavouriteListCinema(cinemas);
             }
 
@@ -58,20 +60,27 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         String cinemaTitle = cinemaList.get(position).getTitle();
         final Cinema deletedCinema = cinemaList.get(position);
         cinemaList.remove(position);
-        useCaseFavouriteListCinema.removeFavouriteCinema(deletedCinema.getId())
+        useCaseFavouriteListCinema
+                .removeFavouriteCinema(deletedCinema.getId())
                 .subscribe(() -> getView().showUndoAction(cinemaTitle , deletedCinema , position));
     }
     @SuppressLint("CheckResult")
     public void onMenuClearFavouriteListClicked() {
         cinemaList.clear();
-        useCaseFavouriteListCinema.clearFavouriteList()
+        useCaseFavouriteListCinema
+                .clearFavouriteList()
                 .subscribe(getView()::showSuccessfullyFavouriteListCleared);
     }
 
     public void onUndoClicked(Cinema deletedCinema, int deletedIndex) {
-        useCaseFavouriteListCinema.saveFavouriteCinema(deletedCinema.getId())
+        useCaseFavouriteListCinema
+                .saveFavouriteCinema(deletedCinema.getId())
                 .subscribe();
         cinemaList.add(deletedIndex , deletedCinema);
+    }
+
+    public void setCinemaList(List<Cinema> cinemaList) {
+        this.cinemaList = cinemaList;
     }
 
     interface View extends BaseView {
