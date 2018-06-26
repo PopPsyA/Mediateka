@@ -7,31 +7,27 @@ import com.ru.devit.mediateka.models.db.CinemaActorJoinEntity;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.models.mapper.CinemaMapper;
-import com.ru.devit.mediateka.models.network.CinemaDetailResponse;
 import com.ru.devit.mediateka.models.network.CinemaResponse;
-import com.ru.devit.mediateka.models.network.ImagesResponse;
 
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
 
 
 public class CinemaRemoteRepository implements CinemaRepository {
 
-    private final CinemaLocalRepository cinemaCache;
+    private final CinemaLocalRepository cinemaLocalRepository;
     private final CinemaMapper mapper;
     private final CinemaApiService apiService;
     private final CinemaActorJoinDao cinemaActorJoinDao;
 
-    public CinemaRemoteRepository(CinemaLocalRepository cinemaCache ,
-                                          CinemaApiService apiService ,
-                                          CinemaMapper mapper ,
-                                          CinemaActorJoinDao cinemaActorJoinDao) {
-        this.cinemaCache = cinemaCache;
+    public CinemaRemoteRepository(CinemaLocalRepository cinemaLocalRepository,
+                                  CinemaApiService apiService ,
+                                  CinemaMapper mapper ,
+                                  CinemaActorJoinDao cinemaActorJoinDao) {
+        this.cinemaLocalRepository = cinemaLocalRepository;
         this.apiService = apiService;
         this.mapper = mapper;
         this.cinemaActorJoinDao = cinemaActorJoinDao;
@@ -40,22 +36,22 @@ public class CinemaRemoteRepository implements CinemaRepository {
     @Override
     public Single<List<Cinema>> getCinemas(final int pageIndex) {
         return apiService.getCinemas(pageIndex)
-                .compose(cacheCinemas())
-                .onErrorResumeNext(throwable -> cinemaCache.getCinemas(pageIndex));
+                .compose(saveToDatabaseCinemaList())
+                .onErrorResumeNext(throwable -> cinemaLocalRepository.getCinemas(pageIndex));
     }
 
     @Override
     public Single<List<Cinema>> getTopRatedCinemas(final int pageIndex) {
         return apiService.getTopRatedCinemas(pageIndex)
-                .compose(cacheCinemas())
-                .onErrorResumeNext(throwable -> cinemaCache.getTopRatedCinemas(pageIndex));
+                .compose(saveToDatabaseCinemaList())
+                .onErrorResumeNext(throwable -> cinemaLocalRepository.getTopRatedCinemas(pageIndex));
     }
 
     @Override
     public Single<List<Cinema>> getUpComingCinemas(final int pageIndex) {
         return apiService.getUpComingCinemas(pageIndex)
-                .compose(cacheCinemas())
-                .onErrorResumeNext(throwable -> cinemaCache.getUpComingCinemas(pageIndex));
+                .compose(saveToDatabaseCinemaList())
+                .onErrorResumeNext(throwable -> cinemaLocalRepository.getUpComingCinemas(pageIndex));
     }
 
     @Override
@@ -67,32 +63,32 @@ public class CinemaRemoteRepository implements CinemaRepository {
                     return mapper.map(cinemaDetailResponse);
                 })
                 .doAfterSuccess(cinema -> {
-                    cinemaCache.updateCinema(cinemaId ,
+                    cinemaLocalRepository.updateCinema(cinemaId ,
                             cinema.getBudget() ,
                             cinema.getCinemaRevenue() ,
                             cinema.getDuration() ,
                             cinema.getDirectorName());
-                    cinemaCache.insertActors(mapper.mapActors(cinema.getActors()));
+                    cinemaLocalRepository.insertActors(mapper.mapActors(cinema.getActors()));
                     createRelationBetweenCinemaAndActors(cinemaId , cinema.getActors());
                 })
-                .onErrorResumeNext(throwable -> cinemaCache.getCinemaById(cinemaId));
+                .onErrorResumeNext(throwable -> cinemaLocalRepository.getCinemaById(cinemaId));
     }
 
     @Override
     public Flowable<List<Cinema>> searchCinemas(String query) {
         return apiService.searchCinemas(query)
                 .map(mapper::map)
-                .doAfterNext(cinemas -> cinemaCache.insertCinemas(mapper.map(cinemas)))
+                .doAfterNext(cinemas -> cinemaLocalRepository.insertCinemas(mapper.map(cinemas)))
                 .onErrorResumeNext(throwable -> {
-                    return cinemaCache.searchCinemas("%" + query + "%");
+                    return cinemaLocalRepository.searchCinemas("%" + query + "%");
                 });
     }
 
-    private SingleTransformer<CinemaResponse , List<Cinema>> cacheCinemas(){
+    private SingleTransformer<CinemaResponse , List<Cinema>> saveToDatabaseCinemaList(){
         return upstream ->
                 upstream.map(mapper::map)
                         .doAfterSuccess(cinemas -> {
-                            cinemaCache.insertCinemas(mapper.map(cinemas));
+                            cinemaLocalRepository.insertCinemas(mapper.map(cinemas));
                         });
     }
 
