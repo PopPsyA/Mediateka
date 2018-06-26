@@ -253,7 +253,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
                     @Override
                     public void onError() {
-
+                        mFABCinemaMenu.setVisibility(View.VISIBLE);
                     }
                 });
     }
