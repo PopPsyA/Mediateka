@@ -4,6 +4,7 @@ import com.ru.devit.mediateka.data.repository.cinema.CinemaLocalRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,9 +13,6 @@ import javax.inject.Named;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
 
@@ -35,6 +33,10 @@ public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
     @Override
     protected Flowable<List<Cinema>> createUseCase() {
         return repository.getFavouriteListCinema()
+                .toFlowable()
+                .flatMap(Flowable::fromIterable)
+                .sorted((o1, o2) -> o2.getReleaseDate().compareTo(o1.getReleaseDate()))
+                .toList()
                 .toFlowable();
     }
 
