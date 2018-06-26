@@ -31,7 +31,7 @@ public interface CinemaDao {
     @Query("SELECT * FROM CinemaTable WHERE cinemaId = :id")
     Single<CinemaEntity> getCinemaById(final int id);
 
-    @Insert()
+    @Insert(onConflict = OnConflictStrategy.ROLLBACK)
     void insertAll(List<CinemaEntity> cinemaEntities);
 
     @Query("UPDATE CinemaTable SET budget = :budget , revenue = :revenue , cinema_duration = :cinemaDuration , director_name = :directorName " +
