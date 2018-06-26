@@ -8,6 +8,7 @@ import android.arch.persistence.room.TypeConverters;
 
 import com.ru.devit.mediateka.models.IntArrayConverter;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity(tableName = "CinemaTable")
@@ -33,6 +34,21 @@ public class CinemaEntity {
     @ColumnInfo(name = "is_favourite") private boolean isFavourite;
 
     public CinemaEntity(){}
+
+    @Override
+    public String toString() {
+        return "\n***************************\n" +
+                "Cinema title = " + title + "\n" +
+                "Cinema desc = " + description + "\n" +
+                "Cinema releaseData = " + releaseDate + "\n" +
+                "Cinema voteAverage = " + voteAverage + "\n" +
+                "Cinema duration = " + cinemaDuration + "\n" +
+                "Cinema directorName = " + directorName + "\n" +
+                "Cinema genredIds = " + Arrays.toString(genreIds) + "\n" +
+                "Cinema isFavourite = " + isFavourite + "\n" +
+                "Cinema actorCharacterName = " + actorCharacterName + "\n" +
+                "\n***************************\n";
+    }
 
     public void setCinemaId(int cinemaId) {
         this.cinemaId = cinemaId;
