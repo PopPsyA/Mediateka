@@ -16,22 +16,16 @@ import java.util.Locale;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
 
 
 public class CinemaRemoteRepository implements CinemaRepository {
 
-    private CinemaLocalRepository cinemaCache;
-    private CinemaMapper mapper;
+    private final CinemaLocalRepository cinemaCache;
+    private final CinemaMapper mapper;
     private final CinemaApiService apiService;
     private final CinemaActorJoinDao cinemaActorJoinDao;
-
-    private final SingleTransformer<CinemaResponse , List<Cinema>> cacheCinemas = upstream ->
-             upstream.map(mapper::map)
-            .doAfterSuccess(cinemas -> {
-                cinemaCache.insertCinemas(mapper.map(cinemas));
-            });
-
 
     public CinemaRemoteRepository(CinemaLocalRepository cinemaCache ,
                                           CinemaApiService apiService ,
@@ -46,21 +40,21 @@ public class CinemaRemoteRepository implements CinemaRepository {
     @Override
     public Single<List<Cinema>> getCinemas(final int pageIndex) {
         return apiService.getCinemas(pageIndex)
-                .compose(cacheCinemas)
+                .compose(cacheCinemas())
                 .onErrorResumeNext(throwable -> cinemaCache.getCinemas(pageIndex));
     }
 
     @Override
     public Single<List<Cinema>> getTopRatedCinemas(final int pageIndex) {
         return apiService.getTopRatedCinemas(pageIndex)
-                .compose(cacheCinemas)
+                .compose(cacheCinemas())
                 .onErrorResumeNext(throwable -> cinemaCache.getTopRatedCinemas(pageIndex));
     }
 
     @Override
     public Single<List<Cinema>> getUpComingCinemas(final int pageIndex) {
         return apiService.getUpComingCinemas(pageIndex)
-                .compose(cacheCinemas)
+                .compose(cacheCinemas())
                 .onErrorResumeNext(throwable -> cinemaCache.getUpComingCinemas(pageIndex));
     }
 
@@ -92,6 +86,14 @@ public class CinemaRemoteRepository implements CinemaRepository {
                 .onErrorResumeNext(throwable -> {
                     return cinemaCache.searchCinemas("%" + query + "%");
                 });
+    }
+
+    private SingleTransformer<CinemaResponse , List<Cinema>> cacheCinemas(){
+        return upstream ->
+                upstream.map(mapper::map)
+                        .doAfterSuccess(cinemas -> {
+                            cinemaCache.insertCinemas(mapper.map(cinemas));
+                        });
     }
 
     private void createRelationBetweenCinemaAndActors(final int cinemaId , final List<Actor> actors){

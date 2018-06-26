@@ -24,12 +24,9 @@ import io.reactivex.functions.Function;
 
 public class CinemaLocalRepository implements CinemaRepository {
 
-    private CinemaMapper mapper;
+    private final CinemaMapper mapper;
     private final CinemaDao cinemaDao;
     private final CinemaActorJoinDao cinemaActorJoinDao;
-
-    private SingleTransformer<List<CinemaEntity> , List<Cinema>> mapCinemas = upstream ->
-            upstream.map(cinemaEntities -> mapper.getCinemaEntityToCinema().reverseMap(cinemaEntities));
 
     public CinemaLocalRepository(CinemaDao cinemaDao ,
                                   CinemaMapper mapper ,
@@ -42,19 +39,19 @@ public class CinemaLocalRepository implements CinemaRepository {
     @Override
     public Single<List<Cinema>> getCinemas(int pageIndex) {
         return cinemaDao.getCinemas(pageIndex)
-                .compose(mapCinemas);
+                .compose(mapCinemas());
     }
 
     @Override
     public Single<List<Cinema>> getTopRatedCinemas(int pageIndex) {
         return cinemaDao.getTopRatedCinemas(pageIndex)
-                .compose(mapCinemas);
+                .compose(mapCinemas());
     }
 
     @Override
     public Single<List<Cinema>> getUpComingCinemas(int pageIndex) {
         return cinemaDao.getUpComingCinemas(pageIndex , Calendar.getInstance().get(Calendar.YEAR))
-                .compose(mapCinemas);
+                .compose(mapCinemas());
     }
 
     @Override
@@ -102,5 +99,10 @@ public class CinemaLocalRepository implements CinemaRepository {
 
     void updateCinema(int cinemaId , int budget , int revenue , int cinemaDuration , String directorName) {
         cinemaDao.updateCinema(cinemaId , budget , revenue , cinemaDuration , directorName);
+    }
+
+    private SingleTransformer<List<CinemaEntity> , List<Cinema>> mapCinemas(){
+        return upstream ->
+                upstream.map(cinemaEntities -> mapper.getCinemaEntityToCinema().reverseMap(cinemaEntities));
     }
 }
