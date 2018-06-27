@@ -30,6 +30,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         useCaseFavouriteListCinema.subscribe(new DisposableSubscriber<List<Cinema>>() {
             @Override
             public void onNext(List<Cinema> cinemas) {
+                cinemaList = cinemas;
                 getView().showFavouriteListCinema(cinemas);
             }
 

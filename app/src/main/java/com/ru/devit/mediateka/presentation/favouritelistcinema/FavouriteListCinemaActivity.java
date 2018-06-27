@@ -49,7 +49,6 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
 
     @Override
     public void showFavouriteListCinema(List<Cinema> cinemaList) {
-        presenter.setCinemaList(cinemaList);
         adapter.addAll(cinemaList);
     }
 
