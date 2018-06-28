@@ -145,7 +145,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mViewForegroundStub.setVisibility(View.VISIBLE);
         ViewCompat.setTranslationZ(mViewForegroundStub , 0.9f);
         mFABCinemaMenu.animate()
-                .rotationBy(180);
+                .rotationBy(135);
         mLinearLayoutAddToFavourite.animate()
                 .alphaBy(1)
                 .scaleX(1)
@@ -154,7 +154,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public void hideFABCinemaMenu(){
-        mFABCinemaMenu.animate().rotationBy(-180);
+        mFABCinemaMenu.animate().rotationBy(-135);
         mViewForegroundStub.setVisibility(View.GONE);
         ViewCompat.setTranslationZ(mViewForegroundStub , 0f);
         mLinearLayoutAddToFavourite.animate()
