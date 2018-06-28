@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -19,12 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.cinemadetail.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.favouritelistcinema.FavouriteListCinemaActivity;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
@@ -164,7 +165,8 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public void showSuccessfullyFavouriteCinemaAdded(){
-        Toast.makeText(this , getString(R.string.message_successfully_favourite_cinema_added) , Toast.LENGTH_SHORT)
+        Snackbar.make(mFABCinemaMenu , getString(R.string.message_added_to_favourite_list_cinema) , Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.message_see_list), v -> startActivity(new Intent(CinemaDetailsActivity.this , FavouriteListCinemaActivity.class)))
                 .show();
     }
 
