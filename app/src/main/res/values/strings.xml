@@ -59,11 +59,12 @@
     <string name="genre_detective">детектив</string>
     <string name="add_to_favourites">Добавить в избранное</string>
     <string name="favourites_cinema">Избранные фильмы</string>
-    <string name="message_successfully_favourite_cinema_added">Фильм успешно добавлен в избранное</string>
+    <string name="message_added_to_favourite_list_cinema">Добавлен в избранное</string>
     <string name="undo">Отмена</string>
     <string name="message_removed_cinema">%s успешно удален.</string>
     <string name="delete">Удалить</string>
     <string name="duration">%dч %d мин</string>
     <string name="message_clear_favourite_list">Очистить избранные фильмы</string>
     <string name="message_successfully_favourite_cinema_list_cleared">Изрбранные фильмы успешно удалены.</string>
+    <string name="message_see_list">Посмотреть</string>
 </resources>

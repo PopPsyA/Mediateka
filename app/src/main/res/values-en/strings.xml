@@ -60,9 +60,12 @@
     <string name="genre_detective">detective</string>
     <string name="add_to_favourites">Add to favourite</string>
     <string name="favourites_cinema">Favourite cinema list</string>
-    <string name="message_successfully_favourite_cinema_added">Movie successfully added to favourite list</string>
+    <string name="message_added_to_favourite_list_cinema">Added to favourite list</string>
     <string name="undo">Undo</string>
     <string name="message_removed_cinema">%s successfully deleted.</string>
     <string name="delete">Delete</string>
     <string name="duration">%dh %dm</string>
+    <string name="message_clear_favourite_list">Clear favourite list</string>
+    <string name="message_successfully_favourite_cinema_list_cleared">Favourite movies removed.</string>
+    <string name="message_see_list">See List</string>
 </resources>
