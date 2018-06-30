@@ -3,21 +3,17 @@ package com.ru.devit.mediateka.data.cinema;
 import com.ru.devit.mediateka.UnitTest;
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
 import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
-import com.ru.devit.mediateka.data.datasource.network.CinemaApiService;
 import com.ru.devit.mediateka.data.repository.cinema.CinemaLocalRepository;
-import com.ru.devit.mediateka.data.repository.cinema.CinemaRemoteRepository;
 import com.ru.devit.mediateka.domain.CinemaRepository;
-import com.ru.devit.mediateka.models.mapper.CinemaEntityToCinema;
+import com.ru.devit.mediateka.models.db.CinemaEntity;
 import com.ru.devit.mediateka.models.mapper.CinemaMapper;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.models.network.CinemaDetailResponse;
-import com.ru.devit.mediateka.models.network.CinemaNetwork;
-import com.ru.devit.mediateka.models.network.CinemaResponse;
 
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -33,15 +29,12 @@ public class CinemaLocalRepositoryTest extends UnitTest {
 
     @Mock private CinemaDao cinemaDaoMock;
     @Mock private CinemaMapper mapper;
-    @Mock private CinemaEntityToCinema cinemaEntityToCinema;
     @Mock private CinemaActorJoinDao cinemaActorJoinDao;
-    @Mock private Cinema cinemaMock;
-    @Mock private CinemaDetailResponse cinemaDetailResponseMock;
-    @Mock private CinemaResponse cinemaResponseMock;
-    @Mock private List<CinemaNetwork> cinemaNetworkListMock;
-    @Mock private Iterator<CinemaNetwork> cinemaNetworkIteratorMock;
 
     private CinemaRepository repository;
+
+    private static final int TEST_CINEMA_ID = 569;
+    private static final int TEST_PAGE = 2;
 
     @Override
     protected void onSetUp() {
@@ -51,19 +44,42 @@ public class CinemaLocalRepositoryTest extends UnitTest {
     }
 
     @Test
-    public void shouldGetCinemas(){
-//        doReturn(cinemaNetworkListMock).when(cinemaResponseMock).getCinemas();
-//        doReturn(cinemaEntityToCinema).when(mapper).getCinemaEntityToCinema();
-//        doReturn(cinemaNetworkIteratorMock).when(cinemaNetworkListMock).iterator();
-//        doReturn(true).when(cinemaNetworkIteratorMock).hasNext();
-//        doReturn(2).when(cinemaNetworkListMock).size();
-//        doReturn(Single.just(cinemaResponseMock)).when(cinemaDaoMock).getCinemas(23);
-//
-//        repository.getCinemas(11);
-//
-//        verify(cinemaDaoMock).getCinemaById(eq(anyInt()));
-//        verify(mapper).map(eq(cinemaDetailResponseMock));
+    public void shouldGetCinemaList(){
+        List<CinemaEntity> cinemaEntityList = new ArrayList<>();
+        doReturn(Single.just(cinemaEntityList)).when(cinemaDaoMock).getCinemas(anyInt());
 
-        //TODO fix this test
+        repository.getCinemas(TEST_PAGE);
+
+        verify(cinemaDaoMock).getCinemas(eq(TEST_PAGE));
+    }
+
+    @Test
+    public void shouldGetTopRatedCinemaList(){
+        List<CinemaEntity> cinemaEntityList = new ArrayList<>();
+        doReturn(Single.just(cinemaEntityList)).when(cinemaDaoMock).getTopRatedCinemas(TEST_PAGE);
+
+        repository.getTopRatedCinemas(TEST_PAGE);
+
+        verify(cinemaDaoMock).getTopRatedCinemas(TEST_PAGE);
+    }
+
+    @Test
+    public void shouldGetUpComingCinemaList(){
+        List<CinemaEntity> cinemaEntityList = new ArrayList<>();
+        doReturn(Single.just(cinemaEntityList)).when(cinemaDaoMock).getUpComingCinemas(TEST_PAGE , Calendar.getInstance().get(Calendar.YEAR));
+
+        repository.getUpComingCinemas(TEST_PAGE);
+
+        verify(cinemaDaoMock).getUpComingCinemas(TEST_PAGE , Calendar.getInstance().get(Calendar.YEAR));
+    }
+
+    @Test
+    public void shouldGetCinemaById(){
+        Cinema cinema = new Cinema();
+        doReturn(Single.just(cinema)).when(cinemaDaoMock).getCinemaById(TEST_CINEMA_ID);
+
+        repository.getCinemaById(TEST_CINEMA_ID);
+
+        verify(cinemaDaoMock).getCinemaById(TEST_CINEMA_ID);
     }
 }
