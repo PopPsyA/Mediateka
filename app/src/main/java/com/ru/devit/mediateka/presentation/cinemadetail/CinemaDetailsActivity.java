@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -40,12 +41,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailPresenter.View{
-
-    private static final String CINEMA_ID = "cinema_id";
 
     private ViewPager mViewPagerBackgroundPoster;
     private ViewPager mViewPagerCinemaInfo;
@@ -58,6 +58,8 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private FloatingActionButton mFABCinemaMenu;
     private LinearLayout mLinearLayoutAddToFavourite;
     private View mViewForegroundStub;
+
+    private static final String CINEMA_ID = "cinema_id";
 
     @Inject CinemaDetailPresenter presenter;
 
@@ -172,7 +174,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_navigation, menu);
+        getMenuInflater().inflate(R.menu.menu_cinema_deatil, menu);
         return true;
     }
 
@@ -181,6 +183,14 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         switch (item.getItemId()){
             case R.id.navigation_home : {
                 navigateToMainActivity(this);
+                break;
+            }
+            case R.id.navigation_show_on_tmdb : {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(String.format(Locale.getDefault() ,
+                        "https://www.themoviedb.org/movie/%d" ,
+                        Objects.requireNonNull(getIntent().getExtras()).getInt(CINEMA_ID))));
+                startActivity(intent);
                 break;
             }
         }
