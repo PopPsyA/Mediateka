@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
@@ -34,6 +35,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -106,6 +109,14 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         switch (item.getItemId()){
             case R.id.navigation_home : {
                 navigateToMainActivity(this);
+                break;
+            }
+            case R.id.navigation_show_on_tmdb : {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(String.format(Locale.getDefault() ,
+                        "https://www.themoviedb.org/person/%d" ,
+                        Objects.requireNonNull(getIntent().getExtras()).getInt(ACTOR_ID))));
+                startActivity(intent);
                 break;
             }
         }
