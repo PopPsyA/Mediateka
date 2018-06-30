@@ -174,7 +174,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_cinema_deatil, menu);
+        getMenuInflater().inflate(R.menu.menu_navigation, menu);
         return true;
     }
 
