@@ -6,10 +6,10 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
         android:title="@string/title_home"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
     <item
-        android:title="Coming soon"
-        />
-
+        android:id="@+id/navigation_show_on_tmdb"
+        android:title="@string/show_on_tmdb"
+        app:showAsAction="never" />
 </menu>
