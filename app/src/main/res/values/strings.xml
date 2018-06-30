@@ -67,4 +67,5 @@
     <string name="message_clear_favourite_list">Очистить избранные фильмы</string>
     <string name="message_successfully_favourite_cinema_list_cleared">Изрбранные фильмы успешно удалены.</string>
     <string name="message_see_list">Посмотреть</string>
+    <string name="show_on_tmdb">Посмотреть на Tmdb</string>
 </resources>
