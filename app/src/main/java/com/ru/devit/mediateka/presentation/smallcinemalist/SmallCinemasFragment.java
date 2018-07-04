@@ -123,7 +123,9 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
     }
 
     public void textFromSearchField(String query) {
-        presenter.onGetTextFromSearchField(query);
+        if (presenter != null){
+            presenter.onGetTextFromSearchField(query);
+        }
     }
 
     private void initDagger() {
