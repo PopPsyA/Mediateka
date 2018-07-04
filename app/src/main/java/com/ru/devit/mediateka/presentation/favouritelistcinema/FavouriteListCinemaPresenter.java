@@ -52,8 +52,8 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         useCaseFavouriteListCinema.dispose();
     }
 
-    public void onCinemaClicked(int cinemaId) {
-        getView().showDetailedCinema(cinemaId);
+    public void onCinemaClicked(int cinemaId , int viewHolderPos) {
+        getView().showDetailedCinema(cinemaId , viewHolderPos);
     }
 
     @SuppressLint("CheckResult")
@@ -86,7 +86,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     interface View extends BaseView {
         void showFavouriteListCinema(List<Cinema> cinemaList);
-        void showDetailedCinema(int cinemaId);
+        void showDetailedCinema(int cinemaId , int viewHolderPos);
         void showUndoAction(String cinemaTitle , Cinema deletedCinema , int deletedIndex);
         void showSuccessfullyFavouriteListCleared();
     }
