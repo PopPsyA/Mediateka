@@ -45,7 +45,9 @@
                         android:textColorHint="@android:color/darker_gray"
                         android:hint="@string/search_cinemas"
                         android:padding="8dp"
-                        android:background="@drawable/search_background" />
+                        android:background="@drawable/search_background"
+                        android:drawablePadding="4dp"
+                        android:drawableStart="@drawable/ic_search"/>
 
                 </android.support.v7.widget.Toolbar>
 
