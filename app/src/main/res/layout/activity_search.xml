@@ -13,7 +13,7 @@
         tools:context="com.ru.devit.mediateka.presentation.main.MainActivity">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/main_app_bar"
+            android:id="@+id/search_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorGray"
                 android:layout_marginTop="10dp"
-                app:layout_anchor="@id/main_app_bar"
+                app:layout_anchor="@id/search_app_bar"
                 app:layout_anchorGravity="bottom"
                 app:tabGravity="fill"
                 app:tabMode="scrollable"/>
