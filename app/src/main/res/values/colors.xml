@@ -24,4 +24,6 @@
     <color name="colorDarkBackground">#FF424242</color>
     <color name="colorPosterBackground">#242425</color>
     <color name="colorPink">#fa315b</color>
+    <color name="colorLightBlue">#40c4ff</color>
+    <color name="colorDarkBlue">#00b0ff</color>
 </resources>
