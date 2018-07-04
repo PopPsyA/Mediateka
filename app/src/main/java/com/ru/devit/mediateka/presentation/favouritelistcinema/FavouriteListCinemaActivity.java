@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +24,6 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
 import com.ru.devit.mediateka.presentation.common.RecyclerItemTouchHelper;
 import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemaListAdapter;
-import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemaViewHolder;
 
 import java.util.List;
 
@@ -53,9 +54,17 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     }
 
     @Override
-    public void showDetailedCinema(int cinemaId){
-        Intent intent = CinemaDetailsActivity.makeIntent(this , cinemaId);
-        startActivity(intent);
+    public void showDetailedCinema(int cinemaId , int viewHolderPos){
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this ,
+                mRecyclerViewFavouriteListCinema
+                        .findViewHolderForAdapterPosition(viewHolderPos)
+                        .itemView
+                        .findViewById(R.id.iv_actor_detail_cinema_poster) ,
+                getString(R.string.transition_cinema_poster_image)
+        );
+        Intent intent = CinemaDetailsActivity.makeIntent(this, cinemaId);
+        ActivityCompat.startActivity(this , intent , activityOptions.toBundle());
     }
 
     @Override
@@ -66,6 +75,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
                     adapter.restoreCinema(deletedCinema , deletedIndex);
                 })
                 .show();
+        //TODO realize sorting data
     }
 
     @Override
@@ -113,7 +123,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
         mProgressBar = findViewById(R.id.pb_small_cinemas);
         mRecyclerViewFavouriteListCinema = findViewById(R.id.rv_small_cinemas);
         adapter = new SmallCinemaListAdapter(this ,
-                (cinemaId , viewHolderPos) -> presenter.onCinemaClicked(cinemaId) ,
+                (cinemaId , viewHolderPos) -> presenter.onCinemaClicked(cinemaId , viewHolderPos) ,
                 true ,
                 R.color.colorWhite ,
                 false);
