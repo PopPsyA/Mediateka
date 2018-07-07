@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/navigation_share"
+        android:title="@string/share_via"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/navigation_show_on_tmdb"
         android:title="@string/show_on_tmdb"
         app:showAsAction="never" />
