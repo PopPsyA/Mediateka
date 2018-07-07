@@ -187,12 +187,12 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
             }
             case R.id.navigation_show_on_tmdb : {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(String.format(Locale.getDefault() ,
-                        "https://www.themoviedb.org/movie/%d" ,
-                        Objects.requireNonNull(getIntent().getExtras()).getInt(CINEMA_ID))));
+                intent.setData(Uri.parse(
+                        movieInfoUrl(Objects.requireNonNull(getIntent().getExtras()).getInt(CINEMA_ID))));
                 startActivity(intent);
                 break;
             }
+          
         }
         return super.onOptionsItemSelected(item);
     }
@@ -235,6 +235,10 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 .format(Locale.getDefault() , "%s (%d)" , getString(R.string.actors) , cinema.getActors().size()));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private String movieInfoUrl(int movieId){
+        return String.format(Locale.getDefault() , "https://www.themoviedb.org/movie/%d" , movieId);
     }
 
     private void renderImage(String url, ImageView image){
