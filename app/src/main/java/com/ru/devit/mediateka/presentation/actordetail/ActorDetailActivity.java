@@ -113,11 +113,15 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
             }
             case R.id.navigation_show_on_tmdb : {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(String.format(Locale.getDefault() ,
-                        "https://www.themoviedb.org/person/%d" ,
-                        Objects.requireNonNull(getIntent().getExtras()).getInt(ACTOR_ID))));
+                intent.setData(Uri.parse(actorInfoUrl()));
                 startActivity(intent);
                 break;
+            }
+            case R.id.navigation_share : {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT , actorInfoUrl());
+                shareIntent.setType("text/plain");
+                startActivity(shareIntent);
             }
         }
         return super.onOptionsItemSelected(item);
@@ -183,6 +187,12 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
         adapter.addFragment(SmallCinemasFragment.newInstance(actor.getCinemas()) , getString(R.string.message_cinemas));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private String actorInfoUrl(){
+        return String.format(Locale.getDefault() ,
+                "https://www.themoviedb.org/person/%d" ,
+                Objects.requireNonNull(getIntent().getExtras()).getInt(ACTOR_ID));
     }
 
     private void renderImage(final String url, final ImageView image){
