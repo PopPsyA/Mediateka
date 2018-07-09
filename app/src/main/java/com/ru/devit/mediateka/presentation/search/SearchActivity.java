@@ -1,6 +1,7 @@
 package com.ru.devit.mediateka.presentation.search;
 
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -9,9 +10,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
@@ -23,7 +25,7 @@ import com.ru.devit.mediateka.utils.AnimUtils;
 
 import javax.inject.Inject;
 
-public class SearchActivity extends BaseActivity implements SearchPresenter.View, TabLayout.OnTabSelectedListener, TextWatcher {
+public class SearchActivity extends BaseActivity implements SearchPresenter.View, TabLayout.OnTabSelectedListener, TextWatcher, View.OnTouchListener {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -45,6 +47,13 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
         super.onStart();
         mTabLayout.addOnTabSelectedListener(this);
         mSearchField.addTextChangedListener(this);
+        mSearchField.setOnTouchListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        mSearchField.setOnTouchListener(null);
+        super.onStop();
     }
 
     @Override
@@ -56,8 +65,17 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String query = charSequence.toString();
         presenter.onTextChanged(query);
+    }
 
-        //TODO make icon exit
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            if(event.getRawX() >= mSearchField.getRight() - mSearchField.getTotalPaddingRight()) {
+                presenter.onClearEditTextClicked();
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -83,6 +101,21 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
     }
 
     @Override
+    public void hideClearEditTextBtn() {
+        clearBtn().setAlpha(0);
+    }
+
+    @Override
+    public void showEditTextBtn() {
+        clearBtn().setAlpha(255);
+    }
+
+    @Override
+    public void clearEditText(String s) {
+        mSearchField.setText(s);
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -100,6 +133,8 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
         mAppBar = findViewById(R.id.search_app_bar);
         setUpViewPager(mViewPager);
         changeStatusBarColor(R.color.colorDarkPurple);
+        mSearchField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search , 0 , R.drawable.ic_close , 0);
+        clearBtn().setAlpha(0);
     }
 
     @Override
@@ -149,6 +184,10 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    private Drawable clearBtn(){
+        return mSearchField.getCompoundDrawables()[2];
     }
 
     private void dynamicallyChangeColor(@ColorRes int color , @ColorRes int statusBarColor) {
