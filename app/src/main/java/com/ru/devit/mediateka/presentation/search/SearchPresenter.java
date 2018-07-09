@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 public class SearchPresenter extends BasePresenter<SearchPresenter.View> {
 
+    private String query = "";
+
     private static int currentTabPosition = 0;
 
     private static final int CINEMAS_TAB_POSITION = 0;
@@ -41,6 +43,8 @@ public class SearchPresenter extends BasePresenter<SearchPresenter.View> {
     }
 
     public void onTextChanged(String query) {
+        this.query = query;
+        checkClearEditTextBtnState();
         switch (currentTabPosition) {
             case CINEMAS_TAB_POSITION : {
                 getView().textFromCinemaTab(query);
@@ -53,11 +57,26 @@ public class SearchPresenter extends BasePresenter<SearchPresenter.View> {
         }
     }
 
+    public void onClearEditTextClicked() {
+        getView().clearEditText("");
+        checkClearEditTextBtnState();
+    }
+
+    private void checkClearEditTextBtnState(){
+        if (query.isEmpty()){
+            getView().hideClearEditTextBtn();
+        } else {
+            getView().showEditTextBtn();
+        }
+    }
 
     public interface View extends BaseView{
         void onCinemaTabSelected();
         void onActorTabSelected();
         void textFromCinemaTab(String query);
         void textFromActorTab(String query);
+        void hideClearEditTextBtn();
+        void showEditTextBtn();
+        void clearEditText(String s);
     }
 }
