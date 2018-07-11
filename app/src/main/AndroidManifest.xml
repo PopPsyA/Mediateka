@@ -43,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.popularactors.PopularActors"
+            android:name=".presentation.popularactors.PopularActorsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
