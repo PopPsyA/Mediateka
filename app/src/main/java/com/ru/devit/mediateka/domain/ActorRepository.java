@@ -12,5 +12,5 @@ public interface ActorRepository {
 
     Flowable<List<Actor>> searchActors(String query);
     Single<Actor> getActorById(int id);
-
+    Single<List<Actor>> getPopularActors(int page);
 }
