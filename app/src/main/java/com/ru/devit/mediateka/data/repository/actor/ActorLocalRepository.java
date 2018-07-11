@@ -41,6 +41,12 @@ public class ActorLocalRepository implements ActorRepository {
 
     }
 
+    @Override
+    public Single<List<Actor>> getPopularActors(int page){
+        return actorDao.getPopularActors(page)
+                .map(mapper::reverseMap);
+    }
+
     public void insertCinemasForActor(List<CinemaEntity> cinemaEntities) {
         actorDao.insertCinemas(cinemaEntities);
     }

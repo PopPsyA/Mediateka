@@ -8,22 +8,18 @@ import com.ru.devit.mediateka.models.mapper.ActorDetailEntityToActor;
 import com.ru.devit.mediateka.models.mapper.ActorDetailResponseToActor;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.models.model.Cinema;
-import com.ru.devit.mediateka.models.network.ActorDetailResponse;
-import com.ru.devit.mediateka.models.network.ImagesResponse;
 
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-import io.reactivex.functions.BiFunction;
 
 public class ActorRemoteRepository implements ActorRepository {
 
     private final CinemaApiService apiService;
     private final ActorDetailResponseToActor networkMapper;
     private final ActorDetailEntityToActor dbMapper;
-    private final ActorLocalRepository cache;
+    private final ActorLocalRepository localRepository;
     private final CinemaActorJoinDao cinemaActorJoinDao;
 
     public ActorRemoteRepository(CinemaApiService apiService,
@@ -34,7 +30,7 @@ public class ActorRemoteRepository implements ActorRepository {
         this.apiService = apiService;
         this.networkMapper = networkMapper;
         this.dbMapper = dbMapper;
-        this.cache = localRepository;
+        this.localRepository = localRepository;
         this.cinemaActorJoinDao = cinemaActorJoinDao;
     }
 
@@ -47,24 +43,32 @@ public class ActorRemoteRepository implements ActorRepository {
                     return networkMapper.map(response);
                 })
                 .doAfterSuccess(actor -> {
-                    cache.updateActor(actorId ,
+                    localRepository.updateActor(actorId ,
                             actor.getBiography() ,
                             actor.getBirthDay() ,
                             actor.getAge() ,
                             actor.getPlaceOfBirth());
-                    cache.insertCinemasForActor(dbMapper.mapCinemas(actor.getCinemas()));
+                    localRepository.insertCinemasForActor(dbMapper.mapCinemas(actor.getCinemas()));
                     createRelationBetweenActorAndCinemas(actorId , actor.getCinemas());
                 })
-                .onErrorResumeNext(throwable -> cache.getActorById(actorId));
+                .onErrorResumeNext(throwable -> localRepository.getActorById(actorId));
+    }
+
+    @Override
+    public Single<List<Actor>> getPopularActors(int page){
+        return apiService.getPopularActors(page)
+                .map(networkMapper::map)
+                .doAfterSuccess(actors -> localRepository.insertActors(dbMapper.map(actors)))
+                .onErrorResumeNext(throwable -> localRepository.getPopularActors(page));
     }
 
     @Override
     public Flowable<List<Actor>> searchActors(String query) {
         return apiService.searchActors(query)
                 .map(networkMapper::map)
-                .doAfterNext(actors -> cache.insertActors(dbMapper.map(actors)))
+                .doAfterNext(actors -> localRepository.insertActors(dbMapper.map(actors)))
                 .onErrorResumeNext(throwable -> {
-                    return cache.searchActors("%" + query + "%");
+                    return localRepository.searchActors("%" + query + "%");
                 });
     }
 
