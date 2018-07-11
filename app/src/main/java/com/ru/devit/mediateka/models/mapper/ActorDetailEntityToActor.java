@@ -64,6 +64,7 @@ public class ActorDetailEntityToActor extends Mapper<Actor , ActorEntity> {
         actor.setBirthDay(defaultValueIfNull(value.getBirthDay()));
         actor.setPlaceOfBirth(defaultValueIfNull(value.getPlaceOfBirth()));
         actor.setProfileUrl(value.getPlaceOfBirth());
+        actor.setPopularity(value.getPopularity());
     }
 
     private void fillActorEntity(ActorEntity actorEntity, Actor value) {
@@ -75,6 +76,7 @@ public class ActorDetailEntityToActor extends Mapper<Actor , ActorEntity> {
         actorEntity.setBirthDay(value.getBirthDay());
         actorEntity.setPlaceOfBirth(value.getPlaceOfBirth());
         actorEntity.setCastId(value.getCastId());
+        actorEntity.setPopularity(value.getPopularity());
     }
 
     private void fillCinema(Cinema cinema , CinemaEntity cinemaEntity) {
