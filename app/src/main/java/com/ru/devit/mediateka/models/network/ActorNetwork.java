@@ -12,6 +12,7 @@ public class ActorNetwork {
 	@SerializedName("name") private String name;
 	@SerializedName("profile_path") private String profilePath;
 	@SerializedName("order") private int order;
+	@SerializedName("popularity") private double popularity;
 
 	public int getCastId(){
 		return castId;
@@ -43,5 +44,13 @@ public class ActorNetwork {
 
 	public int getOrder(){
 		return order;
+	}
+
+	public double getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(double popularity) {
+		this.popularity = popularity;
 	}
 }

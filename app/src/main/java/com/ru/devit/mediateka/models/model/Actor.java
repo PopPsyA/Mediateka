@@ -23,6 +23,7 @@ public class Actor implements Parcelable {
     private List<Cinema> cinemas;
     private List<String> postersUrl;
     private List<String> backgroundUrls;
+    private double popularity;
 
     public Actor(){}
 
@@ -195,5 +196,13 @@ public class Actor implements Parcelable {
 
     public void setBackgroundUrls(List<String> backgroundUrls) {
         this.backgroundUrls = backgroundUrls;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
+    }
+
+    public double getPopularity() {
+        return popularity;
     }
 }

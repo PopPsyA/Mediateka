@@ -17,6 +17,8 @@ public class PopularActors extends BaseActivity {
     @Override
     protected void initViews() {
 
+        //TODO realize this class
+
     }
 
     @Override

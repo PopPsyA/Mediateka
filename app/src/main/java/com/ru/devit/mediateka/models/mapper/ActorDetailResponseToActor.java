@@ -28,6 +28,7 @@ public class ActorDetailResponseToActor {
         actor.setBiography(response.getBiography());
         actor.setDeathDay((String) response.getDeathday());
         actor.setPlaceOfBirth(defaultValueIfNull(response.getPlaceOfBirth()));
+        actor.setPopularity(response.getPopularity());
         checkAgeThenSet(response , actor);
         setCinemas(response , actor);
         setPosters(response , actor);
@@ -42,6 +43,7 @@ public class ActorDetailResponseToActor {
             actor.setName(emptyValueIfNull(actorNetwork.getName()));
             actor.setActorId(actorNetwork.getActorId());
             actor.setProfileUrl(emptyValueIfNull(actorNetwork.getProfilePath()));
+            actor.setPopularity(actorNetwork.getPopularity());
             actors.add(actor);
         }
         return actors;

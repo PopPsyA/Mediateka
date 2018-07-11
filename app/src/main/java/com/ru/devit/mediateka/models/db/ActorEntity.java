@@ -1,14 +1,7 @@
 package com.ru.devit.mediateka.models.db;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-
-//foreignKeys =
-//@ForeignKey(entity = CinemaEntity.class ,
-//        parentColumns = "cinemaId" ,
-//        childColumns = "ownerCinemaId" ,
-//        onUpdate = ForeignKey.CASCADE)
 
 @Entity(tableName = "ActorTable")
 public class ActorEntity {
@@ -26,6 +19,7 @@ public class ActorEntity {
     private String profileBackgroundPath;
     private String placeOfBirth;
     private String age;
+    private double popularity;
     private int order;
 
     @Override
@@ -145,11 +139,11 @@ public class ActorEntity {
         this.order = order;
     }
 
-//    public Integer getOwnerCinemaId() {
-//        return ownerCinemaId;
-//    }
-//
-//    public void setOwnerCinemaId(Integer ownerCinemaId) {
-//        this.ownerCinemaId = ownerCinemaId;
-//    }
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
+    }
 }
