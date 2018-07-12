@@ -43,7 +43,7 @@ public class ActorLocalRepository implements ActorRepository {
 
     @Override
     public Single<List<Actor>> getPopularActors(int page){
-        return actorDao.getPopularActors(page)
+        return actorDao.getPopularActors() //TODO FIX THIS PAGE
                 .map(mapper::reverseMap);
     }
 

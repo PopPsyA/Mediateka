@@ -37,4 +37,7 @@ public interface ActorDao {
     @Query("UPDATE ActorTable SET biography = :biography , birthDay = :birthDay , age = :age , placeOfBirth = :placeOfBirth " +
             "WHERE actorId = :actorId")
     void updateActor(int actorId , String biography, String birthDay, String age, String placeOfBirth);
+
+    @Query("SELECT * FROM ActorTable ORDER BY popularity DESC")
+    Single<List<ActorEntity>> getPopularActors();
 }
