@@ -2,8 +2,13 @@ package com.ru.devit.mediateka.presentation.popularactors;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -44,7 +49,7 @@ public class PopularActorsActivity extends BaseActivity implements PopularActors
 
     @Override
     public void showActorDetail(int actorId , int viewHolderPos){
-        Intent intent = ActorDetailActivity.makeIntent(this , actorId);
+        Intent intent = ActorDetailActivity.makeIntent(this, actorId);
         startActivity(intent);
     }
 
@@ -75,6 +80,7 @@ public class PopularActorsActivity extends BaseActivity implements PopularActors
     @Override
     protected void initToolbar() {
         super.initToolbar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
