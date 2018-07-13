@@ -4,23 +4,20 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
-import com.ru.devit.mediateka.di.actor.ActorModule;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.presentation.actordetail.ActorDetailActivity;
 import com.ru.devit.mediateka.presentation.actorlist.ActorListAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -49,8 +46,16 @@ public class PopularActorsActivity extends BaseActivity implements PopularActors
 
     @Override
     public void showActorDetail(int actorId , int viewHolderPos){
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this ,
+                mRecyclerView
+                        .findViewHolderForAdapterPosition(viewHolderPos)
+                        .itemView
+                        .findViewById(R.id.iv_actor_avatar) ,
+                getString(R.string.transition_actor_avatar)
+        );
         Intent intent = ActorDetailActivity.makeIntent(this, actorId);
-        startActivity(intent);
+        ActivityCompat.startActivity(this , intent , activityOptions.toBundle());
     }
 
     @Override
@@ -80,7 +85,7 @@ public class PopularActorsActivity extends BaseActivity implements PopularActors
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
