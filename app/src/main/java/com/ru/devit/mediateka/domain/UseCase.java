@@ -12,7 +12,7 @@ public abstract class UseCase<T> {
 
     private final Scheduler executorThread;
     private final Scheduler uiThread;
-    private CompositeDisposable compositeDisposable;
+    private final CompositeDisposable compositeDisposable;
 
     public UseCase(Scheduler executorThread,
                    Scheduler uiThread) {
