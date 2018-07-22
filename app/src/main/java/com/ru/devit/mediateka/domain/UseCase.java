@@ -1,8 +1,8 @@
 package com.ru.devit.mediateka.domain;
 
+import io.reactivex.CompletableTransformer;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -41,6 +41,11 @@ public abstract class UseCase<T> {
         if (!compositeDisposable.isDisposed()){
             compositeDisposable.dispose();
         }
+    }
+
+    protected CompletableTransformer applyCompletableSchedulers(){
+        return upstream -> upstream.subscribeOn(executorThread)
+                .observeOn(uiThread);
     }
 
     protected abstract Flowable<T> createUseCase();

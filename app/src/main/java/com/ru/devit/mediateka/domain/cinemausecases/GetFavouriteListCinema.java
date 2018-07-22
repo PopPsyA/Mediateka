@@ -4,7 +4,6 @@ import com.ru.devit.mediateka.data.repository.cinema.CinemaLocalRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
 
-import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,16 +16,12 @@ import io.reactivex.Scheduler;
 public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
 
     private final CinemaLocalRepository repository;
-    private final Scheduler ioThread;
-    private final Scheduler uiThread;
 
     @Inject
     public GetFavouriteListCinema(@Named("executor_thread") Scheduler executorThread ,
                                   @Named("ui_thread") Scheduler uiThread ,
                                   CinemaLocalRepository repository) {
         super(executorThread, uiThread);
-        this.ioThread = executorThread;
-        this.uiThread = uiThread;
         this.repository = repository;
     }
 
@@ -42,19 +37,16 @@ public class GetFavouriteListCinema extends UseCase<List<Cinema>> {
 
     public Completable saveFavouriteCinema(final int cinemaId){
         return repository.saveIntoDatabaseFavouriteCinema(cinemaId)
-                .subscribeOn(ioThread)
-                .observeOn(uiThread);
+                .compose(applyCompletableSchedulers());
     }
 
     public Completable removeFavouriteCinema(final int cinemaId){
         return repository.removeFromDatabaseFavouriteCinema(cinemaId)
-                .subscribeOn(ioThread)
-                .observeOn(uiThread);
+                .compose(applyCompletableSchedulers());
     }
 
     public Completable clearFavouriteList() {
         return repository.clearFavouriteListCinema()
-                .subscribeOn(ioThread)
-                .observeOn(uiThread);
+                .compose(applyCompletableSchedulers());
     }
 }
