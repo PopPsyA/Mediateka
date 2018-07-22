@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
     private TextView mTextViewDateOfBorn;
     private TextView mTextViewAge;
     private TextView mTextViewBirthplace;
+    private RecyclerView mRecyclerViewPhotos;
+    private ActorDetailPhotoAdapter mAdapter;
 
     @Inject ActorDetailContentPresenter presenter;
 
@@ -61,6 +65,7 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
         mTextViewDateOfBorn.setText(actor.getBirthDay());
         mTextViewAge.setText(String.format(getString(R.string.years) , actor.getAge()));
         mTextViewBirthplace.setText(actor.getPlaceOfBirth());
+        mAdapter.addAll(actor.getPostersUrl());
     }
 
     @Override
@@ -85,6 +90,10 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
         mTextViewDateOfBorn = view.findViewById(R.id.tv_actor_detail_date_of_born);
         mTextViewAge = view.findViewById(R.id.tv_actor_detail_age);
         mTextViewBirthplace = view.findViewById(R.id.tv_actor_detail_birthplace);
+        mRecyclerViewPhotos = view.findViewById(R.id.rv_actor_detail_photos);
+        mAdapter = new ActorDetailPhotoAdapter();
+        mRecyclerViewPhotos.setLayoutManager(new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerViewPhotos.setAdapter(mAdapter);
     }
     private void initDagger(){
         MediatekaApp.getComponentsManager()

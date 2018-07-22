@@ -86,6 +86,12 @@
                 android:layout_marginStart="8dp"
                 tools:text="Hayward , California , USA"/>
         </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_actor_detail_photos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
