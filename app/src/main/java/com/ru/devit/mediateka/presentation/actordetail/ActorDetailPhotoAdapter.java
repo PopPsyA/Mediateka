@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ru.devit.mediateka.R;
+import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
 
@@ -18,8 +19,10 @@ import java.util.Random;
 public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPhotoAdapter.ActorPhotoViewHolder>{
 
     private final List<String> photoUrls;
+    private final OnActorClickListener onActorClickListener;
 
-    public ActorDetailPhotoAdapter() {
+    public ActorDetailPhotoAdapter(OnActorClickListener onActorClickListener) {
+        this.onActorClickListener = onActorClickListener;
         photoUrls = new ArrayList<>();
     }
 
@@ -27,15 +30,14 @@ public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPho
     @Override
     public ActorPhotoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actor_photo , parent , false);
-        return new ActorPhotoViewHolder(view);
+        return new ActorPhotoViewHolder(view, onActorClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ActorPhotoViewHolder holder, int position) {
         String photoUrl = photoUrls.get(position);
 
-        holder.generateRandomHeight();
-        holder.loadImage(photoUrl);
+        holder.render(position , photoUrl);
     }
 
     @Override
@@ -52,27 +54,40 @@ public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPho
     static class ActorPhotoViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageViewActorPhoto;
         private final Random random = new Random();
-        ActorPhotoViewHolder(View itemView) {
+        private final OnActorClickListener onActorClickListener;
+
+        ActorPhotoViewHolder(View itemView, OnActorClickListener onActorClickListener) {
             super(itemView);
             mImageViewActorPhoto = itemView.findViewById(R.id.iv_actor_photo);
+            this.onActorClickListener = onActorClickListener;
         }
 
-        void loadImage(String imgUrl){
+        void render(int position , String photoUrl){
+            onActorClicked(position);
+            loadImage(photoUrl);
+            generateRandomHeight();
+        }
+
+        private void generateRandomHeight(){
+            mImageViewActorPhoto.getLayoutParams().height = getRandomIntInRange(400 , 300);
+        }
+
+        private void loadImage(String imgUrl){
             Picasso.with(itemView.getContext())
                     .load(UrlImagePathCreator.create185pPictureUrl(imgUrl))
                     .into(mImageViewActorPhoto);
         }
 
-        void generateRandomHeight(){
-            mImageViewActorPhoto.getLayoutParams().height = getRandomIntInRange(400 , 300);
-        }
-
-        int getRandomIntInRange(int max, int min){
+        private int getRandomIntInRange(int max, int min){
             int randomInt = random.nextInt(max) + min;
             if (randomInt >= max){
                 randomInt = max;
             }
             return randomInt;
+        }
+
+        private void onActorClicked(int position){
+            itemView.setOnClickListener(v -> onActorClickListener.onActorClicked(position , getAdapterPosition()));
         }
     }
 }
