@@ -20,12 +20,13 @@ import javax.inject.Inject;
 
 public class PosterSliderActivity extends BaseActivity implements PosterSliderPresenter.View {
 
-    private static final String POSTERS = "cinema_posters";
-    private static final String TRANSITION_NAME = "transition_name";
-
     private ViewPager mViewPagerPosters;
     private TextView mTextViewPosterCount;
     private PosterSliderAdapter mAdapterPosters;
+
+    private static final String POSTERS = "cinema_posters";
+    private static final String TRANSITION_NAME = "transition_name";
+    private static final String POSITION = "current_position";
 
     @Inject PosterSliderPresenter presenter;
 
@@ -33,6 +34,12 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
         Intent intent = new Intent(context , PosterSliderActivity.class);
         intent.putStringArrayListExtra(POSTERS , (ArrayList<String>) posterUrls);
         intent.putExtra(TRANSITION_NAME , transitionName);
+        return intent;
+    }
+
+    public static Intent makeIntent(Context context , List<String> posterUrls , String transitionName , int position){
+        Intent intent = makeIntent(context, posterUrls, transitionName);
+        intent.putExtra(POSITION , position);
         return intent;
     }
 
@@ -68,6 +75,7 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
         if (isAboveLollipop()){
             mViewPagerPosters.setTransitionName(getIntent().getStringExtra(TRANSITION_NAME));
         }
+        mViewPagerPosters.setCurrentItem(getIntent().getIntExtra(POSITION , 0));
     }
 
     @Override
