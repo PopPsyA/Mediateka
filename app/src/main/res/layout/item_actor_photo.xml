@@ -6,6 +6,4 @@
     android:id="@+id/iv_actor_photo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:transitionName="@string/transition_actor_avatar"
-    tools:targetApi="lollipop" />
+    android:layout_margin="8dp"/>

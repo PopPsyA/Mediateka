@@ -1,8 +1,11 @@
 package com.ru.devit.mediateka.presentation.actordetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -16,6 +19,9 @@ import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.actor.ActorDetailModule;
 import com.ru.devit.mediateka.models.model.Actor;
+import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -69,6 +75,23 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
     }
 
     @Override
+    public void showDetailedPhoto(int position , int viewHolderPos , List<String> posterUrls){
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity() ,
+                mRecyclerViewPhotos
+                        .findViewHolderForAdapterPosition(viewHolderPos)
+                        .itemView
+                        .findViewById(R.id.iv_actor_photo) ,
+                getString(R.string.transition_actor_avatar)
+        );
+        Intent intent = PosterSliderActivity.makeIntent(requireActivity() ,
+                posterUrls ,
+                getString(R.string.transition_actor_avatar) ,
+                position);
+        ActivityCompat.startActivity(requireActivity() , intent , activityOptions.toBundle());
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -91,7 +114,7 @@ public class ActorDetailContentFragment extends Fragment implements ActorDetailC
         mTextViewAge = view.findViewById(R.id.tv_actor_detail_age);
         mTextViewBirthplace = view.findViewById(R.id.tv_actor_detail_birthplace);
         mRecyclerViewPhotos = view.findViewById(R.id.rv_actor_detail_photos);
-        mAdapter = new ActorDetailPhotoAdapter();
+        mAdapter = new ActorDetailPhotoAdapter((position , viewHolderPos) -> presenter.onPhotoClicked(position , viewHolderPos));
         mRecyclerViewPhotos.setLayoutManager(new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL));
         mRecyclerViewPhotos.setAdapter(mAdapter);
     }
