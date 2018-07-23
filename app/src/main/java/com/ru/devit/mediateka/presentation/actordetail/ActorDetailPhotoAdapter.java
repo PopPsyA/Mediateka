@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPhotoAdapter.ActorPhotoViewHolder>{
 
-    private List<String> photoUrls;
+    private final List<String> photoUrls;
 
     public ActorDetailPhotoAdapter() {
         photoUrls = new ArrayList<>();
@@ -44,7 +44,9 @@ public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPho
     }
 
     public void addAll(List<String> photoUrls){
-        this.photoUrls.addAll(photoUrls);
+        if (photoUrls != null){
+            this.photoUrls.addAll(photoUrls);
+        }
     }
 
     static class ActorPhotoViewHolder extends RecyclerView.ViewHolder {
