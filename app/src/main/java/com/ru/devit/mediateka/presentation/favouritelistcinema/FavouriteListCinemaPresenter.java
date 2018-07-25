@@ -2,6 +2,7 @@ package com.ru.devit.mediateka.presentation.favouritelistcinema;
 
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.models.model.Cinema;
@@ -31,6 +32,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
             @Override
             public void onNext(List<Cinema> cinemas) {
                 cinemaList = cinemas;
+                removeNotNecessaryInfoFromCinemaList(cinemaList);
                 getView().showFavouriteListCinema(cinemas);
             }
 
@@ -45,11 +47,6 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
                 getView().hideLoading();
             }
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        useCaseFavouriteListCinema.dispose();
     }
 
     public void onCinemaClicked(int cinemaId , int viewHolderPos) {
@@ -82,6 +79,20 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     public void setCinemaList(List<Cinema> cinemaList) {
         this.cinemaList = cinemaList;
+        removeNotNecessaryInfoFromCinemaList(this.cinemaList);
+    }
+
+    private void removeNotNecessaryInfoFromCinemaList(List<Cinema> cinemas){
+        for (Cinema cinema : cinemas){
+            if (!TextUtils.isEmpty(cinema.getCharacter())){
+                cinema.setCharacter("");
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        useCaseFavouriteListCinema.dispose();
     }
 
     interface View extends BaseView {
