@@ -79,7 +79,6 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     public void setCinemaList(List<Cinema> cinemaList) {
         this.cinemaList = cinemaList;
-        removeNotNecessaryInfoFromCinemaList(this.cinemaList);
     }
 
     private void removeNotNecessaryInfoFromCinemaList(List<Cinema> cinemas){
