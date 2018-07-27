@@ -70,4 +70,5 @@
     <string name="show_on_tmdb">Посмотреть на Tmdb</string>
     <string name="share_via">Поделиться</string>
     <string name="message_unknown_error">Произошла неизвестная ошибка</string>
+    <string name="sort_favourite_list">Сортировать изрбранные фильмы</string>
 </resources>
