@@ -40,6 +40,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     private CoordinatorLayout mCoordinatorLayout;
 
     private static final int MENU_CLEAR_FAVOURITE_LIST = 23;
+    private static final int MENU_SORT_FAVOURITE_LIST = 27;
 
     @Inject FavouriteListCinemaPresenter presenter;
 
@@ -95,6 +96,9 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE , MENU_CLEAR_FAVOURITE_LIST , Menu.NONE , getString(R.string.message_clear_favourite_list));
+        menu.add(Menu.NONE , MENU_SORT_FAVOURITE_LIST , Menu.NONE , getString(R.string.sort_favourite_list))
+                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+                .setIcon(R.drawable.ic_sort);
         return true;
     }
 
