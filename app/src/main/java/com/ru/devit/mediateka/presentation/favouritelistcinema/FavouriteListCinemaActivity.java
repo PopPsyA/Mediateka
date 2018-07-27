@@ -1,16 +1,13 @@
 package com.ru.devit.mediateka.presentation.favouritelistcinema;
 
 import android.content.Intent;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,12 +29,13 @@ import javax.inject.Inject;
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 import static android.support.design.widget.Snackbar.LENGTH_SHORT;
 
-public class FavouriteListCinemaActivity extends BaseActivity implements FavouriteListCinemaPresenter.View, RecyclerItemTouchHelper.Callback {
+public class FavouriteListCinemaActivity extends BaseActivity implements FavouriteListCinemaPresenter.View, RecyclerItemTouchHelper.Callback , CinemaSortingDialog.OnDialogItemClicked {
 
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerViewFavouriteListCinema;
     private SmallCinemaListAdapter adapter;
     private CoordinatorLayout mCoordinatorLayout;
+    private CinemaSortingDialog mCinemaSortingDialog;
 
     private static final int MENU_CLEAR_FAVOURITE_LIST = 23;
     private static final int MENU_SORT_FAVOURITE_LIST = 27;
@@ -94,6 +92,11 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     }
 
     @Override
+    public void onDialogItemClicked(int position) {
+        presenter.onCinemaSortingDialogItemClicked(position);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE , MENU_CLEAR_FAVOURITE_LIST , Menu.NONE , getString(R.string.message_clear_favourite_list));
         menu.add(Menu.NONE , MENU_SORT_FAVOURITE_LIST , Menu.NONE , getString(R.string.sort_favourite_list))
@@ -104,12 +107,20 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == MENU_CLEAR_FAVOURITE_LIST){
-            presenter.onMenuClearFavouriteListClicked();
-            adapter.clear();
-            return true;
+        switch (item.getItemId()){
+            case MENU_CLEAR_FAVOURITE_LIST : {
+                presenter.onMenuClearFavouriteListClicked();
+                adapter.clear();
+                return true;
+
+            }
+            case MENU_SORT_FAVOURITE_LIST : {
+                mCinemaSortingDialog.show(getSupportFragmentManager() , CinemaSortingDialog.class.getSimpleName());
+                return true;
+            }
+
+            default : return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -134,6 +145,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
         mRecyclerViewFavouriteListCinema.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewFavouriteListCinema.setAdapter(adapter);
         mCoordinatorLayout = findViewById(R.id.cl_favourite_list_cinema);
+        mCinemaSortingDialog = new CinemaSortingDialog();
         new ItemTouchHelper(new RecyclerItemTouchHelper(ItemTouchHelper.LEFT , this)).attachToRecyclerView(mRecyclerViewFavouriteListCinema);
     }
 
