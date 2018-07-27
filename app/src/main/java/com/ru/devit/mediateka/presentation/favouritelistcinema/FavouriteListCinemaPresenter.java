@@ -78,7 +78,13 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
     }
 
     public void setCinemaList(List<Cinema> cinemaList) {
+        removeNotNecessaryInfoFromCinemaList(cinemaList);
         this.cinemaList = cinemaList;
+    }
+
+    public void onCinemaSortingDialogItemClicked(int position) {
+        Collections.sort(cinemaList , useCaseFavouriteListCinema.createCinemaListComparator(position));
+        getView().showFavouriteListCinema(cinemaList);
     }
 
     private void removeNotNecessaryInfoFromCinemaList(List<Cinema> cinemas){
