@@ -16,12 +16,11 @@ import com.ru.devit.mediateka.di.application.AppModule;
 
 public class ComponentsManager {
 
-    private Context context;
-
     private AppComponent appComponent;
     private CinemaComponent cinemaComponent;
     private ActorComponent actorComponent;
 
+    private final Context context;
 
     public ComponentsManager(Context context) {
         this.context = context.getApplicationContext();
