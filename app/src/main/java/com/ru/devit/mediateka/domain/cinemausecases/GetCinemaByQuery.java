@@ -4,7 +4,9 @@ import com.ru.devit.mediateka.domain.Actions;
 import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.utils.FormatterUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +17,8 @@ import io.reactivex.Scheduler;
 import io.reactivex.functions.Action;
 import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
+
+import static com.ru.devit.mediateka.utils.FormatterUtils.DEFAULT_VALUE;
 
 public class GetCinemaByQuery extends UseCase<List<Cinema>> {
 
@@ -40,6 +44,17 @@ public class GetCinemaByQuery extends UseCase<List<Cinema>> {
 
     public void removeActions() {
         actions.removeActions();
+    }
+
+    public void sortByDate(List<Cinema> cinemas){
+        Collections.sort(cinemas, (cinema, cinema2) -> {
+            if (cinema.getReleaseDate().equals(FormatterUtils.DEFAULT_VALUE) || cinema2.getReleaseDate().equals(DEFAULT_VALUE)){
+                return cinema.getReleaseDate().compareTo(cinema2.getReleaseDate());
+            }
+            int releaseDate1 = Integer.valueOf(cinema.getReleaseDate());
+            int releaseDate2 = Integer.valueOf(cinema2.getReleaseDate());
+            return Integer.compare(releaseDate2 , releaseDate1);
+        });
     }
 
     @Override
