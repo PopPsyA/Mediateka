@@ -74,7 +74,6 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
                     adapter.restoreCinema(deletedCinema , deletedIndex);
                 })
                 .show();
-        //TODO realize sorting data
     }
 
     @Override
@@ -93,6 +92,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
 
     @Override
     public void onDialogItemClicked(int position) {
+        mCinemaSortingDialog.setPosition(position);
         presenter.onCinemaSortingDialogItemClicked(position);
     }
 
@@ -121,6 +121,12 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
 
             default : return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void showSavedSortedPosition(int savedPosition){
+        mCinemaSortingDialog = CinemaSortingDialog.newInstance();
+        mCinemaSortingDialog.setPosition(savedPosition);
     }
 
     @Override

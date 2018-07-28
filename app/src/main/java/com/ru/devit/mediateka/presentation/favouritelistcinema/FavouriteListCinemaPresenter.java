@@ -4,6 +4,7 @@ package com.ru.devit.mediateka.presentation.favouritelistcinema;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
+import com.ru.devit.mediateka.data.SharedPreferenceManager;
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
@@ -19,15 +20,19 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     private List<Cinema> cinemaList;
     private final GetFavouriteListCinema useCaseFavouriteListCinema;
+    private final SharedPreferenceManager sharedPreferenceManager;
 
-    public FavouriteListCinemaPresenter(GetFavouriteListCinema useCaseFavouriteListCinema) {
+    public FavouriteListCinemaPresenter(GetFavouriteListCinema useCaseFavouriteListCinema ,
+                                        SharedPreferenceManager sharedPreferenceManager) {
         this.useCaseFavouriteListCinema = useCaseFavouriteListCinema;
+        this.sharedPreferenceManager = sharedPreferenceManager;
         this.cinemaList = new ArrayList<>();
     }
 
     @Override
     public void initialize() {
         getView().showLoading();
+        getView().showSavedSortedPosition(sharedPreferenceManager.getCinemaSortingPosition());
         useCaseFavouriteListCinema.subscribe(new DisposableSubscriber<List<Cinema>>() {
             @Override
             public void onNext(List<Cinema> cinemas) {
@@ -62,6 +67,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
                 .removeFavouriteCinema(deletedCinema.getId())
                 .subscribe(() -> getView().showUndoAction(cinemaTitle , deletedCinema , position));
     }
+
     @SuppressLint("CheckResult")
     public void onMenuClearFavouriteListClicked() {
         cinemaList.clear();
@@ -83,6 +89,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     public void onCinemaSortingDialogItemClicked(int position) {
         Collections.sort(cinemaList , useCaseFavouriteListCinema.createCinemaListComparator(position));
+        sharedPreferenceManager.saveCinemaSortingPosition(position);
         getView().showFavouriteListCinema(cinemaList);
     }
 
@@ -96,6 +103,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     @Override
     public void onDestroy() {
+        setView(null);
         useCaseFavouriteListCinema.dispose();
     }
 
@@ -104,5 +112,6 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         void showDetailedCinema(int cinemaId , int viewHolderPos);
         void showUndoAction(String cinemaTitle , Cinema deletedCinema , int deletedIndex);
         void showSuccessfullyFavouriteListCleared();
+        void showSavedSortedPosition(int savedPosition);
     }
 }
