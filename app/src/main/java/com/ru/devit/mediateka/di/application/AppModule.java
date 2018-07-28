@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ru.devit.mediateka.MediatekaApp;
-import com.ru.devit.mediateka.data.datasource.db.ActorDao;
+import com.ru.devit.mediateka.data.SharedPreferenceManager;
 import com.ru.devit.mediateka.data.datasource.db.CinemaActorJoinDao;
-import com.ru.devit.mediateka.data.datasource.db.CinemaDao;
 
 
 import javax.inject.Named;
@@ -38,6 +37,12 @@ public class AppModule {
     @Provides
     SharedPreferences provideSharedPreference(){
         return context.getSharedPreferences(APP_PREFS , Context.MODE_PRIVATE);
+    }
+
+    @Singleton
+    @Provides
+    SharedPreferenceManager provideSharedPrefernceManager(SharedPreferences sharedPreferences){
+        return new SharedPreferenceManager(sharedPreferences);
     }
 
     @Singleton

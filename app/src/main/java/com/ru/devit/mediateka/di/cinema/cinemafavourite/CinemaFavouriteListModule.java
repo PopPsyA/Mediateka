@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.di.cinema.cinemafavourite;
 
+import com.ru.devit.mediateka.data.SharedPreferenceManager;
 import com.ru.devit.mediateka.data.repository.cinema.CinemaLocalRepository;
 import com.ru.devit.mediateka.di.ActivityScope;
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
@@ -16,8 +17,9 @@ public class CinemaFavouriteListModule {
 
     @ActivityScope
     @Provides
-    FavouriteListCinemaPresenter provideFavouriteListCinemaPresenter(GetFavouriteListCinema useCase){
-        return new FavouriteListCinemaPresenter(useCase);
+    FavouriteListCinemaPresenter provideFavouriteListCinemaPresenter(GetFavouriteListCinema useCase ,
+                                                                     SharedPreferenceManager sharedPreferenceManager){
+        return new FavouriteListCinemaPresenter(useCase , sharedPreferenceManager);
     }
 
     @ActivityScope
