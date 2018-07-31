@@ -60,6 +60,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private View mViewForegroundStub;
 
     private static final String CINEMA_ID = "cinema_id";
+    private static final int MENU_SCHEDULE_CINEMA_ITEM = 1022;
 
     @Inject CinemaDetailPresenter presenter;
 
@@ -175,6 +176,9 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_navigation, menu);
+        menu.add(Menu.NONE , MENU_SCHEDULE_CINEMA_ITEM , Menu.NONE , getString(R.string.schedules))
+                .setIcon(R.drawable.ic_schedule)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 
