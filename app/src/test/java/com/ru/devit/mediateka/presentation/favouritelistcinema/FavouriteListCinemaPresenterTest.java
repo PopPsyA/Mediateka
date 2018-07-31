@@ -1,6 +1,7 @@
 package com.ru.devit.mediateka.presentation.favouritelistcinema;
 
 import com.ru.devit.mediateka.UnitTest;
+import com.ru.devit.mediateka.data.SharedPreferenceManager;
 import com.ru.devit.mediateka.data.repository.cinema.CinemaLocalRepository;
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.models.model.Cinema;
@@ -22,6 +23,7 @@ public class FavouriteListCinemaPresenterTest extends UnitTest {
 
     @Mock private FavouriteListCinemaPresenter.View view;
     @Mock private CinemaLocalRepository repository;
+    @Mock private SharedPreferenceManager sharedPreferenceManager;
 
     private TestScheduler testScheduler;
     private GetFavouriteListCinema useCaseGetFavouriteListCinema;
@@ -33,7 +35,7 @@ public class FavouriteListCinemaPresenterTest extends UnitTest {
     protected void onSetUp() {
         testScheduler = new TestScheduler();
         useCaseGetFavouriteListCinema = new GetFavouriteListCinema(testScheduler , testScheduler , repository);
-        presenter = new FavouriteListCinemaPresenter(useCaseGetFavouriteListCinema);
+        presenter = new FavouriteListCinemaPresenter(useCaseGetFavouriteListCinema , sharedPreferenceManager);
     }
 
     @Test
