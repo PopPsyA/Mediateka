@@ -1,6 +1,8 @@
 package com.ru.devit.mediateka.models.model;
 
-public class DateAndTimeInfo {
+import java.io.Serializable;
+
+public class DateAndTimeInfo implements Serializable {
 
     private int year;
     private int month;
