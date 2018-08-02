@@ -58,6 +58,14 @@
 
         </activity>
 
+        <receiver
+            android:name=".data.CinemaNotificationReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.david.mediateka.cinema.notification.action"/>
+                <action android:name="com.david.mediateka.cinema.notification.action.create"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
