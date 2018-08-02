@@ -1,5 +1,6 @@
 package com.ru.devit.mediateka.presentation.cinemadetail;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -24,8 +25,10 @@ import android.widget.LinearLayout;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
+import com.ru.devit.mediateka.data.CinemaNotificationReceiver;
 import com.ru.devit.mediateka.di.cinema.cinemadetail.CinemaDetailModule;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.models.model.DateAndTimeInfo;
 import com.ru.devit.mediateka.presentation.favouritelistcinema.FavouriteListCinemaActivity;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderActivity;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
@@ -33,6 +36,7 @@ import com.ru.devit.mediateka.presentation.base.BaseActivity;
 import com.ru.devit.mediateka.presentation.actorlist.ActorsFragment;
 import com.ru.devit.mediateka.presentation.posterslider.PosterSliderAdapter;
 import com.ru.devit.mediateka.presentation.widget.CinemaHeaderView;
+import com.ru.devit.mediateka.presentation.widget.DateAndTimePicker;
 import com.ru.devit.mediateka.presentation.widget.IndicatorView;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
@@ -58,6 +62,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private FloatingActionButton mFABCinemaMenu;
     private LinearLayout mLinearLayoutAddToFavourite;
     private View mViewForegroundStub;
+    private DateAndTimePicker mDateAndTimePicker;
 
     private static final String CINEMA_ID = "cinema_id";
     private static final int MENU_SCHEDULE_CINEMA_ITEM = 1022;
@@ -103,6 +108,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mFABCinemaMenu = findViewById(R.id.fab_cinema_menu);
         mLinearLayoutAddToFavourite = findViewById(R.id.ll_add_to_favourite);
         mViewForegroundStub = findViewById(R.id.view_foreground_stub);
+        mDateAndTimePicker = new DateAndTimePicker(this);
         ViewCompat.setTranslationZ(findViewById(R.id.layout_cinema_fab_menu) , 1f);
         mLinearLayoutAddToFavourite.setScaleX(0);
         mLinearLayoutAddToFavourite.setScaleY(0);
@@ -174,6 +180,16 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     }
 
     @Override
+    public void sendScheduledCinemaNotification(int cinemaId , String title, String description, DateAndTimeInfo dateAndTimeInfo){
+        Intent cinemaNotificationIntent = new Intent(CinemaNotificationReceiver.CINEMA_NOTIFICATION_ACTION);
+        cinemaNotificationIntent.putExtra(CinemaNotificationReceiver.CINEMA_NOTIFICATION_ID , cinemaId);
+        cinemaNotificationIntent.putExtra(CinemaNotificationReceiver.CINEMA_NOTIFICATION_TITLE , title);
+        cinemaNotificationIntent.putExtra(CinemaNotificationReceiver.CINEMA_NOTIFICATION_CONTENT , description);
+        cinemaNotificationIntent.putExtra(CinemaNotificationReceiver.CINEMA_NOTIFICATION_DATE , dateAndTimeInfo);
+        sendBroadcast(cinemaNotificationIntent);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_navigation, menu);
         menu.add(Menu.NONE , MENU_SCHEDULE_CINEMA_ITEM , Menu.NONE , getString(R.string.schedules))
@@ -201,6 +217,10 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 shareIntent.putExtra(Intent.EXTRA_TEXT , movieInfoUrl());
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
+                break;
+            }
+            case MENU_SCHEDULE_CINEMA_ITEM : {
+                mDateAndTimePicker.showDateAndTimePickerDialog(dateAndTimeInfo -> presenter.onShowedDateAndTimePickerDialog(dateAndTimeInfo));
                 break;
             }
         }
