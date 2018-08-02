@@ -6,6 +6,7 @@ import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaById;
 import com.ru.devit.mediateka.domain.UseCaseSubscriber;
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.models.model.DateAndTimeInfo;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
 import com.ru.devit.mediateka.presentation.base.BaseView;
 
@@ -15,6 +16,7 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
 
     private int cinemaId;
     private boolean isFABMenuOpen;
+    private Cinema cinemaInPresenter;
     private final GetCinemaById getCinemaById;
     private final GetFavouriteListCinema useCaseGetFavouriteListCinema;
 
@@ -58,6 +60,10 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
                 .subscribe(getView()::showSuccessfullyFavouriteCinemaAdded);
     }
 
+    public void onShowedDateAndTimePickerDialog(DateAndTimeInfo dateAndTimeInfo) {
+        getView().sendScheduledCinemaNotification(cinemaId , cinemaInPresenter.getTitle() , cinemaInPresenter.getDescription() , dateAndTimeInfo);
+    }
+
     public void onDestroy(){
         getCinemaById.dispose();
         useCaseGetFavouriteListCinema.dispose();
@@ -75,11 +81,14 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         void showFABCinemaMenu();
         void hideFABCinemaMenu();
         void showSuccessfullyFavouriteCinemaAdded();
+        void sendScheduledCinemaNotification(int cinemaId , String title, String description, DateAndTimeInfo dateAndTimeInfo);
     }
 
     private final class CinemaDetailSubscriber extends UseCaseSubscriber<Cinema>{
+
         @Override
         public void onNext(Cinema cinema) {
+            cinemaInPresenter = cinema;
             getView().showCinemaDetail(cinema);
         }
 
