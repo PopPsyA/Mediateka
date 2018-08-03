@@ -10,13 +10,14 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationManagerCompat;
 
 import com.ru.devit.mediateka.R;
+import com.ru.devit.mediateka.domain.SystemTimeCalculator;
 import com.ru.devit.mediateka.models.model.DateAndTimeInfo;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class CinemaNotificationReceiver extends BroadcastReceiver {
+public class CinemaNotificationReceiver extends BroadcastReceiver implements SystemTimeCalculator{
 
     public static final String CINEMA_NOTIFICATION_ACTION = "com.david.mediateka.cinema.notification.action";
     public static final String CINEMA_NOTIFICATION_DATE = appendCinemaNotificationPrefix("date");
@@ -36,7 +37,7 @@ public class CinemaNotificationReceiver extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, createScheduledIntent(intent , dateAndTimeInfo) , PendingIntent.FLAG_UPDATE_CURRENT);
 
             if (alarmManager != null) {
-                long specificTimeInMillis = getFutureTimeInMillisFromDateAndTimeInfo(dateAndTimeInfo);
+                long specificTimeInMillis = futureTimeInMillisFromDateAndTimeInfo(dateAndTimeInfo);
                 if (specificTimeInMillis > currentTimeInMillis()){
                     long offsetBetweenSpecificTimeAndCurrentInMillis = SystemClock.elapsedRealtime() + (specificTimeInMillis - currentTimeInMillis());
                     alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP , offsetBetweenSpecificTimeAndCurrentInMillis, pendingIntent);
@@ -61,7 +62,8 @@ public class CinemaNotificationReceiver extends BroadcastReceiver {
         }
     }
 
-    private long getFutureTimeInMillisFromDateAndTimeInfo(DateAndTimeInfo dateAndTimeInfo){
+    @Override
+    public long futureTimeInMillisFromDateAndTimeInfo(DateAndTimeInfo dateAndTimeInfo){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.YEAR , dateAndTimeInfo.getYear());
@@ -73,7 +75,8 @@ public class CinemaNotificationReceiver extends BroadcastReceiver {
         return calendar.getTimeInMillis();
     }
 
-    private long currentTimeInMillis(){
+    @Override
+    public long currentTimeInMillis(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         return calendar.getTimeInMillis();
