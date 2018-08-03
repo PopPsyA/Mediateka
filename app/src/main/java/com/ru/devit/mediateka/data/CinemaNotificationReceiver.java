@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationManagerCompat;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.DateAndTimeInfo;
+import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -44,13 +45,17 @@ public class CinemaNotificationReceiver extends BroadcastReceiver {
 
         } else if (CINEMA_NOTIFICATION_ACTION_CREATE.equals(action)){
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            Intent cinemaDetailsIntent = CinemaDetailsActivity.makeIntent(context , getCinemaId(intent));
+            PendingIntent pendingIntent = PendingIntent.getActivity(context , 0 , cinemaDetailsIntent , 0);
 
             Notification.Builder notificationBuilder = new Notification.Builder(context);
             notificationBuilder
+                    .setSmallIcon(R.drawable.ic_cinema)
                     .setContentTitle(getCinemaTitle(intent))
                     .setContentText(getCinemaDesc(intent))
-                    .setTicker("Mediateka:" + getCinemaTitle(intent))
-                    .setSmallIcon(R.drawable.ic_cinema);
+                    .setTicker("Mediateka: " + getCinemaTitle(intent))
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
 
             notificationManager.notify(getCinemaId(intent), notificationBuilder.build());
         }
