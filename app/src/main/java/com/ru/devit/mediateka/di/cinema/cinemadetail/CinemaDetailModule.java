@@ -1,7 +1,9 @@
 package com.ru.devit.mediateka.di.cinema.cinemadetail;
 
+import com.ru.devit.mediateka.data.CinemaNotificationReceiver;
 import com.ru.devit.mediateka.domain.CinemaRepository;
 import com.ru.devit.mediateka.di.ActivityScope;
+import com.ru.devit.mediateka.domain.SystemTimeCalculator;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaById;
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemaByQuery;
 import com.ru.devit.mediateka.domain.cinemausecases.GetFavouriteListCinema;
@@ -39,10 +41,17 @@ public class CinemaDetailModule {
 
     @ActivityScope
     @Provides
+    SystemTimeCalculator provideSystemTimeCalculator(){
+        return new CinemaNotificationReceiver();
+    }
+
+    @ActivityScope
+    @Provides
     GetCinemaById providesGetCinemaById(@Named("executor_thread") Scheduler executorThread ,
                                         @Named("ui_thread")Scheduler uiThread ,
-                                        CinemaRepository repository){
-        return new GetCinemaById(executorThread , uiThread , repository);
+                                        CinemaRepository repository ,
+                                        SystemTimeCalculator systemTimeCalculator){
+        return new GetCinemaById(executorThread , uiThread , repository, systemTimeCalculator);
     }
 
     @ActivityScope
