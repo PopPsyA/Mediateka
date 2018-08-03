@@ -72,4 +72,5 @@
     <string name="message_unknown_error">Произошла неизвестная ошибка</string>
     <string name="sort_favourite_list">Сортировать изрбранные фильмы</string>
     <string name="message_successfully_cinema_added_to_scheduled">Added to scheduled cinema</string>
+    <string name="message_incorrect_time_error">You selected incorrect time , try again</string>
 </resources>
