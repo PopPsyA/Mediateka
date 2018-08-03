@@ -17,19 +17,21 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
     private int cinemaId;
     private boolean isFABMenuOpen;
     private Cinema cinemaInPresenter;
-    private final GetCinemaById getCinemaById;
+
+    private final GetCinemaById useCaseGetCinemaById;
     private final GetFavouriteListCinema useCaseGetFavouriteListCinema;
 
-    public CinemaDetailPresenter(GetCinemaById getCinemaById , GetFavouriteListCinema useCaseGetFavouriteListCinema) {
-        this.getCinemaById = getCinemaById;
+    public CinemaDetailPresenter(GetCinemaById useCaseGetCinemaById ,
+                                 GetFavouriteListCinema useCaseGetFavouriteListCinema) {
+        this.useCaseGetCinemaById = useCaseGetCinemaById;
         this.useCaseGetFavouriteListCinema = useCaseGetFavouriteListCinema;
     }
 
     @Override
     public void initialize() {
         getView().showLoading();
-        getCinemaById.searchCinemaById(cinemaId);
-        getCinemaById.subscribe(new CinemaDetailSubscriber());
+        useCaseGetCinemaById.searchCinemaById(cinemaId);
+        useCaseGetCinemaById.subscribe(new CinemaDetailSubscriber());
     }
 
     public void setCinemaId(int cinemaId){
@@ -61,11 +63,16 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
     }
 
     public void onShowedDateAndTimePickerDialog(DateAndTimeInfo dateAndTimeInfo) {
-        getView().sendScheduledCinemaNotification(cinemaId , cinemaInPresenter.getTitle() , cinemaInPresenter.getDescription() , dateAndTimeInfo);
+        if (useCaseGetCinemaById.isRetrievedTimeMoreThanCurrentTime(dateAndTimeInfo)){
+            getView().showSuccessfullyCinemaScheduled();
+            getView().sendScheduledCinemaNotification(cinemaId , cinemaInPresenter.getTitle() , cinemaInPresenter.getDescription() , dateAndTimeInfo);
+        } else {
+            getView().showMessageThatUserSelectedIncorrectTime();
+        }
     }
 
     public void onDestroy(){
-        getCinemaById.dispose();
+        useCaseGetCinemaById.dispose();
         useCaseGetFavouriteListCinema.dispose();
         setView(null);
     }
@@ -82,6 +89,8 @@ public class CinemaDetailPresenter extends BasePresenter<CinemaDetailPresenter.V
         void hideFABCinemaMenu();
         void showSuccessfullyFavouriteCinemaAdded();
         void sendScheduledCinemaNotification(int cinemaId , String title, String description, DateAndTimeInfo dateAndTimeInfo);
+        void showSuccessfullyCinemaScheduled();
+        void showMessageThatUserSelectedIncorrectTime();
     }
 
     private final class CinemaDetailSubscriber extends UseCaseSubscriber<Cinema>{
