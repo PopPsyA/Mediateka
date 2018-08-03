@@ -26,6 +26,7 @@ Based on data from https://www.themoviedb.org/
 * Third tab (UpComingCinemas) : filter cinemas and show future cinemas
 * Each [CinemaDetail's](https://github.com/Devit951/Mediateka/blob/master/app/src/main/java/com/ru/devit/mediateka/presentation/cinemadetail/CinemaDetailsActivity.java) screen contain cinema info and all cast's to this cinema
 * Each [ActorDetail's](https://github.com/Devit951/Mediateka/blob/master/app/src/main/java/com/ru/devit/mediateka/presentation/actordetail/ActorDetailActivity.java) screen contain actor info and all cinema's to this actor
+* CinemaDetailActivity gives possibility to schedule cinema time
 * Mediateka perfectly work without internet connection(Need first time to download data)
 * [Realized search functionality (cinemas , actors)](https://github.com/Devit951/Mediateka/blob/master/app/src/main/java/com/ru/devit/mediateka/presentation/search/SearchActivity.java)
 * Realzied database with many-to-many relationship's
@@ -36,12 +37,10 @@ Based on data from https://www.themoviedb.org/
 
 ## Coming soon 
 1. Add the service which handle new cinams and create notification to show user
-2. The CinemaDetail's screen gives a possibility to set schedule time.
-3. Add PopularActors screen.
-4. Add Advanced Search screen.
-5. Support landscape orientation and tablets.
-6. Simple info screen , that contains app info.
-7. And more , more some beatiful features...
+2. Add Advanced Search screen.
+3. Support landscape orientation and tablets.
+4. Simple info screen , that contains app info.
+5. And more , more some beatiful features...
 
 ## Technology
 1. [Retrofit 2](https://github.com/square/retrofit) is the #1 library for network calls at the moment.
