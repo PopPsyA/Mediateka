@@ -1,12 +1,13 @@
 package com.ru.devit.mediateka.presentation.cinemadetail;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -174,7 +175,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public void showSuccessfullyFavouriteCinemaAdded(){
-        Snackbar.make(mFABCinemaMenu , getString(R.string.message_added_to_favourite_list_cinema) , Snackbar.LENGTH_LONG)
+        makeSnackbar(R.string.message_added_to_favourite_list_cinema)
                 .setAction(getString(R.string.message_see_list), v -> startActivity(new Intent(CinemaDetailsActivity.this , FavouriteListCinemaActivity.class)))
                 .show();
     }
@@ -187,6 +188,20 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         cinemaNotificationIntent.putExtra(CinemaNotificationReceiver.CINEMA_NOTIFICATION_CONTENT , description);
         cinemaNotificationIntent.putExtra(CinemaNotificationReceiver.CINEMA_NOTIFICATION_DATE , dateAndTimeInfo);
         sendBroadcast(cinemaNotificationIntent);
+    }
+
+    @Override
+    public void showSuccessfullyCinemaScheduled(){
+        Snackbar snackbar = makeSnackbar(R.string.message_successfully_cinema_added_to_scheduled);
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(this , R.color.colorDarkGreen));
+        snackbar.show();
+    }
+
+    @Override
+    public void showMessageThatUserSelectedIncorrectTime(){
+        Snackbar snackbar = makeSnackbar(R.string.message_incorrect_time_error);
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(this , R.color.colorDarkRed));
+        snackbar.show();
     }
 
     @Override
@@ -220,6 +235,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 break;
             }
             case MENU_SCHEDULE_CINEMA_ITEM : {
+                //TODO show success snackbar
                 mDateAndTimePicker.showDateAndTimePickerDialog(dateAndTimeInfo -> presenter.onShowedDateAndTimePickerDialog(dateAndTimeInfo));
                 break;
             }
@@ -271,6 +287,11 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         return String.format(Locale.getDefault() ,
                 "https://www.themoviedb.org/movie/%d" ,
                 Objects.requireNonNull(getIntent().getExtras()).getInt(CINEMA_ID));
+    }
+
+    @NonNull
+    private Snackbar makeSnackbar(@StringRes int stringResource) {
+        return Snackbar.make(mAppBarLayout, getString(stringResource), Snackbar.LENGTH_LONG);
     }
 
     private void renderImage(String url, ImageView image){
