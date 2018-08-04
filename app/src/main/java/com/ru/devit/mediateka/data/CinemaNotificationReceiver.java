@@ -6,7 +6,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.SystemClock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -20,6 +23,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CinemaNotificationReceiver extends BroadcastReceiver implements SystemTimeCalculator{
+
+    private Vibrator vibrator;
 
     public static final String CINEMA_NOTIFICATION_ACTION = "com.david.mediateka.cinema.notification.action";
     public static final String CINEMA_NOTIFICATION_DATE = appendCinemaNotificationPrefix("date");
@@ -49,6 +54,7 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
         } else if (CINEMA_NOTIFICATION_ACTION_CREATE.equals(action)){
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             Intent cinemaDetailsIntent = CinemaDetailsActivity.makeIntent(context , getCinemaId(intent));
+            vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
             taskStackBuilder.addNextIntent(new Intent(context , MainActivity.class));
@@ -63,9 +69,8 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
                     .setAutoCancel(true)
                     .setContentIntent(taskStackBuilder.getPendingIntent(0 , PendingIntent.FLAG_UPDATE_CURRENT));
 
-            //TODO ADD VIBRATE
-
             notificationManager.notify(getCinemaId(intent), notificationBuilder.build());
+            vibrate();
         }
     }
 
@@ -101,6 +106,16 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
         scheduledCinemaIntent.putExtra(CINEMA_NOTIFICATION_ID , cinemaId);
 
         return scheduledCinemaIntent;
+    }
+
+    private void vibrate(){
+        if (vibrator.hasVibrator()){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                vibrator.vibrate(VibrationEffect.createOneShot(200 , VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(200);
+            }
+        }
     }
 
     private int getCinemaId(Intent intent) {
