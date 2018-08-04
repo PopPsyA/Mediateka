@@ -8,11 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.domain.SystemTimeCalculator;
 import com.ru.devit.mediateka.models.model.DateAndTimeInfo;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
+import com.ru.devit.mediateka.presentation.main.MainActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -47,7 +49,10 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
         } else if (CINEMA_NOTIFICATION_ACTION_CREATE.equals(action)){
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             Intent cinemaDetailsIntent = CinemaDetailsActivity.makeIntent(context , getCinemaId(intent));
-            PendingIntent pendingIntent = PendingIntent.getActivity(context , 0 , cinemaDetailsIntent , 0);
+
+            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
+            taskStackBuilder.addNextIntent(new Intent(context , MainActivity.class));
+            taskStackBuilder.addNextIntent(cinemaDetailsIntent);
 
             Notification.Builder notificationBuilder = new Notification.Builder(context);
             notificationBuilder
@@ -56,7 +61,9 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
                     .setContentText(getCinemaDesc(intent))
                     .setTicker("Mediateka: " + getCinemaTitle(intent))
                     .setAutoCancel(true)
-                    .setContentIntent(pendingIntent);
+                    .setContentIntent(taskStackBuilder.getPendingIntent(0 , PendingIntent.FLAG_UPDATE_CURRENT));
+
+            //TODO ADD VIBRATE
 
             notificationManager.notify(getCinemaId(intent), notificationBuilder.build());
         }
