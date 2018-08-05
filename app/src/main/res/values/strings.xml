@@ -71,6 +71,10 @@
     <string name="share_via">Поделиться</string>
     <string name="message_unknown_error">Произошла неизвестная ошибка</string>
     <string name="sort_favourite_list">Сортировать изрбранные фильмы</string>
-    <string name="message_successfully_cinema_added_to_scheduled">Added to scheduled cinema</string>
-    <string name="message_incorrect_time_error">You selected incorrect time , try again</string>
+    <string name="message_successfully_cinema_added_to_scheduled">Добавлено в заплонированные фильмы</string>
+    <string name="message_incorrect_time_error">Вы выбрали не корректное время , попробуйте ещё раз</string>
+    <string name="settings_general">Общие</string>
+    <string name="choose_quality">Выберите качество</string>
+    <string name="background_poster_image_quality">Качество фоновых изображений</string>
+    <string name="about_app">Mediateka показывает самую последнюю информацию про фильмы и актеров</string>
 </resources>
