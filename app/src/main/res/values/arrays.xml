@@ -8,13 +8,13 @@
     </string-array>
 
     <string-array name="pref_upload_quality_background_images">
-        <item>125p</item>
+        <item>185p</item>
         <item>780p</item>
         <item>1280p</item>
     </string-array>
 
     <string-array name="pref_upload_quality_background_images_values">
-        <item>125</item>
+        <item>185</item>
         <item>780</item>
         <item>1280</item>
     </string-array>

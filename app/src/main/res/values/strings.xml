@@ -77,4 +77,5 @@
     <string name="choose_quality">Выберите качество</string>
     <string name="background_poster_image_quality">Качество фоновых изображений</string>
     <string name="about_app">Mediateka показывает самую последнюю информацию про фильмы и актеров</string>
+    <string name="pref_key_background_image_quality_type">pref_key_background_image_quality_type</string>
 </resources>

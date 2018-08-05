@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/settings_general">
+
+        <ListPreference
+            android:key="@string/pref_key_background_image_quality_type"
+            android:defaultValue="1280"
+            android:entries="@array/pref_upload_quality_background_images"
+            android:entryValues="@array/pref_upload_quality_background_images_values"
+            android:summary="@string/background_poster_image_quality"
+            android:dialogTitle="@string/choose_quality"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
