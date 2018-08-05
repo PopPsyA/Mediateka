@@ -59,6 +59,11 @@
 
         </activity>
 
+        <activity
+            android:name=".presentation.settings.SettingsActivity"
+            android:label="@string/settings"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+
         <receiver
             android:name=".data.CinemaNotificationReceiver"
             android:enabled="true">
