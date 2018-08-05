@@ -1,6 +1,8 @@
 package com.ru.devit.mediateka.presentation.posterslider;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,9 +48,11 @@ public class PosterSliderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String imageUrl = getArguments().getString(POSTER_URL);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         if (isBackgroundPoster()){
             mPosterImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            renderImage(mPosterImageView , UrlImagePathCreator.create1280pPictureUrl(imageUrl));
+            renderImage(mPosterImageView , UrlImagePathCreator.createPictureUrlFromQuality(imageUrl ,
+                    sharedPreferences.getString(getString(R.string.pref_key_background_image_quality_type) , "1280")));
         } else {
             renderImage(mPosterImageView , UrlImagePathCreator.create780pPictureUrl(imageUrl));
         }
