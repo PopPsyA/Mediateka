@@ -36,6 +36,7 @@ import com.ru.devit.mediateka.presentation.cinemalist.CinemaListFragment;
 import com.ru.devit.mediateka.presentation.favouritelistcinema.FavouriteListCinemaActivity;
 import com.ru.devit.mediateka.presentation.popularactors.PopularActorsActivity;
 import com.ru.devit.mediateka.presentation.search.SearchActivity;
+import com.ru.devit.mediateka.presentation.settings.SettingsActivity;
 import com.ru.devit.mediateka.utils.AnimUtils;
 
 import javax.inject.Inject;
@@ -215,11 +216,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         String comingSoon = "Coming soon";
         switch (id){
             case R.id.nav_cinemas : {
-                showToast(comingSoon);
+                navigateToMainActivity(this);
                 break;
             }
             case R.id.nav_popular_actors: {
-                startActivity(new Intent(this , PopularActorsActivity.class));
+                navigateTo(PopularActorsActivity.class);
                 break;
             }
             case R.id.nav_schedules : {
@@ -227,7 +228,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
                 break;
             }
             case R.id.nav_settings : {
-                showToast(comingSoon);
+                navigateTo(SettingsActivity.class);
                 break;
             }
             case R.id.nav_advanced_search : {
@@ -235,7 +236,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
                 break;
             }
             case R.id.nav_favourite_list_cinema: {
-                startActivity(new Intent(this , FavouriteListCinemaActivity.class));
+                navigateTo(FavouriteListCinemaActivity.class);
             }
         }
         mDrawer.closeDrawer(GravityCompat.START);
@@ -274,4 +275,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         viewPager.setAdapter(mViewPagerAdapter);
     }
 
+    private void navigateTo(Class<?> activityClass){
+        startActivity(new Intent(this , activityClass));
+    }
 }
