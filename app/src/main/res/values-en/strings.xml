@@ -74,4 +74,7 @@
     <string name="sort_favourite_list">Sort favourite list</string>
     <string name="message_successfully_cinema_added_to_scheduled">Added to scheduled cinema</string>
     <string name="message_incorrect_time_error">You selected incorrect time , try again</string>
+    <string name="settings_general">General</string>
+    <string name="background_poster_image_quality">Background poster image quality</string>
+    <string name="about_app">Mediateka shows all most recent information about movies and actors</string>
 </resources>
