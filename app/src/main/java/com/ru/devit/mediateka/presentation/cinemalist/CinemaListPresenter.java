@@ -43,20 +43,17 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
         switch (tabPosition){
             case ACTUAL_CINEMAS_TAB_POSITION: {
                 getView().onPopularTabSelected();
-                final CinemaListSubscriber subscriber = new CinemaListSubscriber();
-                getCinemas.subscribe(subscriber);
+                getCinemas.subscribe(new CinemaListSubscriber());
                 break;
             }
             case TOP_RATED_CINEMAS_TAB_POSITION : {
                 getView().onTopRatedTabSelected();
-                final CinemaListSubscriber subscriber = new CinemaListSubscriber();
-                getTopRatedCinemas.subscribe(subscriber);
+                getTopRatedCinemas.subscribe(new CinemaListSubscriber());
                 break;
             }
             case UP_COMING_CINEMAS_TAB_POSITION : {
                 getView().onUpComingTabSelected();
-                final CinemaListSubscriber subscriber = new CinemaListSubscriber();
-                getUpComingCinemas.subscribe(subscriber);
+                getUpComingCinemas.subscribe(new CinemaListSubscriber());
                 break;
             }
         }
