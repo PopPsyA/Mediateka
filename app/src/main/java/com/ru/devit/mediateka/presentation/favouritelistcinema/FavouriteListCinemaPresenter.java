@@ -38,7 +38,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
             public void onNext(List<Cinema> cinemas) {
                 cinemaList = cinemas;
                 removeNotNecessaryInfoFromCinemaList(cinemaList);
-                getView().showFavouriteListCinema(cinemas);
+                checkForEmptyList(cinemaList);
             }
 
             @Override
@@ -66,6 +66,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         useCaseFavouriteListCinema
                 .removeFavouriteCinema(deletedCinema.getId())
                 .subscribe(() -> getView().showUndoAction(cinemaTitle , deletedCinema , position));
+        checkForEmptyList(cinemaList);
     }
 
     @SuppressLint("CheckResult")
@@ -74,6 +75,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         useCaseFavouriteListCinema
                 .clearFavouriteList()
                 .subscribe(getView()::showSuccessfullyFavouriteListCleared);
+        getView().showEmptyScreen();
     }
 
     public void onUndoClicked(Cinema deletedCinema, int deletedIndex) {
@@ -91,6 +93,14 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         Collections.sort(cinemaList , useCaseFavouriteListCinema.createCinemaListComparator(position));
         sharedPreferenceManager.saveCinemaSortingPosition(position);
         getView().showFavouriteListCinema(cinemaList);
+    }
+
+    private void checkForEmptyList(List<Cinema> cinemas) {
+        if (cinemaList.size() == 0){
+            getView().showEmptyScreen();
+        } else {
+            getView().showFavouriteListCinema(cinemas);
+        }
     }
 
     private void removeNotNecessaryInfoFromCinemaList(List<Cinema> cinemas){
@@ -113,5 +123,6 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
         void showUndoAction(String cinemaTitle , Cinema deletedCinema , int deletedIndex);
         void showSuccessfullyFavouriteListCleared();
         void showSavedSortedPosition(int savedPosition);
+        void showEmptyScreen();
     }
 }
