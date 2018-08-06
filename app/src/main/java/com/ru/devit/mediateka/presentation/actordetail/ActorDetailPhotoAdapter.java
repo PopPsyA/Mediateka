@@ -74,7 +74,7 @@ public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPho
 
         private void loadImage(String imgUrl){
             Picasso.with(itemView.getContext())
-                    .load(UrlImagePathCreator.create185pPictureUrl(imgUrl))
+                    .load(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , imgUrl))
                     .into(mImageViewActorPhoto);
         }
 

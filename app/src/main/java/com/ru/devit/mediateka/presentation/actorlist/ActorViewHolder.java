@@ -32,7 +32,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     }
 
     void render(Actor actor , int viewHolderPosition){
-        renderAvatar(UrlImagePathCreator.create185pPictureUrl(actor.getProfileUrl()));
+        renderAvatar(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , actor.getProfileUrl()));
         onActorClicked(actor.getActorId() , viewHolderPosition);
         actorName.setText(actor.getName());
         if (actor.getCharacter() == null){

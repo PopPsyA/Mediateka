@@ -78,7 +78,8 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     @Override
     public void showActorDetail(Actor actor) {
         AnimUtils.startRevealAnimation(mViewPagerActorBackground);
-        renderImage(UrlImagePathCreator.create185pPictureUrl(actor.getProfileUrl()) , mActorAvatar);
+        renderImage(UrlImagePathCreator
+                .createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , actor.getProfileUrl()) , mActorAvatar);
         mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , actor.getBackgroundUrls() ,false);
         mViewPagerActorBackground.setAdapter(mBackgroundPosterSliderAdapter);
         mIndicatorView.setUpWithViewPager(mViewPagerActorBackground);
