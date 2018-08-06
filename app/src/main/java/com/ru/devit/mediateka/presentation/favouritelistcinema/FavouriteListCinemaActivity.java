@@ -8,10 +8,15 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
@@ -36,6 +41,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     private SmallCinemaListAdapter adapter;
     private CoordinatorLayout mCoordinatorLayout;
     private CinemaSortingDialog mCinemaSortingDialog;
+    private TextView mEmptyMessageTextView;
 
     private static final int MENU_CLEAR_FAVOURITE_LIST = 23;
     private static final int MENU_SORT_FAVOURITE_LIST = 27;
@@ -72,6 +78,9 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
                 .setAction(getString(R.string.undo) , v -> {
                     presenter.onUndoClicked(deletedCinema , deletedIndex);
                     adapter.restoreCinema(deletedCinema , deletedIndex);
+                    if (mEmptyMessageTextView.getVisibility() == View.VISIBLE){
+                        mEmptyMessageTextView.setVisibility(View.GONE);
+                    }
                 })
                 .show();
     }
@@ -94,6 +103,14 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
     public void onDialogItemClicked(int position) {
         mCinemaSortingDialog.setPosition(position);
         presenter.onCinemaSortingDialogItemClicked(position);
+    }
+
+    @Override
+    public void showEmptyScreen(){
+        mEmptyMessageTextView.setText(getString(R.string.message_empty_favourite_cinema_list));
+        mEmptyMessageTextView.setGravity(Gravity.CENTER);
+        mEmptyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP , 24);
+        mEmptyMessageTextView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -152,6 +169,11 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
         mRecyclerViewFavouriteListCinema.setAdapter(adapter);
         mCoordinatorLayout = findViewById(R.id.cl_favourite_list_cinema);
         mCinemaSortingDialog = new CinemaSortingDialog();
+        mEmptyMessageTextView = new TextView(this);
+        CoordinatorLayout.LayoutParams params = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        mEmptyMessageTextView.setLayoutParams(params);
+        mCoordinatorLayout.addView(mEmptyMessageTextView);
         new ItemTouchHelper(new RecyclerItemTouchHelper(ItemTouchHelper.LEFT , this)).attachToRecyclerView(mRecyclerViewFavouriteListCinema);
     }
 
