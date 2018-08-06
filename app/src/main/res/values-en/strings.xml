@@ -75,6 +75,7 @@
     <string name="message_successfully_cinema_added_to_scheduled">Added to scheduled cinema</string>
     <string name="message_incorrect_time_error">You selected incorrect time , try again</string>
     <string name="settings_general">General</string>
+    <string name="choose_quality">Choose quality</string>
     <string name="background_poster_image_quality">Background poster image quality</string>
     <string name="about_app">Mediateka shows all most recent information about movies and actors</string>
     <string name="pref_key_background_image_quality_type">pref_key_background_image_quality_type</string>

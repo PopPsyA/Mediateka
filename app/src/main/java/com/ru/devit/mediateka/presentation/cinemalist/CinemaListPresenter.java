@@ -21,9 +21,9 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     private int totalPage = 0;
     private int tabPosition = 0;
 
-    private GetCinemas getCinemas;
-    private GetTopRatedCinemas getTopRatedCinemas;
-    private GetUpComingCinemas getUpComingCinemas;
+    private final GetCinemas getCinemas;
+    private final GetTopRatedCinemas getTopRatedCinemas;
+    private final GetUpComingCinemas getUpComingCinemas;
 
     public CinemaListPresenter(GetCinemas getCinemas ,
                                GetTopRatedCinemas getTopRatedCinemas ,
