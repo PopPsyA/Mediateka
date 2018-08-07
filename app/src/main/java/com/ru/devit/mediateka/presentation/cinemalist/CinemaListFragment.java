@@ -130,11 +130,6 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
             }
 
             @Override
-            protected boolean isLoading() {
-                return mSwipeRefresherLayout.isRefreshing();
-            }
-
-            @Override
             protected boolean isLastPage() {
                 return presenter.isLastPage();
             }

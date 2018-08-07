@@ -39,7 +39,6 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     }
 
     public void loadCinemas(){
-        getView().showLoading();
         switch (tabPosition){
             case ACTUAL_CINEMAS_TAB_POSITION: {
                 getView().onPopularTabSelected();
