@@ -54,7 +54,7 @@ public class PosterSliderFragment extends Fragment {
             renderImage(mPosterImageView , UrlImagePathCreator.createPictureUrlFromQuality(imageUrl ,
                     sharedPreferences.getString(getString(R.string.pref_key_background_image_quality_type) , "1280")));
         } else {
-            renderImage(mPosterImageView , UrlImagePathCreator.create780pPictureUrl(imageUrl));
+            renderImage(mPosterImageView , UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality780 ,imageUrl));
         }
     }
 
@@ -76,6 +76,6 @@ public class PosterSliderFragment extends Fragment {
     }
 
     private boolean isBackgroundPoster(){
-        return getArguments().getBoolean(IS_BACKGROUND_POSTER);
+        return getArguments() != null && getArguments().getBoolean(IS_BACKGROUND_POSTER);
     }
 }
