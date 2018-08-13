@@ -49,6 +49,7 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list_cinema, container , false);
+        setRetainInstance(true);
         initDagger();
         initViews(rootView);
         initPresenter();
@@ -152,10 +153,12 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     }
 
     private void initDagger(){
-        MediatekaApp
-                .getComponentsManager()
-                .plusCinemaComponent()
-                .plusCinemaListComponent(new CinemaListModule())
-                .inject(this);
+        if (presenter == null){
+            MediatekaApp
+                    .getComponentsManager()
+                    .plusCinemaComponent()
+                    .plusCinemaListComponent(new CinemaListModule())
+                    .inject(this);
+        }
     }
 }
