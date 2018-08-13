@@ -42,6 +42,9 @@ public class FavouriteListCinemaPresenterTest extends UnitTest {
     public void shouldShowAllFavouriteCinemaListWhenInitialize(){
         presenter.setView(view);
         List<Cinema> cinemaList = new ArrayList<>();
+        Cinema testCinema = new Cinema();
+        testCinema.setCharacter("Thor");
+        cinemaList.add(testCinema);
         doReturn(Maybe.just(cinemaList)).when(repository).getFavouriteListCinema();
         presenter.initialize();
         testScheduler.triggerActions();
