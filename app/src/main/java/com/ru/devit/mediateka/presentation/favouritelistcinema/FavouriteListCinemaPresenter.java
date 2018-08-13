@@ -105,7 +105,7 @@ public class FavouriteListCinemaPresenter extends BasePresenter<FavouriteListCin
 
     private void removeNotNecessaryInfoFromCinemaList(List<Cinema> cinemas){
         for (Cinema cinema : cinemas){
-            if (!TextUtils.isEmpty(cinema.getCharacter())){
+            if (!cinema.getCharacter().isEmpty()){
                 cinema.setCharacter("");
             }
         }
