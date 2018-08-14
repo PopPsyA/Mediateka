@@ -1,18 +1,16 @@
 package com.ru.devit.mediateka.presentation.main;
 
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
-import com.ru.devit.mediateka.presentation.base.BaseView;
+import com.ru.devit.mediateka.presentation.cinemalist.CinemaTabPositionPicker;
+import com.ru.devit.mediateka.presentation.common.CinemaTabSelectorView;
 
 import javax.inject.Inject;
 
-import static com.ru.devit.mediateka.presentation.main.MainActivity.ACTUAL_CINEMAS_TAB_POSITION;
-import static com.ru.devit.mediateka.presentation.main.MainActivity.TOP_RATED_CINEMAS_TAB_POSITION;
-import static com.ru.devit.mediateka.presentation.main.MainActivity.UP_COMING_CINEMAS_TAB_POSITION;
-
 public class MainPresenter extends BasePresenter<MainPresenter.View> implements SyncConnectionListener {
 
-    @Inject public MainPresenter(){}
+    private final CinemaTabPositionPicker cinemaTabPositionPicker = new CinemaTabPositionPicker();
 
+    @Inject public MainPresenter(){}
 
     @Override
     public void initialize() {
@@ -25,8 +23,8 @@ public class MainPresenter extends BasePresenter<MainPresenter.View> implements 
     }
 
     @Override
-    public void onNetworkConnectionChanged(boolean connected) {
-        if (!connected){
+    public void onNetworkConnectionChanged(boolean internetConnected) {
+        if (!internetConnected){
             getView().showNetworkError();
         }
     }
@@ -44,29 +42,13 @@ public class MainPresenter extends BasePresenter<MainPresenter.View> implements 
     }
 
     public void onTabSelected(int position) {
-        switch (position){
-            case ACTUAL_CINEMAS_TAB_POSITION: {
-                getView().onPopularTabSelected();
-                break;
-            }
-            case TOP_RATED_CINEMAS_TAB_POSITION : {
-                getView().onTopRatedTabSelected();
-                break;
-            }
-            case UP_COMING_CINEMAS_TAB_POSITION : {
-                getView().onUpComingTabSelected();
-                break;
-            }
-        }
+        cinemaTabPositionPicker.loadCinemaFromCinemaPosition(position , getView());
     }
 
-    public interface View extends BaseView {
+    public interface View extends CinemaTabSelectorView {
         void startToListenInternetConnection();
         void showNetworkError();
         void hideNetworkError();
-        void onPopularTabSelected();
-        void onTopRatedTabSelected();
-        void onUpComingTabSelected();
         void scrollToFirstPosition();
     }
 }

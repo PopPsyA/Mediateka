@@ -1,36 +1,28 @@
 package com.ru.devit.mediateka.presentation.cinemalist;
 
+
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetTopRatedCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetUpComingCinemas;
 import com.ru.devit.mediateka.domain.UseCaseSubscriber;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.base.BasePresenter;
-import com.ru.devit.mediateka.presentation.base.BaseView;
-import com.ru.devit.mediateka.presentation.main.SyncConnectionListener;
+import com.ru.devit.mediateka.presentation.common.CinemaTabSelectorView;
 
 import java.util.List;
-
-import static com.ru.devit.mediateka.presentation.main.MainActivity.ACTUAL_CINEMAS_TAB_POSITION;
-import static com.ru.devit.mediateka.presentation.main.MainActivity.TOP_RATED_CINEMAS_TAB_POSITION;
-import static com.ru.devit.mediateka.presentation.main.MainActivity.UP_COMING_CINEMAS_TAB_POSITION;
 
 public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View> {
 
     private int currentPage = 1;
     private int totalPage = 0;
-    private int tabPosition = 0;
+    private String tabPositionName = "POPULAR";
 
-    private final GetCinemas getCinemas;
-    private final GetTopRatedCinemas getTopRatedCinemas;
-    private final GetUpComingCinemas getUpComingCinemas;
+    private final CinemaTabPositionPicker cinemaTabPositionPicker;
 
     public CinemaListPresenter(GetCinemas getCinemas ,
                                GetTopRatedCinemas getTopRatedCinemas ,
                                GetUpComingCinemas getUpComingCinemas) {
-        this.getCinemas = getCinemas;
-        this.getTopRatedCinemas = getTopRatedCinemas;
-        this.getUpComingCinemas = getUpComingCinemas;
+        cinemaTabPositionPicker = new CinemaTabPositionPicker(getCinemas , getTopRatedCinemas , getUpComingCinemas);
     }
 
     @Override
@@ -39,27 +31,11 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     }
 
     public void loadCinemas(){
-        switch (tabPosition){
-            case ACTUAL_CINEMAS_TAB_POSITION: {
-                getView().onPopularTabSelected();
-                getCinemas.subscribe(new CinemaListSubscriber());
-                break;
-            }
-            case TOP_RATED_CINEMAS_TAB_POSITION : {
-                getView().onTopRatedTabSelected();
-                getTopRatedCinemas.subscribe(new CinemaListSubscriber());
-                break;
-            }
-            case UP_COMING_CINEMAS_TAB_POSITION : {
-                getView().onUpComingTabSelected();
-                getUpComingCinemas.subscribe(new CinemaListSubscriber());
-                break;
-            }
-        }
+        cinemaTabPositionPicker.loadCinemaFromCinemaTabName(tabPositionName , new CinemaListSubscriber() , getView());
     }
 
-    public void setTabPosition(int tabPosition) {
-        this.tabPosition = tabPosition;
+    public void setTabPositionName(String tabPositionName) {
+        this.tabPositionName = tabPositionName;
     }
 
     public boolean isLastPage(){
@@ -77,24 +53,17 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     }
 
     private void setCurrentPage(int currentPage){
-        getCinemas.setCurrentPage(currentPage);
-        getTopRatedCinemas.setCurrentPage(currentPage);
-        getUpComingCinemas.setCurrentPage(currentPage);
+        cinemaTabPositionPicker.setCurrentPage(currentPage);
     }
 
     public void onDestroy(){
-        getCinemas.dispose();
-        getTopRatedCinemas.dispose();
-        getUpComingCinemas.dispose();
+        cinemaTabPositionPicker.dispose();
         setView(null);
     }
 
-    public interface View extends BaseView{
+    public interface View extends CinemaTabSelectorView {
         void showCinemas(List<Cinema> cinemaEntities);
         void openCinemaDetails(int cinemaId , int viewHolderPosition);
-        void onPopularTabSelected();
-        void onTopRatedTabSelected();
-        void onUpComingTabSelected();
     }
 
     private class CinemaListSubscriber extends UseCaseSubscriber<List<Cinema>> {
