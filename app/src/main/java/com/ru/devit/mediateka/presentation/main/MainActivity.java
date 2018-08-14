@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.ru.devit.mediateka.MediatekaApp;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.data.ConnectionReceiver;
+import com.ru.devit.mediateka.presentation.cinemalist.CinemaTab;
 import com.ru.devit.mediateka.presentation.common.OnTabSelectedListener;
 import com.ru.devit.mediateka.presentation.common.ViewPagerAdapter;
 import com.ru.devit.mediateka.presentation.base.BaseActivity;
@@ -56,9 +57,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     private ConnectionReceiver mConnectionReceiver;
 
     private static final int MAX_TABS = 3;
-    public static final int ACTUAL_CINEMAS_TAB_POSITION = 0;
-    public static final int TOP_RATED_CINEMAS_TAB_POSITION = 1;
-    public static final int UP_COMING_CINEMAS_TAB_POSITION = 2;
 
     @Inject MainPresenter presenter;
 
@@ -246,6 +244,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     @Override
     protected void onDestroy() {
         unregisterReceiver(mConnectionReceiver);
+        presenter.onDestroy();
         super.onDestroy();
     }
 
@@ -269,9 +268,9 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
 
     private void setUpViewPager(ViewPager viewPager){
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(ACTUAL_CINEMAS_TAB_POSITION) , getString(R.string.actual_cinemas));
-        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(TOP_RATED_CINEMAS_TAB_POSITION) , getString(R.string.by_rating));
-        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(UP_COMING_CINEMAS_TAB_POSITION) , getString(R.string.coming_soon));
+        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(CinemaTab.POPULAR.name()) , getString(R.string.actual_cinemas));
+        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(CinemaTab.TOP_RATED.name()) , getString(R.string.by_rating));
+        mViewPagerAdapter.addFragment(CinemaListFragment.newInstance(CinemaTab.UP_COMING.name()) , getString(R.string.coming_soon));
         viewPager.setAdapter(mViewPagerAdapter);
     }
 
