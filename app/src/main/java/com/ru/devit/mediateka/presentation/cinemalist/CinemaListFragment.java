@@ -28,7 +28,7 @@ import javax.inject.Inject;
 
 public class CinemaListFragment extends Fragment implements CinemaListPresenter.View{
 
-    public static final String TAB_POSITION = "tab_position";
+    public static final String TAB_POSITION_NAME = "tab_position";
 
     private RecyclerView mRecyclerViewCinemas;
     private LinearLayoutManager mLinearLayoutManager;
@@ -37,10 +37,10 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
 
     @Inject CinemaListPresenter presenter;
 
-    public static Fragment newInstance(int tabPosition){
+    public static Fragment newInstance(String tabPosition){
         CinemaListFragment cinemaListFragment = new CinemaListFragment();
         Bundle args = new Bundle();
-        args.putInt(TAB_POSITION, tabPosition);
+        args.putString(TAB_POSITION_NAME, tabPosition);
         cinemaListFragment.setArguments(args);
         return cinemaListFragment;
     }
@@ -147,7 +147,7 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     @SuppressWarnings("ConstantConditions")
     private void initPresenter(){
         presenter.setView(this);
-        presenter.setTabPosition(getArguments().getInt(TAB_POSITION));
+        presenter.setTabPositionName(getArguments().getString(TAB_POSITION_NAME));
         presenter.initialize();
         if (mSwipeRefresherLayout.isRefreshing()) presenter.loadCinemas();
     }
