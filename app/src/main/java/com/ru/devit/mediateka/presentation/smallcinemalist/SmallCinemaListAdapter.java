@@ -11,18 +11,17 @@ import android.view.ViewGroup;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.common.AbstractCinemaListAdapter;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SmallCinemaListAdapter extends AbstractCinemaListAdapter<SmallCinemaViewHolder , RecyclerView.ViewHolder> {
 
     private final int HEADER_TYPE = 0;
     private final int CONTENT_TYPE = 1;
 
-    private final OnCinemaClickListener onCinemaClickListener;
-    private final List<Cinema> cinemas;
     private final boolean withOutHeader;
     private final boolean withOutBackground;
     @ColorRes private int viewHolderForegroundColor;
@@ -31,10 +30,9 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                   OnCinemaClickListener onCinemaClickListener ,
                                   boolean withOutHeader ,
                                   boolean withOutBackground) {
-        this.onCinemaClickListener = onCinemaClickListener;
+        super(onCinemaClickListener);
         this.withOutHeader = withOutHeader;
         this.withOutBackground = withOutBackground;
-        cinemas = new ArrayList<>();
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.selectableItemBackground , typedValue , true);
         viewHolderForegroundColor = typedValue.resourceId;
@@ -101,12 +99,6 @@ public class SmallCinemaListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return CONTENT_TYPE;
         }
         return position == 0 ? HEADER_TYPE : CONTENT_TYPE;
-    }
-
-    public void addAll(List<Cinema> cinemaList){
-        cinemas.clear();
-        cinemas.addAll(cinemaList);
-        notifyDataSetChanged();
     }
 
     public void removeCinema(int position){
