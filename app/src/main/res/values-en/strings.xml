@@ -80,4 +80,5 @@
     <string name="about_app">Mediateka shows all most recent information about movies and actors</string>
     <string name="pref_key_background_image_quality_type">pref_key_background_image_quality_type</string>
     <string name="message_empty_favourite_cinema_list">The list of favourite cinema is empty…</string>
+    <string name="how_to_show_cinema_list">How to show cinema list</string>
 </resources>
