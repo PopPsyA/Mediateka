@@ -3,7 +3,6 @@ package com.ru.devit.mediateka.utils.pagination;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
@@ -28,10 +27,6 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             firstVisibleItemPosition = gridLayoutManager.findFirstVisibleItemPosition();
         }
-
-        Log.d("lolkek" , "visible " + visibleItemCount);
-        Log.d("lolkek" , "total " + totalItemCount);
-        Log.d("lolkek" , "firstVisible " + firstVisibleItemPosition);
 
         if (!isLastPage()){
             if (((visibleItemCount + OFFSET) + firstVisibleItemPosition) >= totalItemCount
