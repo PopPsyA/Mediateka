@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.common.HolderRenderer;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
@@ -20,7 +21,7 @@ import java.util.Arrays;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.getYearFromDate;
 
-public class CinemaViewHolder extends RecyclerView.ViewHolder {
+public class CinemaViewHolder extends RecyclerView.ViewHolder implements HolderRenderer<Cinema> {
 
     private ImageView posterImageView;
     private TextView titleTextView , ratingTextView , releaseDateTextView , descriptionTextView , genresTextView;
@@ -39,7 +40,8 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder {
         moreInfoButton = itemView.findViewById(R.id.btn_cinema_details);
     }
 
-    void render(Cinema cinema , int viewHolderPosition) {
+    @Override
+    public void render(Cinema cinema , int viewHolderPosition) {
         onMoreInfoButtonClicked(cinema.getId() , viewHolderPosition);
         onPosterClicked(cinema.getId() , viewHolderPosition);
         renderPoster(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185, cinema.getPosterUrl()));

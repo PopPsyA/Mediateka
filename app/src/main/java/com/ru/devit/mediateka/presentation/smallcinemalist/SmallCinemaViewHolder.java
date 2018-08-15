@@ -14,12 +14,13 @@ import android.widget.TextView;
 
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
+import com.ru.devit.mediateka.presentation.common.HolderRenderer;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.squareup.picasso.Picasso;
 
-public class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
+public class SmallCinemaViewHolder extends RecyclerView.ViewHolder implements HolderRenderer<Cinema>{
 
     public ConstraintLayout mViewForeground;
     private RelativeLayout mViewBackground;
@@ -53,7 +54,8 @@ public class SmallCinemaViewHolder extends RecyclerView.ViewHolder {
         mViewForeground.setBackgroundResource(foregroundColor);
     }
 
-    void render(Cinema cinema , int viewHolderPosition) {
+    @Override
+    public void render(Cinema cinema , int viewHolderPosition) {
         onItemClicked(cinema.getId() , viewHolderPosition);
         renderImage(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , cinema.getPosterUrl()));
         mTextViewCinemaDate.setText(FormatterUtils.getYearFromDate(cinema.getReleaseDate()));
