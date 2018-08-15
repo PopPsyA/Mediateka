@@ -27,6 +27,12 @@ public class SmallCinemaListAdapter extends AbstractCinemaListAdapter<SmallCinem
     @ColorRes private int viewHolderForegroundColor;
 
     public SmallCinemaListAdapter(Context context ,
+                                  OnCinemaClickListener onCinemaClickListener) {
+        this(context , onCinemaClickListener , true , true);
+    }
+
+
+    public SmallCinemaListAdapter(Context context ,
                                   OnCinemaClickListener onCinemaClickListener ,
                                   boolean withOutHeader ,
                                   boolean withOutBackground) {
