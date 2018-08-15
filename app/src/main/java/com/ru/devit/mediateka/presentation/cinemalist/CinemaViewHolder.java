@@ -3,7 +3,6 @@ package com.ru.devit.mediateka.presentation.cinemalist;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,11 +12,8 @@ import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.common.HolderRenderer;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
-import com.ru.devit.mediateka.utils.FormatterUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
-
-import java.util.Arrays;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.getYearFromDate;
 
@@ -31,7 +27,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder implements HolderR
     CinemaViewHolder(View itemView, OnCinemaClickListener onCinemaClickListener) {
         super(itemView);
         this.onCinemaClickListener = onCinemaClickListener;
-        posterImageView = itemView.findViewById(R.id.iv_poster);
+        posterImageView = itemView.findViewById(R.id.iv_cinema_poster);
         titleTextView = itemView.findViewById(R.id.tv_cinema_title);
         ratingTextView = itemView.findViewById(R.id.tv_cinema_rating);
         releaseDateTextView = itemView.findViewById(R.id.tv_release_date);

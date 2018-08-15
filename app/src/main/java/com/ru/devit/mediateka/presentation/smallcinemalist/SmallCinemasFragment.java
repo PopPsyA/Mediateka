@@ -98,7 +98,7 @@ public class SmallCinemasFragment extends Fragment implements SmallCinemasPresen
                 mRecyclerViewCinemas
                         .findViewHolderForAdapterPosition(viewHolderPosition)
                         .itemView
-                        .findViewById(R.id.iv_actor_detail_cinema_poster) ,
+                        .findViewById(R.id.iv_cinema_poster) ,
                 getString(R.string.transition_cinema_poster_image)
         );
         Intent intent = CinemaDetailsActivity.makeIntent(getContext(), cinemaId);

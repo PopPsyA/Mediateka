@@ -49,7 +49,7 @@
 
 
         <ImageView
-            android:id="@+id/iv_actor_detail_cinema_poster"
+            android:id="@+id/iv_cinema_poster"
             android:layout_width="80dp"
             android:layout_height="120dp"
             android:layout_marginBottom="8dp"
@@ -69,8 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_actor_detail_cinema_poster"
-            app:layout_constraintTop_toTopOf="@+id/iv_actor_detail_cinema_poster"
+            app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
+            app:layout_constraintTop_toTopOf="@+id/iv_cinema_poster"
             tools:text="2018"/>
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_actor_detail_cinema_poster"
+            app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
             app:layout_constraintTop_toBottomOf="@+id/tv_actor_detail_cinema_date"
             tools:text="Black Panther"/>
 
@@ -96,7 +96,7 @@
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_actor_detail_cinema_poster"
+            app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
             app:layout_constraintTop_toBottomOf="@+id/tv_actor_detail_cinema_title"
             tools:text="Adventure , Animation , Music , Comedy , Family"/>
 

@@ -8,7 +8,7 @@
     tools:context=".presentation.main.MainActivity">
 
     <ImageView
-        android:id="@+id/iv_poster"
+        android:id="@+id/iv_cinema_poster"
         android:layout_width="170dp"
         android:layout_height="250dp"
         android:layout_marginBottom="8dp"
@@ -34,7 +34,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/tv_cinema_rating"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Star Wars:The Last Jedai"/>
 
@@ -59,7 +59,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_cinema_title"
         app:srcCompat="@drawable/ic_date"/>
 
@@ -85,7 +85,7 @@
         android:maxLines="1"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
         tools:text="fantastic , adventure , thriller , animation"/>
 
@@ -104,7 +104,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_cinema_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
         tools:text="Баланс Силы снова нарушен, и события развиваются с невероятной скоростью! Рей, Финну, вездесущему дроиду BB-8 и другим героям предстоит опасная схватка с могущественным Первым Орденом.Баланс Силы снова нарушен, и события развиваются с невероятной скоростью! Рей, Финну, вездесущему дроиду BB-8 и другим героям предстоит опасная схватка с могущественным Первым Орденом."/>
 
@@ -118,8 +118,8 @@
         android:text="@string/message_more_info"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_poster"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_cinema_poster"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster" />
+        app:layout_constraintStart_toEndOf="@+id/iv_cinema_poster" />
 
 </android.support.constraint.ConstraintLayout>

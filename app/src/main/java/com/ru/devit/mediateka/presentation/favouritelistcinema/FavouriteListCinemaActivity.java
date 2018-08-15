@@ -8,7 +8,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -65,7 +64,7 @@ public class FavouriteListCinemaActivity extends BaseActivity implements Favouri
                 mRecyclerViewFavouriteListCinema
                         .findViewHolderForAdapterPosition(viewHolderPos)
                         .itemView
-                        .findViewById(R.id.iv_actor_detail_cinema_poster) ,
+                        .findViewById(R.id.iv_cinema_poster) ,
                 getString(R.string.transition_cinema_poster_image)
         );
         Intent intent = CinemaDetailsActivity.makeIntent(this, cinemaId);

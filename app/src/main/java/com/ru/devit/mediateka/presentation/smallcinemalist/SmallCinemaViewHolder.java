@@ -3,11 +3,9 @@ package com.ru.devit.mediateka.presentation.smallcinemalist;
 import android.content.Context;
 import android.support.annotation.ColorRes;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +29,7 @@ public class SmallCinemaViewHolder extends RecyclerView.ViewHolder implements Ho
     SmallCinemaViewHolder(View itemView , OnCinemaClickListener onCinemaClickListener) {
         super(itemView);
         this.onCinemaClickListener = onCinemaClickListener;
-        mImageViewCinemaPoster = itemView.findViewById(R.id.iv_actor_detail_cinema_poster);
+        mImageViewCinemaPoster = itemView.findViewById(R.id.iv_cinema_poster);
         mTextViewCinemaDate = itemView.findViewById(R.id.tv_actor_detail_cinema_date);
         mTextViewTitle = itemView.findViewById(R.id.tv_actor_detail_cinema_title);
         mTextViewGenres = itemView.findViewById(R.id.tv_actor_detail_cinema_genres);
