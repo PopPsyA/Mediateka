@@ -2,6 +2,7 @@ package com.ru.devit.mediateka.presentation.cinemalist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +13,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,20 +24,25 @@ import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.di.cinema.cinemalist.CinemaListModule;
 import com.ru.devit.mediateka.models.model.Cinema;
 import com.ru.devit.mediateka.presentation.cinemadetail.CinemaDetailsActivity;
+import com.ru.devit.mediateka.presentation.common.AbstractCinemaListAdapter;
+import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
+import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemaListAdapter;
 import com.ru.devit.mediateka.utils.pagination.PaginationScrollListener;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class CinemaListFragment extends Fragment implements CinemaListPresenter.View{
+public class CinemaListFragment extends Fragment implements CinemaListPresenter.View, OnCinemaClickListener {
 
     public static final String TAB_POSITION_NAME = "tab_position";
+    private static final int MENU_ITEM_HOW_TO_SHOW_CINEMA_LIST = 824;
 
     private RecyclerView mRecyclerViewCinemas;
-    private LinearLayoutManager mLinearLayoutManager;
     private SwipeRefreshLayout mSwipeRefresherLayout;
-    private CinemaListAdapter adapter;
+    private AbstractCinemaListAdapter adapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private MenuItem mMenuItemHowToShowCinemaList;
 
     @Inject CinemaListPresenter presenter;
 
@@ -50,12 +59,12 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list_cinema, container , false);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
         initDagger();
         initViews(rootView);
         initPresenter();
         initAdapter();
         initRecyclerView(rootView);
-        setHasOptionsMenu(true);
         return rootView;
     }
 
@@ -82,10 +91,44 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
                 mRecyclerViewCinemas
                         .findViewHolderForAdapterPosition(viewHolderPosition)
                         .itemView
-                        .findViewById(R.id.iv_poster) ,
+                        .findViewById(R.id.iv_cinema_poster) ,
                 getString(R.string.transition_cinema_poster_image));
         Intent intent = CinemaDetailsActivity.makeIntent(getContext(), cinemaId);
         ActivityCompat.startActivity(getContext() , intent , activityOptions.toBundle());
+    }
+
+    @Override
+    public void showSmallCinemaListInOneRow(){
+        changeAdapter(new SmallCinemaListAdapter(requireContext() ,this) ,
+                R.drawable.ic_big_cinema_in_one_row);
+    }
+
+    @Override
+    public void showBigCinemaListInOneRow(){
+        changeAdapter(new CinemaListAdapter(this) ,
+                R.drawable.ic_small_cinema_in_one_row);
+    }
+
+    @Override
+    public void onCinemaClicked(int cinemaId, int viewHolderPosition) {
+        presenter.onCinemaClicked(cinemaId , viewHolderPosition);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        mMenuItemHowToShowCinemaList = menu
+                .add(Menu.NONE, MENU_ITEM_HOW_TO_SHOW_CINEMA_LIST, Menu.NONE, getString(R.string.how_to_show_cinema_list))
+                .setIcon(R.drawable.ic_small_cinema_in_one_row);
+        mMenuItemHowToShowCinemaList.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == MENU_ITEM_HOW_TO_SHOW_CINEMA_LIST){
+            presenter.onMenuItemHowToShowCinemaListClicked();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -116,15 +159,17 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     }
 
     private void initAdapter() {
-        adapter = new CinemaListAdapter((cinemaId, viewHolderPosition) -> presenter.onCinemaClicked(cinemaId , viewHolderPosition));
+        if (adapter == null){
+            adapter = new CinemaListAdapter(this);
+        }
     }
 
     private void initRecyclerView(View rootView){
         mRecyclerViewCinemas = rootView.findViewById(R.id.rv_cinemas);
-        mRecyclerViewCinemas.setLayoutManager(mLinearLayoutManager);
+        mRecyclerViewCinemas.setLayoutManager(mLayoutManager);
         mRecyclerViewCinemas.setItemAnimator(new DefaultItemAnimator());
         mRecyclerViewCinemas.setAdapter(adapter);
-        mRecyclerViewCinemas.addOnScrollListener(new PaginationScrollListener(mLinearLayoutManager) {
+        mRecyclerViewCinemas.addOnScrollListener(new PaginationScrollListener(mLayoutManager) {
             @Override
             protected void loadMoreItems() {
                 presenter.onLoadNextPage();
@@ -138,7 +183,7 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
     }
 
     private void initViews(View view){
-        mLinearLayoutManager = new LinearLayoutManager(view.getContext() , LinearLayoutManager.VERTICAL , false);
+        mLayoutManager = new LinearLayoutManager(view.getContext());
         mSwipeRefresherLayout = view.findViewById(R.id.swipe_refresher_layout);
         mSwipeRefresherLayout.setColorSchemeResources(R.color.colorBlack , R.color.colorOrange , R.color.colorRed);
         mSwipeRefresherLayout.setOnRefreshListener(() -> presenter.loadCinemas());
@@ -160,5 +205,11 @@ public class CinemaListFragment extends Fragment implements CinemaListPresenter.
                     .plusCinemaListComponent(new CinemaListModule())
                     .inject(this);
         }
+    }
+
+    private void changeAdapter(AbstractCinemaListAdapter newAdapter , @DrawableRes int icon){
+        adapter = newAdapter;
+        mRecyclerViewCinemas.setAdapter(adapter);
+        mMenuItemHowToShowCinemaList.setIcon(icon);
     }
 }

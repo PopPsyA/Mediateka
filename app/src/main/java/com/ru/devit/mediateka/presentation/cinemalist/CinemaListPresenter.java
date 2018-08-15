@@ -16,13 +16,17 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     private int currentPage = 1;
     private int totalPage = 0;
     private String tabPositionName = "POPULAR";
+    private boolean isCinemaInRowBig = true;
 
     private final CinemaTabPositionPicker cinemaTabPositionPicker;
 
     public CinemaListPresenter(GetCinemas getCinemas ,
                                GetTopRatedCinemas getTopRatedCinemas ,
                                GetUpComingCinemas getUpComingCinemas) {
-        cinemaTabPositionPicker = new CinemaTabPositionPicker(getCinemas , getTopRatedCinemas , getUpComingCinemas);
+        cinemaTabPositionPicker = new CinemaTabPositionPicker(
+                getCinemas ,
+                getTopRatedCinemas ,
+                getUpComingCinemas);
     }
 
     @Override
@@ -61,9 +65,23 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
         setView(null);
     }
 
+    public void onMenuItemHowToShowCinemaListClicked() {
+        if (isCinemaInRowBig){
+            cinemaTabPositionPicker.loadCinemaFromCinemaTabName(tabPositionName , new CinemaListSubscriber() , getView());
+            getView().showSmallCinemaListInOneRow();
+            isCinemaInRowBig = false;
+        } else {
+            cinemaTabPositionPicker.loadCinemaFromCinemaTabName(tabPositionName , new CinemaListSubscriber() , getView());
+            getView().showBigCinemaListInOneRow();
+            isCinemaInRowBig = true;
+        }
+    }
+
     public interface View extends CinemaTabSelectorView {
         void showCinemas(List<Cinema> cinemaEntities);
         void openCinemaDetails(int cinemaId , int viewHolderPosition);
+        void showSmallCinemaListInOneRow();
+        void showBigCinemaListInOneRow();
     }
 
     private class CinemaListSubscriber extends UseCaseSubscriber<List<Cinema>> {
