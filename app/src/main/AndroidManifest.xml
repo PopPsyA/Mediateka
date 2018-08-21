@@ -27,7 +27,8 @@
 
         <activity
             android:name=".presentation.cinemadetail.CinemaDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar.CinemaDetailTheme">
+            android:theme="@style/AppTheme.NoActionBar.CinemaDetailTheme"
+            android:configChanges="orientation|keyboard">
 
         </activity>
 

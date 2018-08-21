@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,9 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import static com.ru.devit.mediateka.utils.UrlImagePathCreator.*;
+import static com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality.*;
+
 public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailPresenter.View{
 
     private ViewPager mViewPagerBackgroundPoster;
@@ -64,6 +68,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     private LinearLayout mLinearLayoutAddToFavourite;
     private View mViewForegroundStub;
     private DateAndTimePicker mDateAndTimePicker;
+    private ViewPagerAdapter mViewPagerAdapter;
 
     private static final String CINEMA_ID = "cinema_id";
     private static final int MENU_SCHEDULE_CINEMA_ITEM = 1022;
@@ -109,11 +114,13 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mFABCinemaMenu = findViewById(R.id.fab_cinema_menu);
         mLinearLayoutAddToFavourite = findViewById(R.id.ll_add_to_favourite);
         mViewForegroundStub = findViewById(R.id.view_foreground_stub);
-        mDateAndTimePicker = new DateAndTimePicker(this);
         ViewCompat.setTranslationZ(findViewById(R.id.layout_cinema_fab_menu) , 1f);
         mLinearLayoutAddToFavourite.setScaleX(0);
         mLinearLayoutAddToFavourite.setScaleY(0);
         mViewForegroundStub.setAlpha(0.8f);
+        if (mDateAndTimePicker == null){
+            mDateAndTimePicker = new DateAndTimePicker(this);
+        }
     }
 
     @Override
@@ -128,15 +135,20 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     public void showCinemaDetail(final Cinema cinema) {
+        if (mBackgroundPosterSliderAdapter == null){
+            mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , cinema.getBackdropUrls() , true);
+        }
         AnimUtils.startRevealAnimation(mViewPagerBackgroundPoster);
-        mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , cinema.getBackdropUrls() , true);
         mViewPagerBackgroundPoster.setAdapter(mBackgroundPosterSliderAdapter);
         mIndicatorView.setUpWithViewPager(mViewPagerBackgroundPoster);
-        renderImage(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 ,cinema.getPosterUrl()) , mSmallPosterImageView);
+        renderImage(createPictureUrlFromQuality(Quality185 ,cinema.getPosterUrl()) , mSmallPosterImageView);
         mCinemaHeaderView.render(cinema);
         mSmallPosterImageView.setOnClickListener(v -> presenter.onSmallPosterClicked(cinema.getPosterUrls()));
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());
-        setUpViewPager(mViewPagerCinemaInfo, mTabLayout , cinema);
+        if (mViewPagerAdapter == null){
+            mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            setUpViewPager(mViewPagerCinemaInfo, mTabLayout , cinema);
+        }
     }
 
     @Override
@@ -253,10 +265,12 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
 
     @Override
     protected void initDagger(){
-        MediatekaApp.getComponentsManager()
-                .plusCinemaComponent()
-                .plusCinemaDetailComponent(new CinemaDetailModule())
-                .inject(this);
+        if (presenter == null){
+            MediatekaApp.getComponentsManager()
+                    .plusCinemaComponent()
+                    .plusCinemaDetailComponent(new CinemaDetailModule())
+                    .inject(this);
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -275,11 +289,10 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
     }
 
     private void setUpViewPager(ViewPager viewPager , TabLayout tabLayout , Cinema cinema) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(CinemaDetailContentFragment.newInstance(cinema) , getString(R.string.message_info));
-        adapter.addFragment(ActorsFragment.newInstance(cinema.getActors()) , String
+        mViewPagerAdapter.addFragment(CinemaDetailContentFragment.newInstance(cinema) , getString(R.string.message_info));
+        mViewPagerAdapter.addFragment(ActorsFragment.newInstance(cinema.getActors()) , String
                 .format(Locale.getDefault() , "%s (%d)" , getString(R.string.actors) , cinema.getActors().size()));
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(mViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 
