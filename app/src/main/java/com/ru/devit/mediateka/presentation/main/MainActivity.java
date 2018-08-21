@@ -133,7 +133,13 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
     }
 
     @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return presenter;
+    }
+
+    @Override
     protected void initDagger() {
+        presenter = (MainPresenter) getLastCustomNonConfigurationInstance();
         MediatekaApp.getComponentsManager()
                 .getAppComponent()
                 .inject(this);
