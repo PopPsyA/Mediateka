@@ -1,6 +1,8 @@
 package com.ru.devit.mediateka.presentation.cinemalist;
 
 
+import android.util.Log;
+
 import com.ru.devit.mediateka.domain.cinemausecases.GetCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetTopRatedCinemas;
 import com.ru.devit.mediateka.domain.cinemausecases.GetUpComingCinemas;
@@ -61,7 +63,6 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
     }
 
     public void onDestroy(){
-        cinemaTabPositionPicker.dispose();
         setView(null);
     }
 
@@ -90,6 +91,7 @@ public class CinemaListPresenter extends BasePresenter<CinemaListPresenter.View>
             if (cinemas.size() == 0){
                 return;
             }
+            Log.d("lolkek" , "cinemas " + cinemas);
             totalPage = cinemas.get(0).getTotalPages();
             getView().showCinemas(cinemas);
         }

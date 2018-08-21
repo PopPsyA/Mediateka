@@ -1,6 +1,5 @@
 package com.ru.devit.mediateka.presentation.cinemalist;
 
-import android.util.Log;
 
 import com.ru.devit.mediateka.domain.UseCase;
 import com.ru.devit.mediateka.domain.UseCaseSubscriber;
@@ -65,7 +64,7 @@ public class CinemaTabPositionPicker {
 
     public void dispose(){
         if (tabPositionName != null){
-            for (CinemaTab cinemaTab: CinemaTab.values()){
+            for (CinemaTab cinemaTab: mapOfTabs.values()){
                 cinemaTab.dispose();
             }
         }
