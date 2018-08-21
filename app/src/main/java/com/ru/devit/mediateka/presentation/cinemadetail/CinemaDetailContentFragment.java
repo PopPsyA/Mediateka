@@ -48,6 +48,8 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setRetainInstance(true);
         initViews(view);
         initDagger();
         initPresenter();
@@ -55,7 +57,6 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
         if (arg != null){
             presenter.setCinema(getArguments().getParcelable(CINEMA));
         }
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -91,10 +92,12 @@ public class CinemaDetailContentFragment extends Fragment implements CinemaDetai
     }
 
     private void initDagger() {
-        MediatekaApp.getComponentsManager()
-                .plusCinemaComponent()
-                .plusCinemaDetailComponent(new CinemaDetailModule())
-                .inject(this);
+        if (presenter == null){
+            MediatekaApp.getComponentsManager()
+                    .plusCinemaComponent()
+                    .plusCinemaDetailComponent(new CinemaDetailModule())
+                    .inject(this);
+        }
     }
 
     private void initViews(View view) {
