@@ -19,11 +19,11 @@ import com.squareup.picasso.Picasso;
 
 public class PosterSliderFragment extends Fragment {
 
-    private static final String POSTER_URL = "poster_url";
-    private static final String IS_BACKGROUND_POSTER = "is_background_poster";
-
     private ImageView mPosterImageView;
     private ProgressBar mProgressBarPoster;
+
+    private static final String POSTER_URL = "poster_url";
+    private static final String IS_BACKGROUND_POSTER = "is_background_poster";
 
     public static PosterSliderFragment newInstance(String posterUrl , boolean isBackgroundPoster){
         PosterSliderFragment fragment = new PosterSliderFragment();
