@@ -13,6 +13,11 @@
             android:summary="@string/background_poster_image_quality"
             android:dialogTitle="@string/choose_quality"/>
 
+        <SwitchPreference
+            android:key="@string/pref_key_play_sound_on_notification"
+            android:defaultValue="true"
+            android:summary="Play sound when notification come"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
