@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mediateka</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -34,7 +33,6 @@
     <string name="role">as %s</string>
     <string name="advanced_search">Advanced search</string>
     <string name="schedules">Schedules</string>
-    <string name="transition_actor_avatar">transition_actor_avatar</string>
     <string name="message_network_error">Чтобы синхронизировать данные , подкюлчитесь к интернету</string>
     <string name="search_cinemas">Search movies…</string>
     <string name="search_actors">Search actors…</string>

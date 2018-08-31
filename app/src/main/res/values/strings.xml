@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">Mediateka</string>
+    <!--non translatable strings-->
+    <string name="app_name" translatable="false">Mediateka</string>
+    <string name="transition_cinema_poster_image" translatable="false">transition_cinema_poster_image</string>
+    <string name="transition_actor_avatar" translatable="false">transition_actor_avatar</string>
+    <string name="pref_key_background_image_quality_type" translatable="false">pref_key_background_image_quality_type</string>
+    <string name="pref_key_play_sound_on_notification" translatable="false">pref_key_play_sound_on_notification</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Нотификации</string>
@@ -33,8 +39,6 @@
     <string name="role">в роли %s</string>
     <string name="advanced_search">Улучшенный поиск</string>
     <string name="schedules">Напоминания</string>
-    <string name="transition_cinema_poster_image" translatable="false">transition_cinema_poster_image</string>
-    <string name="transition_actor_avatar">transition_actor_avatar</string>
     <string name="message_network_error">Чтобы синхронизировать данные , подкюлчитесь к интернету</string>
     <string name="search_cinemas">Поиск фильмов…</string>
     <string name="search_actors">Поиск актёров…</string>
@@ -77,7 +81,6 @@
     <string name="choose_quality">Выберите качество</string>
     <string name="background_poster_image_quality">Качество фоновых изображений</string>
     <string name="about_app">Mediateka показывает самую последнюю информацию про фильмы и актеров</string>
-    <string name="pref_key_background_image_quality_type" translatable="false">pref_key_background_image_quality_type</string>
     <string name="message_empty_favourite_cinema_list">Лист изрбранных фильмов пуст…</string>
     <string name="how_to_show_cinema_list">How to show cinema list</string>
 </resources>
