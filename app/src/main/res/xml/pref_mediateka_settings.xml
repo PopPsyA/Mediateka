@@ -16,7 +16,7 @@
         <SwitchPreference
             android:key="@string/pref_key_play_sound_on_notification"
             android:defaultValue="true"
-            android:summary="Play sound when notification come"/>
+            android:summary=""/>
 
     </PreferenceCategory>
 
