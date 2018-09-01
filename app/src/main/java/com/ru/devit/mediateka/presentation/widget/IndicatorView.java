@@ -93,16 +93,18 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     }
 
     private int measureWidth(int measureSpec){
-        int result;
+        int result = 0;
         int widthMode = MeasureSpec.getMode(measureSpec);
         int widthSize = MeasureSpec.getSize(measureSpec);
 
         if (widthMode == MeasureSpec.EXACTLY){
             result = widthSize;
         } else {
-            result = (int) (size * indicatorCount);
-            if (widthMode == MeasureSpec.AT_MOST){
-                result = Math.min(result , widthSize);
+            if (indicatorCount > 1){
+                result = (int) (size * indicatorCount + getPaddingLeft() + getPaddingRight() + diameter / 2);
+                if (widthMode == MeasureSpec.AT_MOST){
+                    result = Math.min(result , widthSize);
+                }
             }
         }
         return result;
