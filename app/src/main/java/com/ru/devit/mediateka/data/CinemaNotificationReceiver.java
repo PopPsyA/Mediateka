@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
@@ -60,6 +62,8 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
             taskStackBuilder.addNextIntent(new Intent(context , MainActivity.class));
             taskStackBuilder.addNextIntent(cinemaDetailsIntent);
 
+            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
             Notification.Builder notificationBuilder = new Notification.Builder(context);
             notificationBuilder
                     .setSmallIcon(R.drawable.ic_cinema)
@@ -67,6 +71,7 @@ public class CinemaNotificationReceiver extends BroadcastReceiver implements Sys
                     .setContentText(getCinemaDesc(intent))
                     .setTicker("Mediateka: " + getCinemaTitle(intent))
                     .setAutoCancel(true)
+                    .setSound(soundUri)
                     .setContentIntent(taskStackBuilder.getPendingIntent(0 , PendingIntent.FLAG_UPDATE_CURRENT));
 
             notificationManager.notify(getCinemaId(intent), notificationBuilder.build());
