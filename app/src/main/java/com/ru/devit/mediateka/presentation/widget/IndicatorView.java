@@ -22,7 +22,7 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     private Paint mDefaultIndicatorPaint;
     private int indicatorCount;
     private int diameter;
-    private int size;
+    private float size;
     private int currentPosition;
     private float offset;
 
@@ -100,7 +100,7 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         if (widthMode == MeasureSpec.EXACTLY){
             result = widthSize;
         } else {
-            result = size * indicatorCount;
+            result = (int) (size * indicatorCount);
             if (widthMode == MeasureSpec.AT_MOST){
                 result = Math.min(result , widthSize);
             }
@@ -116,7 +116,7 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         if (heightMode == MeasureSpec.EXACTLY){
             result = heightSize;
         } else {
-            result = size + getPaddingTop() + getPaddingBottom();
+            result = (int) (size + getPaddingTop() + getPaddingBottom() + diameter / 2);
             if (heightMode == MeasureSpec.AT_MOST){
                 result = Math.min(result , heightSize);
             }
@@ -129,7 +129,7 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         int defaultIndicatorColor = a.getColor(R.styleable.IndicatorView_iv_default_color , ContextCompat.getColor(context , R.color.colorWhite));
         int selectedIndicatorColor = a.getColor(R.styleable.IndicatorView_iv_selected_color , ContextCompat.getColor(context , R.color.colorWhite));
         diameter = a.getDimensionPixelSize(R.styleable.IndicatorView_iv_diametr , getResources().getDimensionPixelSize(R.dimen.indicator_diametr));
-        size = diameter * 2;
+        size = diameter * 1.6f;
 
         mDefaultIndicatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mDefaultIndicatorPaint.setColor(defaultIndicatorColor);
@@ -137,6 +137,7 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         mDefaultIndicatorPaint.setStrokeWidth(2f);
         mSelectedIndicatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mSelectedIndicatorPaint.setColor(selectedIndicatorColor);
+        setBackground(ContextCompat.getDrawable(context , R.drawable.bg_indicator_view));
         a.recycle();
     }
 }
