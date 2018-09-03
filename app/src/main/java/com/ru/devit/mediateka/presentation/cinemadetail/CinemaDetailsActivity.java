@@ -247,7 +247,6 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
                 break;
             }
             case MENU_SCHEDULE_CINEMA_ITEM : {
-                //TODO show success snackbar
                 mDateAndTimePicker.showDateAndTimePickerDialog(dateAndTimeInfo -> presenter.onShowedDateAndTimePickerDialog(dateAndTimeInfo));
                 break;
             }
