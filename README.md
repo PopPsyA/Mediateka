@@ -39,8 +39,7 @@ Based on data from https://www.themoviedb.org/
 1. Add the service which handle new cinams and create notification to show user
 2. Add Advanced Search screen.
 3. Support landscape orientation and tablets.
-4. Simple info screen , that contains app info.
-5. And more , more some beatiful features...
+4. And more , more some beatiful features...
 
 ## Technology
 1. [Retrofit 2](https://github.com/square/retrofit) is the #1 library for network calls at the moment.
