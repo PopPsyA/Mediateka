@@ -6,22 +6,21 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
 import com.ru.devit.mediateka.R
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.io.FileOutputStream
-import java.util.concurrent.Executors
 
 class PhotoLoader(private val context: Context , private val pictureName: String): Target {
 
     companion object {
         private const val ALBUM_NAME = "Mediateka"
     }
-
-    private val executorService = Executors.newSingleThreadExecutor()
 
     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
 
@@ -31,7 +30,14 @@ class PhotoLoader(private val context: Context , private val pictureName: String
     }
 
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-        executorService.submit{
+        saveBitmapToGallery(bitmap)
+                .subscribe{
+                    Toast.makeText(context , context.getString(R.string.message_picture_download_successully) , Toast.LENGTH_LONG).show()
+                }
+    }
+
+    private fun saveBitmapToGallery(bitmap: Bitmap?): Completable{
+        return Completable.create {
             val albumDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) , ALBUM_NAME)
             if (!albumDir.exists()){
                 albumDir.mkdir()
@@ -47,8 +53,10 @@ class PhotoLoader(private val context: Context , private val pictureName: String
                 }
                 sendPictureToGallery(pathToPicture)
             }
-            Toast.makeText(context , context.getString(R.string.message_picture_download_successully) , Toast.LENGTH_LONG).show()
+            it.onComplete()
         }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun sendPictureToGallery(pathToPicture: String){
