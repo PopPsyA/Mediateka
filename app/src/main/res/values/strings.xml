@@ -84,4 +84,5 @@
     <string name="message_empty_favourite_cinema_list">Лист изрбранных фильмов пуст…</string>
     <string name="how_to_show_cinema_list">How to show cinema list</string>
     <string name="play_sound_when_notification_come">Воспроизводить звук когда придет уведомление</string>
+    <string name="message_picture_download_successully">Картинка загрузилась успешно</string>
 </resources>

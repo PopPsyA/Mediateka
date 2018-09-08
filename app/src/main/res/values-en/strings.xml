@@ -78,4 +78,5 @@
     <string name="message_empty_favourite_cinema_list">The list of favourite cinema is empty…</string>
     <string name="how_to_show_cinema_list">How to show cinema list</string>
     <string name="play_sound_when_notification_come">Play sound when notification come</string>
+    <string name="message_picture_download_successully">Picture downloaded successfully</string>
 </resources>
