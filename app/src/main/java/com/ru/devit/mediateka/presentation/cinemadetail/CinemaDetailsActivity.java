@@ -171,7 +171,8 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mLinearLayoutAddToFavourite.animate()
                 .alphaBy(1)
                 .scaleX(1)
-                .scaleY(1);
+                .scaleY(1)
+                .withEndAction(() -> mLinearLayoutAddToFavourite.setVisibility(View.VISIBLE));
     }
 
     @Override
@@ -182,7 +183,8 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         mLinearLayoutAddToFavourite.animate()
                 .alphaBy(0)
                 .scaleX(0)
-                .scaleY(0);
+                .scaleY(0)
+                .withEndAction(() -> mLinearLayoutAddToFavourite.setVisibility(View.GONE));
     }
 
     @Override
