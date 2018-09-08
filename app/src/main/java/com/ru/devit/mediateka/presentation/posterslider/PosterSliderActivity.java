@@ -2,10 +2,8 @@ package com.ru.devit.mediateka.presentation.posterslider;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ru.devit.mediateka.MediatekaApp;
@@ -57,7 +55,6 @@ public class PosterSliderActivity extends BaseActivity implements PosterSliderPr
     @Override
     protected int getLayoutId() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         return R.layout.activity_posters_slider;
     }
 
