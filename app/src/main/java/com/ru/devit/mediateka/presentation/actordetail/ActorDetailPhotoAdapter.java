@@ -70,7 +70,7 @@ public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPho
         }
 
         private void generateRandomHeight(){
-            mImageViewActorPhoto.getLayoutParams().height = getRandomIntInRange(400 , 300);
+            mImageViewActorPhoto.getLayoutParams().height = getRandomIntInRange(600 , 500);
         }
 
         private void loadImage(String imgUrl){
