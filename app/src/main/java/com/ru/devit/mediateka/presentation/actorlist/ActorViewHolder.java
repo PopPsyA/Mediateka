@@ -10,6 +10,7 @@ import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.models.model.Actor;
 import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,7 +33,7 @@ class ActorViewHolder extends RecyclerView.ViewHolder{
     }
 
     void render(Actor actor , int viewHolderPosition){
-        renderAvatar(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , actor.getProfileUrl()));
+        renderAvatar(UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality.Quality185 , actor.getProfileUrl()));
         onActorClicked(actor.getActorId() , viewHolderPosition);
         actorName.setText(actor.getName());
         if (actor.getCharacter() == null){

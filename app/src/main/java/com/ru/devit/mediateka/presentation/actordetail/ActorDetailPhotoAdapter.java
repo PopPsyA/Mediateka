@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.presentation.common.OnActorClickListener;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class ActorDetailPhotoAdapter extends RecyclerView.Adapter<ActorDetailPho
 
         private void loadImage(String imgUrl){
             Picasso.with(itemView.getContext())
-                    .load(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , imgUrl))
+                    .load(UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality.Quality185 , imgUrl))
                     .into(mImageViewActorPhoto);
         }
 

@@ -7,10 +7,10 @@ object UrlImagePathCreator {
     private const val IMG_PATH_W780 = "https://image.tmdb.org/t/p/w780/"
     private const val IMG_PATH_W185 = "https://image.tmdb.org/t/p/w185/"
 
-    fun createPictureUrlFromQuality(qualityType: Quality, imgUrl: String): String {
+    fun createPictureUrlFromQuality(qualityType: Quality, imgUrl: String?): String {
         for (quality in Quality.values()) {
             if (quality == qualityType) {
-                return qualityType.quality(imgUrl)
+                return qualityType.quality(imgUrl.orEmpty())
             }
         }
         throw IllegalArgumentException("No such $qualityType")
