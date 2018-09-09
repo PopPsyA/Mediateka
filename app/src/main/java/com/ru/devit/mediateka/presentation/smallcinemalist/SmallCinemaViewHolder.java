@@ -16,6 +16,7 @@ import com.ru.devit.mediateka.presentation.common.HolderRenderer;
 import com.ru.devit.mediateka.presentation.common.OnCinemaClickListener;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.ru.devit.mediateka.utils.FormatterUtils;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality;
 import com.squareup.picasso.Picasso;
 
 public class SmallCinemaViewHolder extends RecyclerView.ViewHolder implements HolderRenderer<Cinema>{
@@ -55,7 +56,7 @@ public class SmallCinemaViewHolder extends RecyclerView.ViewHolder implements Ho
     @Override
     public void render(Cinema cinema , int viewHolderPosition) {
         onItemClicked(cinema.getId() , viewHolderPosition);
-        renderImage(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , cinema.getPosterUrl()));
+        renderImage(UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality.Quality185 , cinema.getPosterUrl()));
         mTextViewCinemaDate.setText(FormatterUtils.getYearFromDate(cinema.getReleaseDate()));
         mTextViewTitle.setText(cinema.getTitle());
         mTextViewGenres.setText(FormatterUtils.formatGenres(cinema.getGenres() , getContext()));

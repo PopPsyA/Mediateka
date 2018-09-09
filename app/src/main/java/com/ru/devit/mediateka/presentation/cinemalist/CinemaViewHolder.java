@@ -16,6 +16,7 @@ import com.ru.devit.mediateka.utils.UrlImagePathCreator;
 import com.squareup.picasso.Picasso;
 
 import static com.ru.devit.mediateka.utils.FormatterUtils.getYearFromDate;
+import static com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality.Quality185;
 
 public class CinemaViewHolder extends RecyclerView.ViewHolder implements HolderRenderer<Cinema> {
 
@@ -40,7 +41,7 @@ public class CinemaViewHolder extends RecyclerView.ViewHolder implements HolderR
     public void render(Cinema cinema , int viewHolderPosition) {
         onMoreInfoButtonClicked(cinema.getId() , viewHolderPosition);
         onPosterClicked(cinema.getId() , viewHolderPosition);
-        renderPoster(UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185, cinema.getPosterUrl()));
+        renderPoster(UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality185, cinema.getPosterUrl()));
         render(cinema.getTitle() , cinema.getVoteAverage() ,
                     cinema.getReleaseDate() , cinema.getDescription());
     }

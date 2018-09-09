@@ -51,7 +51,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import static com.ru.devit.mediateka.utils.UrlImagePathCreator.*;
 import static com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality.*;
 
 public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailPresenter.View{
@@ -141,7 +140,7 @@ public class CinemaDetailsActivity extends BaseActivity implements CinemaDetailP
         AnimUtils.startRevealAnimation(mViewPagerBackgroundPoster);
         mViewPagerBackgroundPoster.setAdapter(mBackgroundPosterSliderAdapter);
         mIndicatorView.setUpWithViewPager(mViewPagerBackgroundPoster);
-        renderImage(createPictureUrlFromQuality(Quality185 ,cinema.getPosterUrl()) , mSmallPosterImageView);
+        renderImage(UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality185 ,cinema.getPosterUrl()) , mSmallPosterImageView);
         mCinemaHeaderView.render(cinema);
         mSmallPosterImageView.setOnClickListener(v -> presenter.onSmallPosterClicked(cinema.getPosterUrls()));
         addOffsetChangeListener(mAppBarLayout , cinema.getTitle());

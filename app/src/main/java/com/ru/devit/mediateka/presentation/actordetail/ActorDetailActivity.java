@@ -31,6 +31,7 @@ import com.ru.devit.mediateka.presentation.smallcinemalist.SmallCinemasFragment;
 import com.ru.devit.mediateka.presentation.widget.IndicatorView;
 import com.ru.devit.mediateka.utils.AnimUtils;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -78,8 +79,8 @@ public class ActorDetailActivity extends BaseActivity implements ActorDetailPres
     @Override
     public void showActorDetail(Actor actor) {
         AnimUtils.startRevealAnimation(mViewPagerActorBackground);
-        renderImage(UrlImagePathCreator
-                .createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality185 , actor.getProfileUrl()) , mActorAvatar);
+        renderImage(UrlImagePathCreator.INSTANCE
+                .createPictureUrlFromQuality(Quality.Quality185 , actor.getProfileUrl()) , mActorAvatar);
         mBackgroundPosterSliderAdapter = new PosterSliderAdapter(getSupportFragmentManager() , actor.getBackgroundUrls() ,false);
         mViewPagerActorBackground.setAdapter(mBackgroundPosterSliderAdapter);
         mIndicatorView.setUpWithViewPager(mViewPagerActorBackground);
