@@ -1,10 +1,13 @@
 package com.ru.devit.mediateka.presentation.posterslider;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,10 +21,13 @@ import android.widget.ProgressBar;
 import com.ru.devit.mediateka.R;
 import com.ru.devit.mediateka.presentation.common.PhotoLoader;
 import com.ru.devit.mediateka.utils.UrlImagePathCreator;
+import com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
+
+import static com.ru.devit.mediateka.utils.UrlImagePathCreator.Quality.*;
 
 public class PosterSliderFragment extends Fragment {
 
@@ -32,6 +38,7 @@ public class PosterSliderFragment extends Fragment {
 
     private static final String POSTER_URL = "poster_url";
     private static final String IS_BACKGROUND_POSTER = "is_background_poster";
+    private static final String[] WRITE_EXTERNAL_STORAGE_PERMISSION = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     public static PosterSliderFragment newInstance(String posterUrl , boolean isBackgroundPoster){
         PosterSliderFragment fragment = new PosterSliderFragment();
@@ -49,6 +56,7 @@ public class PosterSliderFragment extends Fragment {
         setHasOptionsMenu(true);
         mPosterImageView = view.findViewById(R.id.iv_poster_slider);
         mProgressBarPoster = view.findViewById(R.id.pb_image_slider);
+        //TODO VERIFY RUNTIME PERMISSION WRITE EXTERNAL STORAGE
         return view;
     }
 
@@ -60,10 +68,21 @@ public class PosterSliderFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         if (isBackgroundPoster()){
             mPosterImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            renderImage(mPosterImageView , UrlImagePathCreator.createPictureUrlFromQuality(imageUrl ,
-                    sharedPreferences.getString(getString(R.string.pref_key_background_image_quality_type) , "1280")));
+            Quality defaultQuality = toQuality(sharedPreferences
+                    .getString(getString(R.string.pref_key_background_image_quality_type) ,
+                            "1280"));
+            renderImage(mPosterImageView ,
+                    UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(defaultQuality , imageUrl));
         } else {
-            renderImage(mPosterImageView , UrlImagePathCreator.createPictureUrlFromQuality(UrlImagePathCreator.Quality.Quality780 ,imageUrl));
+            renderImage(mPosterImageView , UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality780 ,imageUrl));
+        }
+        verifyPermission();
+    }
+
+    private void verifyPermission() {
+        int permissionStatus = ActivityCompat.checkSelfPermission(requireContext() , WRITE_EXTERNAL_STORAGE_PERMISSION[0]);
+        if (permissionStatus != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(requireActivity() , WRITE_EXTERNAL_STORAGE_PERMISSION , 1);
         }
     }
 
@@ -80,7 +99,7 @@ public class PosterSliderFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == MENU_ITEM_DOWNLOAD){
-            downloadImage(UrlImagePathCreator.createPictureUrlFromQuality(pictureUrl(), "780"));
+            downloadImage(UrlImagePathCreator.INSTANCE.createPictureUrlFromQuality(Quality780 , pictureUrl()));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -101,6 +120,10 @@ public class PosterSliderFragment extends Fragment {
                         mProgressBarPoster.setVisibility(View.GONE);
                     }
                 });
+    }
+
+    private Quality toQuality(String quality){
+        return Quality.valueOf(Quality.class.getSimpleName() + quality);
     }
 
     private void downloadImage(String imgUrl){
