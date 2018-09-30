@@ -31,14 +31,16 @@ class PhotoLoader(private val context: Context , private val pictureName: String
 
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
         saveBitmapToGallery(bitmap)
-                .subscribe{
+                .subscribe({
                     Toast.makeText(context , context.getString(R.string.message_picture_download_successully) , Toast.LENGTH_LONG).show()
-                }
+                } , {
+                    it.printStackTrace()
+                })
     }
 
     private fun saveBitmapToGallery(bitmap: Bitmap?): Completable{
         return Completable.create {
-            val albumDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) , ALBUM_NAME)
+            val albumDir = File(Environment.getExternalStorageDirectory() , ALBUM_NAME)
             if (!albumDir.exists()){
                 albumDir.mkdir()
             }
