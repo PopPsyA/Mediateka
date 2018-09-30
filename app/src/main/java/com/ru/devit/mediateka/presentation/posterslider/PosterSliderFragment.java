@@ -56,7 +56,6 @@ public class PosterSliderFragment extends Fragment {
         setHasOptionsMenu(true);
         mPosterImageView = view.findViewById(R.id.iv_poster_slider);
         mProgressBarPoster = view.findViewById(R.id.pb_image_slider);
-        //TODO VERIFY RUNTIME PERMISSION WRITE EXTERNAL STORAGE
         return view;
     }
 
