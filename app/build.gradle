@@ -46,19 +46,19 @@ dependencies {
     implementation picasso
     implementation retrofit
 
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation gsonConverter
 
-    implementation 'android.arch.persistence.room:runtime:1.1.0'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
-    implementation 'android.arch.persistence.room:rxjava2:1.1.0'
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    implementation 'android.arch.persistence.room:rxjava2:1.1.1'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.android.support:palette-v7:27.1.1'
 
     testImplementation testingDependencies.junit
     testImplementation testingDependencies.mockito
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()
