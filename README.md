@@ -11,6 +11,7 @@ The app demonstrates principles of Clean Architecture in Android.
 
 Based on data from https://www.themoviedb.org/
 
+
 ## Screenshots
 ![1](https://user-images.githubusercontent.com/21290800/41730825-30b29168-7596-11e8-9e67-a0ed2f254971.png)
 ![4](https://user-images.githubusercontent.com/21290800/41730828-32aec50e-7596-11e8-8492-0e9224e188d1.png)
