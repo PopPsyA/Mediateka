@@ -36,8 +36,13 @@ Based on data from https://www.themoviedb.org/
 * Support android version from 4.4
 * Presintation layer work with [MVP](https://android.jlelse.eu/android-mvp-for-beginners-25889c500443) pattern
 
+-------
+## Clean diagram
+![Clean-diagram](https://github.com/android10/Sample-Data/raw/master/Android-CleanArchitecture-Kotlin/architecture/clean_architecture_reloaded_main.png)
+
 ## Data Layer
 ![Data-layer](https://github.com/android10/Sample-Data/raw/master/Android-CleanArchitecture-Kotlin/architecture/clean_archictecture_reloaded_repository.png)
+-------
 
 ## Coming soon 
 1. Add the service which handle new cinams and create notification to show user
