@@ -2,7 +2,7 @@
 ![Travis-ci](https://api.travis-ci.org/Devit951/Mediateka.svg)
 [![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) 
 
-![192px](https://user-images.githubusercontent.com/34313493/40320871-f2835e0e-5d4e-11e8-9fb0-5f0482d410e3.png)
+![3512px](https://user-images.githubusercontent.com/34313493/40320871-f2835e0e-5d4e-11e8-9fb0-5f0482d410e3.png)
 
 
 # Mediateka
