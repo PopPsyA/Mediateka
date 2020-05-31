@@ -38,3 +38,4 @@ captures/
 
 __MACOSX
 .DS_Store
+/release
