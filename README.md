@@ -1,6 +1,7 @@
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/Devit951/Mediateka)
 ![Travis-ci](https://api.travis-ci.org/Devit951/Mediateka.svg)
 [![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) 
+[![Google-Play](https://user-images.githubusercontent.com/21290800/83616881-04f18700-a591-11ea-8171-f2d4f319a7cc.png)](https://play.google.com/store/apps/details?id=com.ru.devit.mediateka)
 
 ![3512px](https://user-images.githubusercontent.com/34313493/40320871-f2835e0e-5d4e-11e8-9fb0-5f0482d410e3.png)
 
